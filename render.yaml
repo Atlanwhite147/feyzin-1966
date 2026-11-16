@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: feyzin-1966
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+    autoDeploy: true

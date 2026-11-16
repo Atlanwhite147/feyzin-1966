@@ -1,0 +1,14 @@
+name = "feyzin-1966"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+[observability]
+enabled = true
+
+[[durable_objects.bindings]]
+name = "ROOMS"
+class_name = "Room"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Room"]

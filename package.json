@@ -1,0 +1,14 @@
+{
+  "name": "feyzin-1966",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Feyzin 1966 — jeu de décision avec vote en direct, l'histoire bifurque selon la majorité.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "cf:dev": "wrangler dev --port 8787"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": { "ws": "^8.18.0" }
+}
