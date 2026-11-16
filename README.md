@@ -27,12 +27,16 @@ avant la séance.
 
 ## Déroulé de séance
 
-1. Trois écrans de prologue, une minute : la nuit du 4 janvier, votre rôle, puis quarante secondes d'archives.
+1. Trois écrans de prologue, une minute : la nuit du 4 janvier (photo de nuit, en décembre), votre rôle,
+   puis quarante secondes d'archives. Ambiance sombre, grain, vignette qui respire, apparitions successives.
 2. Chacun rejoint `/p/CODE` : aucun compte, rien à installer.
 3. Sept scènes : une illustration, la situation, le rôle collectif (« dans cette scène, vous êtes… »),
    trois décisions, le vote en direct.
 4. Clôture : la majorité s'affiche, sa branche s'ouvre, puis le rappel de ce qui s'est réellement passé.
-5. Fin : cinq conclusions, ce que la réglementation en a fait, transposition à aujourd'hui.
+5. Fin : six conclusions écrites pour un service du nucléaire (défense en profondeur, hors-dimensionnement,
+   interfaces, facteurs organisationnels, retour d'expérience), ce que la réglementation en a fait,
+   et trois questions à se poser en rentrant. Si la salle choisit la branche qui a conduit à l'accident,
+   la carte du réel s'allume en rouge et une ligne d'alerte pulse en haut de l'écran.
 
 Le vote peut être changé tant qu'il est ouvert. Un votant = un identifiant de navigateur, retrouvé au
 rechargement. La salle garde son état. Raccourcis écran de salle : flèches gauche/droite, R pour réinitialiser.
@@ -56,7 +60,7 @@ Archives visuelles :
 
 - Film « Accident Feyzin », Jean Sivignon, CC BY-SA 3.0, Wikimedia Commons (`File:Accident_Feyzin.ogv`),
   dont est tiré l'extrait de 42 secondes.
-- « Feyzin - Autoroute A7 - Vue sur la raffinerie de Feyzin 01 », Romainbehar, CC0.
+- « Feyzin Zone activité », Frachet, CC BY-SA 3.0 : la raffinerie vue de nuit, en décembre.
 - « Oil refinery smoke over Lyon and Fourvière », Radiokafka, CC BY-SA 4.0.
 
 Les sept illustrations de scène sont des dessins vectoriels originaux créés pour ce jeu.

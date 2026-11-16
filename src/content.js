@@ -117,12 +117,12 @@ const MEDIA = {
     caption: "Extrait du film tourné à Feyzin le 4 janvier 1966.",
     credit: "Jean Sivignon, CC BY-SA 3.0, Wikimedia Commons"
   },
-  a7: {
+  nuit: {
     kind: "image",
-    src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Feyzin_-_Autoroute_A7_-_Vue_sur_la_raffinerie_de_Feyzin_01.jpeg/1920px-Feyzin_-_Autoroute_A7_-_Vue_sur_la_raffinerie_de_Feyzin_01.jpeg",
-    page: "https://commons.wikimedia.org/wiki/File:Feyzin_-_Autoroute_A7_-_Vue_sur_la_raffinerie_de_Feyzin_01.jpeg",
-    caption: "La raffinerie, vue depuis l'autoroute.",
-    credit: "Romainbehar, CC0"
+    src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Feyzin_Zone_activit%C3%A9.JPG/1920px-Feyzin_Zone_activit%C3%A9.JPG",
+    page: "https://commons.wikimedia.org/wiki/File:Feyzin_Zone_activit%C3%A9.JPG",
+    caption: "La raffinerie et l’usine voisine, vues de nuit, en décembre.",
+    credit: "Frachet, CC BY-SA 3.0, Wikimedia Commons"
   },
   fumee: {
     kind: "image",
@@ -153,7 +153,7 @@ const INTRO = [
       "La nuit est encore là. Devant vous, huit sphères d’acier de treize mètres, posées sur leurs pieds, remplies de propane liquide. L’autoroute passe à vingt mètres, un mètre cinquante plus bas.",
       "Vous êtes de quart. Vous ne le savez pas encore, mais dans une heure, ce site ne sera plus le même, et dix-huit personnes ne rentreront pas chez elles."
     ],
-    media: "a7"
+    media: "nuit"
   },
   {
     k: "Ce que vous allez faire",
@@ -174,11 +174,12 @@ const INTRO = [
 ];
 
 const CONCLUSIONS = [
-  ["Une opération de routine a suffi", "Une purge de prélèvement sur une sphère en remplissage, avec une clé à carré et un écrou non fixé."],
-  ["La limite du site n'est pas la limite du danger", "Le nuage a traversé l'autoroute, et c'est une voiture à 160 mètres qui l'a allumé."],
-  ["Les secours publics se préviennent en minutes", "Dix minutes pour joindre la gendarmerie, cinquante pour l'arrivée des pompiers de Lyon."],
-  ["Le phénomène inconnu tue les sauveteurs", "Cent cinquante-huit hommes à cent mètres d'une sphère en feu, dont personne n'attendait l'éclatement."],
-  ["Ce qui a suivi compte autant que l'accident", "Zones dangereuses, distances, plans d'urgence, retour d'expérience : le droit français du risque industriel est né ici."]
+  ["Un geste de maintenance a suffi", "Une purge de prélèvement sur une capacité en pression, un écrou non fixé. Le risque majeur n’est pas entré par la porte du scénario de dimensionnement : il est venu d’une opération que tout le monde savait faire."],
+  ["La limite du site n’est pas la limite du danger", "Le nuage a traversé l’autoroute qui longeait les stockages. Une interface mal dimensionnée transforme un incident de site en accident de territoire."],
+  ["Il n’y avait pas de défense en profondeur", "Une purge, une vanne, une sphère, puis le parc entier. Aucune redondance sur les barrières, aucun moyen de secours indépendant, aucune doctrine écrite pour le cas extrême."],
+  ["Le phénomène inconnu tue les intervenants", "Le BLEVE était totalement inattendu : cent cinquante-huit sauveteurs à cent mètres d’une sphère en feu. La connaissance du phénomène et la doctrine d’intervention sont des barrières de sûreté, pas de la documentation."],
+  ["Le retour d’expérience est devenu le droit", "Zones dangereuses, distances d’implantation, soupapes dimensionnées à l’incendie généralisé, plans de secours, application rétroactive : la réglementation de 1967 sort directement de cet accident."],
+  ["Ce que cela nous dit, à nous", "Une opération banale peut porter la même énergie qu’un scénario majeur ; les interfaces comptent autant que les équipements ; et la doctrine de crise ne s’improvise pas le jour où elle sert."]
 ];
 
 /* ---------- Cartes partagées ---------- */
@@ -232,6 +233,37 @@ const BASE_CSS = `
   .brow .val{width:52px;text-align:right;font-variant-numeric:tabular-nums}
   .big{font-size:clamp(30px,9vw,54px);line-height:1;color:var(--accent);font-weight:400}
   .src{font-family:var(--sans);font-size:11px;color:var(--soft);line-height:1.5}
+  /* --- ambiance : grain, vignette, pulsations --- */
+  body:after{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:60;opacity:.05;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
+    animation:grain 1.1s steps(3) infinite}
+  @keyframes grain{0%{transform:translate(0,0)}33%{transform:translate(-2%,1%)}66%{transform:translate(1%,-2%)}100%{transform:translate(0,0)}}
+  body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:55;
+    background:radial-gradient(115% 85% at 50% 42%,transparent 38%,rgba(0,0,0,.82) 100%);
+    animation:breathe 11s ease-in-out infinite}
+  @keyframes breathe{0%,100%{opacity:.7}50%{opacity:1}}
+  .siren{position:fixed;top:0;left:0;right:0;height:2px;background:#b4451f;opacity:.18;z-index:70;pointer-events:none}
+  .siren.on{animation:siren 2.6s ease-in-out infinite}
+  @keyframes siren{0%,100%{opacity:.12}50%{opacity:.7}}
+  #main > *{animation:rise .55s cubic-bezier(.2,.7,.3,1) both}
+  #main > h1{animation-delay:.04s}
+  #main > .card{animation-delay:.1s}
+  #main > .illus{animation-delay:.08s}
+  #main > .opts{animation-delay:.16s}
+  #main > p:nth-of-type(2){animation-delay:.1s}
+  #main > p:nth-of-type(3){animation-delay:.18s}
+  #main > p:nth-of-type(4){animation-delay:.26s}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .illus svg{animation:dim 8s ease-in-out infinite}
+  @keyframes dim{0%,100%{opacity:.9}50%{opacity:1}}
+  .clock{animation:beat 3.4s ease-in-out infinite}
+  @keyframes beat{0%,100%{box-shadow:0 0 0 0 rgba(180,69,31,0)}50%{box-shadow:0 0 0 3px rgba(180,69,31,.18)}}
+  .card.danger{border-left-color:#c9482f;animation:flash 1.5s ease-in-out 3}
+  @keyframes flash{0%,100%{box-shadow:none}50%{box-shadow:0 0 26px rgba(201,72,47,.28)}}
+  .illus.danger svg{filter:saturate(1.3) contrast(1.05)}
+  @media (prefers-reduced-motion: reduce){
+    body:after,body:before,.illus svg,.clock,.siren.on,#main > *,.card.danger{animation:none !important}
+  }
   .join{background:#151517;border:1px solid var(--line);color:var(--ink);padding:16px;margin-bottom:16px}
   .join b{font-family:var(--sans);letter-spacing:.16em;font-size:11px;text-transform:uppercase;color:var(--accent2);display:block;margin-bottom:6px}
   .join .code{font-family:var(--sans);font-size:34px;letter-spacing:.22em;font-weight:700}
@@ -245,6 +277,7 @@ const ANIM = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>Feyzin 1966 — écran de salle</title>
 <style>${BASE_CSS}</style></head><body><div class="wrap">
 <div class="bar"><div class="brand">Feyzin 1966 · écran de salle</div><div class="clock" id="clock">SALLE</div></div>
+<div class="siren" id="siren"></div>
 <div class="roomline" id="roomline"></div>
 <div id="main"></div></div>
 <script>
@@ -299,6 +332,8 @@ function bars(){
 
 function render(){
   const st = S.step, ph = S.phase;
+  const sn = document.getElementById('siren');
+  if (sn) sn.classList.remove('on');
 
   if (ph === 'intro') {
     const it = INTRO[S.intro || 0] || INTRO[0];
@@ -378,12 +413,14 @@ function render(){
       \${S.total === 0
         ? '<div class="card"><h3 style="margin-top:0">Aucun vote enregistré</h3><p>Faute de vote, l’histoire suit son cours réel : la branche qui s’ouvre est celle de 1966.</p></div>'
         : '<div class="card"><h3 style="margin-top:0">Votre majorité : '+\'ABC\'[win]+', à '+pct(S.votes[win]||0,S.total)+'%</h3><p>'+o.br+'</p></div>'}
-      <div class="card plain"><h3 style="margin-top:0">Ce qui s'est réellement passé le 4 janvier 1966</h3><p>\${step.real}</p></div>
+      <div class="card plain \${o.p === 0 ? 'danger' : ''}"><h3 style="margin-top:0">Ce qui s'est réellement passé le 4 janvier 1966</h3><p>\${step.real}</p></div>
+      \${o.p === 0 ? '<p class="src" style="color:#c9482f">La branche que vous venez de choisir est celle qui a conduit à l’accident.</p>' : ''}
       <div class="lesson"><b>Le point de sûreté</b>\${step.l}</div>
       <div class="row" style="margin-top:18px">
         <button class="btn" onclick="send({type:'next'})">\${st < 6 ? 'Étape suivante' : 'Voir les conclusions'}</button>
         <button class="btn ghost" onclick="send({type:'open',step:\${st}})" >Réouvrir le vote</button>
       </div>\`;
+    if (o.p === 0 && sn) sn.classList.add('on');
     return;
   }
 
@@ -392,14 +429,18 @@ function render(){
     <div class="kicker">Débrief</div>
     <h1>Ce que Feyzin a changé</h1>
     \${CONCLUSIONS.map((c,i)=>'<div class="card"><h3 style="margin-top:0">'+(i+1)+'. '+c[0]+'</h3><p style="margin:0">'+c[1]+'</p></div>').join('')}
-    <h2 style="margin-top:24px">Et pour nous, aujourd'hui</h2>
+    <h2 style="margin-top:24px">Et pour un service qui travaille dans le nucléaire</h2>
     <ul>
-      <li><b>Dimensionner sur l'inconcevable, pas sur le plausible.</b></li>
-      <li><b>Traiter les interfaces :</b> une route, une clôture, un riverain.</li>
-      <li><b>Écrire la doctrine avant l'événement :</b> une soupape qui s'ouvre n'est pas une bonne nouvelle.</li>
-      <li><b>Faire vivre le retour d'expérience :</b> c'est le partage qui fait barrage.</li>
-      <li><b>Se méfier de la banalité :</b> les accidents majeurs commencent par une opération que tout le monde sait faire.</li>
+      <li><b>Dimensionner sur le hors-dimensionnement, pas sur le plausible.</b> Ce qui a tué à Feyzin, c’est un scénario que personne n’avait mis dans les études.</li>
+      <li><b>Traiter les interfaces comme des barrières.</b> Une route, une clôture, un réseau, un riverain : ce sont des agressions externes à qualifier, pas un décor.</li>
+      <li><b>Compter les barrières, pas les intentions.</b> Ici, une seule suffisait à tout perdre : ni redondance, ni moyen ultime, ni indépendance des secours.</li>
+      <li><b>Écrire la doctrine avant l’événement.</b> Une soupape qui s’ouvre n’est pas une bonne nouvelle ; une consigne de conduite en situation dégradée non plus, si personne ne l’a travaillée.</li>
+      <li><b>Traiter les facteurs organisationnels et humains.</b> Une clé, un ordre de vannes, un appel qui prend dix minutes : la sûreté se joue aussi dans les gestes et les délais.</li>
+      <li><b>Faire vivre le retour d’expérience.</b> Le même accident ailleurs n’apprend rien s’il n’est pas partagé, discuté, et suivi d’effet.</li>
     </ul>
+    <div class="card"><h3 style="margin-top:0">Trois questions à se poser en rentrant</h3>
+      <p style="margin:0 0 6px">Quelle opération banale de mon périmètre peut dégénérer en scénario majeur ? Quelle interface ai-je dimensionnée par habitude plutôt que par analyse ? Si le pire arrive ce soir, quelle est ma doctrine, et qui la connaît ?</p>
+    </div>
     <div class="row"><button class="btn ghost" onclick="send({type:'reset'})">Nouvelle session</button></div>
     <p class="src" style="margin-top:18px">Fiche ARIA n°1, ministère chargé de l'environnement, septembre 2006 ; rapports cités : experts judiciaires, DHYCA 19 janvier 1966, service des mines de l'Isère n°05460 du 2 janvier 1967.</p>\`;
 }
@@ -416,6 +457,7 @@ if (!/^[A-Z0-9]{4,8}$/.test(code)) {
 const PART = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Feyzin 1966 — votre vote</title>
 <style>${BASE_CSS}</style></head><body><div class="wrap">
+<div class="siren" id="siren"></div>
 <div class="bar"><div class="brand">Feyzin 1966 · salle __CODE__</div><div class="clock" id="clock">CONNEXION</div></div>
 <div id="main"></div></div>
 <script>
