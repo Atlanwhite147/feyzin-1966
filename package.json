@@ -9,7 +9,9 @@
     "dev": "node server.js",
     "cf:dev": "wrangler dev --port 8787",
     "test": "node --test tests/*.test.js",
-    "sim": "node scripts/simulation.mjs"
+    "sim": "node scripts/simulation.mjs",
+    "data": "node scripts/build-data.mjs",
+    "check": "node scripts/verifier-pages.mjs && node scripts/verifier-plan.mjs"
   },
   "engines": {
     "node": ">=20"

@@ -104,3 +104,20 @@ Deux façons de tenir les deux :
 2. Le jeu devient solo : un seul joueur devant le PC Secours, la couche WebSocket devient optionnelle.
 
 Le reste de l'audit ne dépend pas de ce choix : la séparation données / moteur / vue, les tests et les données historiques sont nécessaires dans les deux cas.
+
+
+## 6. État après exécution (phases 1 à 5)
+
+| Phase | Livré | Vérification |
+|---|---|---|
+| 1. Modélisation | `physics.json`, `scenario.json`, moteur `state/simulate/decisions/endings` | 13 tests, rupture projetée à 08 h 40, quatre fins atteignables |
+| 2. Tension et fins | projection avant rupture, niveaux de tension, frise comparée, synthèse | 14 tests, chaque fin a sa conclusion |
+| 3. Interface | PC Secours : plan SVG, quatre jauges, journal radio, bandeau de tension, alarme sonore coupable, raccourcis clavier, vue participant avec état de crise et résumé copiable | captures 1920×1080 et 390×844, aucun défilement sur grand écran, aucun débordement horizontal sur téléphone |
+| 4. Architecture | `engine/room.js` unique, serveurs Node et Cloudflare réduits au transport, `data/bundle.js`, tests d'intégration | 33 tests dont un parcours complet en WebSocket et une compilation des scripts embarqués |
+| 5. Équilibrage et documentation | calibration sur la chronologie réelle, `npm run sim`, `npm run check`, README réécrit | `npm test`, `npm run check` verts |
+
+Points restés ouverts :
+
+- La fiche ARIA donne 18 morts et 84 blessés ; le détail par catégorie (personnel, secours, riverains) n'est pas dans le dépôt et n'est donc pas inventé.
+- Deux dates de la réglementation sont marquées « à confirmer » dans `history.json` faute de source vérifiée.
+- Le mode solo n'a pas été développé : la salle reste la couche de décision, comme arbitré en phase 1.

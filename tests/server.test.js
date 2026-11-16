@@ -4,6 +4,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import WebSocket from "ws";
+import vm from "node:vm";
 
 const racine = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PORT = 8900 + Math.floor(Math.random() * 60);
@@ -55,6 +56,17 @@ test("un code de salle trop court est refusé, un code valide est servi", async 
   const ok = await fetch(BASE + "/p/ABCD");
   assert.equal(ok.status, 200);
   assert.match(await ok.text(), /Votre prénom|Feyzin/);
+});
+
+test("les scripts embarqués des deux pages se compilent", async () => {
+  for (const url of ["/?room=VERI", "/p/VERI"]) {
+    const html = await (await fetch(BASE + url)).text();
+    const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+    assert.ok(scripts.length >= 1, "un script doit être présent dans " + url);
+    for (const code of scripts) {
+      assert.doesNotThrow(() => new vm.Script(code), "script invalide dans " + url);
+    }
+  }
 });
 
 test("la santé répond et compte les salles", async () => {

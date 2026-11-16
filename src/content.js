@@ -820,9 +820,12 @@ function etatCrise(){
 function resumePartage(){
   if (!S.debrief) return '';
   const d = S.debrief, f = S.fin;
-  const lignes = d.lignes.map(l=>l.heure+' · '+l.titre+' · '+l.libelle).join('\n');
-  const texte = 'Feyzin 1966 — '+(f ? f.titre : '')+'\n'+(f ? f.morts+' morts, '+f.blesses+' blessés, '+f.tenues+'/'+f.total+' barrières tenues' : '')+'\n\n'+lignes;
-  const court = 'Feyzin 1966 : '+(f ? f.titre+' ('+f.morts+' morts)' : '')+' — '+(d.synthese ? d.synthese.maitrise+' décisions plus prudentes que le réel' : '');
+  const lignes = d.lignes.map(l=>l.heure+' · '+l.titre+' · '+l.libelle).join(String.fromCharCode(10));
+  const NL = String.fromCharCode(10);
+  const texte = ['Feyzin 1966' + (f ? ' · ' + f.titre : ''),
+    f ? f.morts + ' morts, ' + f.blesses + ' blessés, ' + f.tenues + '/' + f.total + ' barrières tenues' : '',
+    '', lignes].join(NL);
+  const court = 'Feyzin 1966 : ' + (f ? f.titre + ' (' + f.morts + ' morts)' : '') + ' · ' + (d.synthese ? d.synthese.maitrise + ' décisions plus prudentes que le réel' : '');
   return '<div class="card"><h3 style="margin-top:0">Votre partie</h3>'
     + '<p style="margin:0 0 8px">'+(f ? f.titre+' · '+f.morts+' morts · '+f.blesses+' blessés · '+f.tenues+'/'+f.total+' barrières tenues' : '')+'</p>'
     + '<button class="btn ghost" onclick="partager()">Copier le résumé</button>'
