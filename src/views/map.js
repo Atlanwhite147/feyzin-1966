@@ -30,10 +30,12 @@ export function refineryMap(etat) {
   const nappeMasse = num(nappe.masse, 0);
   const nappeRayon = num(nappe.rayon, 0);
   const nappeDerive = num(nappe.derive, 0);
-  const nappeCx = clamp(450 + nappeDerive * 0.9, 60, 840);
-  const nappeCy = 310;
-  const nappeRx = clamp(24 + nappeRayon * 0.9 + Math.abs(nappeDerive) * 0.35, 24, 420);
-  const nappeRy = clamp(14 + nappeRayon * 0.55, 14, 220);
+  /* La nappe part de la sphère 443 et s'étire vers la droite : on borne le dessin
+     pour qu'il reste dans la cuvette et lisible, sans sortir du plan. */
+  const nappeCx = clamp(450 + Math.min(nappeDerive, 210) * 0.42, 300, 700);
+  const nappeCy = 300;
+  const nappeRx = clamp(34 + nappeRayon * 0.55 + Math.min(nappeDerive, 240) * 0.22, 30, 190);
+  const nappeRy = clamp(14 + nappeRayon * 0.30, 14, 66);
   const nappeOpacity = nappeMasse > 0 ? 0.28 : 0.08;
 
   /* --- eau --- */
@@ -49,7 +51,7 @@ export function refineryMap(etat) {
   const perim = (e.perimetre && typeof e.perimetre === "object") ? e.perimetre : {};
   const perimRadius = clamp(num(perim.radius, 0), 0, 10000);
   const perimEvacuated = bool(perim.evacuated, false);
-  const perimPx = clamp(30 + perimRadius * 1.1, 30, 400);
+  const perimPx = clamp(30 + perimRadius * 1.0, 30, 290);
 
   /* --- A7 --- */
   const a7 = (e.a7 && typeof e.a7 === "object") ? e.a7 : {};
@@ -121,6 +123,7 @@ export function refineryMap(etat) {
 
   <!-- nappe de gaz -->
   <ellipse cx="${nappeCx}" cy="${nappeCy}" rx="${nappeRx}" ry="${nappeRy}" class="nappe" opacity="${nappeOpacity}" stroke="#d9774f" stroke-width="1.2"/>
+  ${nappeMasse > 0 ? `<text x="12" y="300" class="accent2" font-size="11">NAPPE ${Math.round(nappeMasse).toLocaleString("fr-FR")} kg · ${Math.round(nappeRayon)} m</text>` : ""}
 
   <!-- cuvette de rétention -->
   <rect x="200" y="170" width="500" height="210" rx="22" ry="22" class="sec" stroke-width="1.8" stroke-dasharray="8 5"/>
@@ -142,9 +145,13 @@ export function refineryMap(etat) {
   ${eauEpuisee ? `<text x="870" y="335" text-anchor="end" class="accent" font-size="10">ÉPUISÉ</text>` : `<text x="870" y="335" text-anchor="end" class="txt" font-size="10">STOCK ${Math.round(eauStock)} %</text>`}
 
   <!-- périmètre de sécurité -->
-  <circle cx="450" cy="260" r="${perimPx}" class="perim" stroke-width="1.6" stroke-dasharray="5 5" opacity="0.85"/>
-  <text x="${clamp(450 + perimPx * 0.62, 10, 880)}" y="${clamp(260 - perimPx * 0.62, 14, 506)}" class="txt" font-size="10">PÉRIMÈTRE ${Math.round(perimRadius)} m</text>
-  ${perimEvacuated ? `<text x="450" y="${clamp(260 + perimPx + 14, 14, 506)}" text-anchor="middle" class="accent" font-size="10">ÉVACUÉ</text>` : ""}
+  ${perimRadius >= 60 ? `<circle cx="450" cy="260" r="${perimPx}" class="perim" stroke-width="1.6" stroke-dasharray="5 5" opacity="0.85"/>` : ""}
+  ${perimRadius >= 60 ? (() => {
+    const haut = 260 - perimPx - 10;
+    const y = haut >= 20 ? haut : clamp(260 + perimPx + 20, 16, 466);
+    return `<text x="${clamp(450, 60, 840)}" y="${clamp(y, 16, 466)}" text-anchor="middle" class="txt" font-size="11">PÉRIMÈTRE ${Math.round(perimRadius)} m${perimEvacuated ? " · ÉVACUÉ" : ""}</text>`;
+  })() : ""}
+
 
   <!-- secours -->
   <g class="secours" opacity="${secWithdrawn ? 0.35 : 1}">
@@ -159,13 +166,15 @@ export function refineryMap(etat) {
   ${secWithdrawn ? `<text x="${clamp(secX, 10, 880)}" y="${clamp(secY + 46, 14, 506)}" text-anchor="middle" class="accent" font-size="10">REPLI</text>` : ""}
 
   <!-- autoroute A7 -->
-  <line x1="0" y1="492" x2="900" y2="492" class="trait" stroke-width="2"/>
-  <line x1="0" y1="504" x2="900" y2="504" class="trait" stroke-width="2"/>
-  <text x="12" y="486" class="txt2" font-size="13" font-weight="bold">A7</text>
-  <text x="52" y="486" class="${a7Closed ? "accent" : "txt"}" font-size="11" font-weight="bold">${a7Closed ? "COUPÉE" : "OUVERTE"}</text>
+  <line x1="0" y1="490" x2="900" y2="490" class="trait" stroke-width="2.4"/>
+  <line x1="0" y1="508" x2="900" y2="508" class="trait" stroke-width="2.4"/>
+  <line x1="0" y1="499" x2="900" y2="499" class="sec" stroke-width="1.2" stroke-dasharray="12 10"/>
+  <text x="12" y="484" class="txt" font-size="10" letter-spacing="2">AUTOROUTE</text>
+  <text x="742" y="486" text-anchor="end" class="txt2" font-size="13" font-weight="bold">A7</text>
+  <text x="752" y="486" class="${a7Closed ? "accent" : "txt"}" font-size="11" font-weight="bold">${a7Closed ? "COUPÉE" : "OUVERTE"}</text>
   ${a7Closed ? `<line x1="420" y1="488" x2="480" y2="508" class="accent" stroke-width="3"/><line x1="480" y1="488" x2="420" y2="508" class="accent" stroke-width="3"/>` : ""}
 
   <!-- titre -->
-  <text x="12" y="24" class="txt" font-size="12" letter-spacing="3">FEYZIN 1966 — PLAN DU SITE</text>
+  <text x="12" y="24" class="txt" font-size="12" letter-spacing="3">FEYZIN 1966 · PLAN DU SITE</text>
 </svg>`;
 }

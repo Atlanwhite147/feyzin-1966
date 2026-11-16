@@ -136,6 +136,7 @@ export function etatPublic(salle, physics) {
   if (salle.sim && physics) {
     base.crise = resume(salle.sim);
     base.tension = tension(salle.sim.state, physics);
+    base.criseJournal = salle.sim.state.log.slice(-8);
     base.fin = salle.sim.fin || null;
   }
   if (salle.sim) {

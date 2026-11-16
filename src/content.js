@@ -228,6 +228,10 @@ const BASE_CSS = `
         background:var(--tint);display:inline-block;padding:5px 10px;border-radius:2px;margin:0 0 10px}
   .bar{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--ink);padding-bottom:9px;margin-bottom:20px;gap:10px}
   .brand{font-family:var(--sans);font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--soft)}
+  .barright{display:flex;align-items:center;gap:10px}
+  .mini{font-family:var(--sans);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);
+        background:none;border:1px solid var(--line);padding:4px 8px;cursor:pointer}
+  .mini:hover{color:var(--ink);border-color:var(--soft)}
   .clock{font-family:var(--sans);font-size:12.5px;background:var(--accent);color:#fff;padding:4px 9px;border-radius:3px;white-space:nowrap}
   h1{font-size:clamp(26px,5.6vw,42px);line-height:1.07;font-weight:400;margin:0 0 12px}
   h1 em{font-style:normal;color:var(--accent)}
@@ -262,6 +266,46 @@ const BASE_CSS = `
   .brow .val{width:78px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   .big{font-size:clamp(30px,9vw,54px);line-height:1;color:var(--accent);font-weight:400}
   .src{font-family:var(--sans);font-size:11px;color:var(--soft);line-height:1.5}
+  /* --- PC Secours : plan, jauges, journal --- */
+  .plan{border:1px solid var(--line);background:#0a0a0c;overflow:hidden;margin:0 0 8px;flex:1 1 auto;min-height:0;display:flex;align-items:center}
+  .plan svg{display:block;width:100%;height:100%}
+  .gauges{font-family:var(--sans);font-size:11px;flex:0 0 auto}
+  .g{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+  .gl{flex:0 0 76px;color:var(--soft);letter-spacing:.05em;text-transform:uppercase;font-size:9.5px}
+  .gt{flex:1;height:8px;background:#1d1d21;overflow:hidden}
+  .gf{display:block;height:100%;background:var(--accent);transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .gf.hot{background:#c9482f}
+  .gv{flex:0 0 104px;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+  .gline{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .tag{font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;padding:3px 7px;border:1px solid var(--line);color:var(--soft)}
+  .tag.on{border-color:#5f7f6a;color:#9dc3aa}
+  .tag.off{border-color:#8d3524;color:#e08b7a}
+  .tension{font-family:var(--sans);font-size:11px;letter-spacing:.04em;padding:5px 9px;margin:0 0 7px;border-left:3px solid var(--soft);color:#c9c1b4;background:var(--card)}
+  .tension b{font-weight:600}
+  .tension.crit{border-left-color:var(--bad);color:#f0d9d2}
+  .tension.warn{border-left-color:var(--warn)}
+  .tension.dead{border-left-color:#7a1a0c}
+  .radio{font-family:var(--sans);font-size:10.5px;margin-top:6px;flex:0 0 auto}
+  .rh{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-bottom:3px}
+  .rl{display:flex;gap:6px;line-height:1.35;padding:2px 0;border-bottom:1px dotted #232327}
+  .rl .rt{color:var(--soft);flex:0 0 52px}
+  .rl.alerte .rt{color:var(--warn)}
+  .rl.critique{color:#e6b8ab}
+  .frise{display:flex;flex-direction:column;gap:3px;font-family:var(--sans);font-size:11px;flex:1 1 auto;min-height:0;overflow:hidden}
+  .fr{display:grid;grid-template-columns:64px 132px 1fr;gap:8px;align-items:baseline;border-bottom:1px dotted #232327;padding:3px 0}
+  .fh{color:var(--soft);font-variant-numeric:tabular-nums}
+  .fc{font-size:9.5px;letter-spacing:.04em;text-transform:uppercase}
+  .fc.maitrise{color:#9dc3aa}
+  .fc.conforme{color:#c0a05a}
+  .fc.retard{color:#c98b5a}
+  .fc.aggravation{color:#e08b7a}
+  .synthese{font-family:var(--sans);font-size:12px;color:#c9c1b4;margin-top:8px;flex:0 0 auto}
+  .synthese b{color:var(--ink);font-size:15px}
+  ul.barrieres{list-style:none;padding:0;margin:0;font-family:var(--sans);font-size:11.5px}
+  ul.barrieres li{padding:2px 0 2px 18px;position:relative;color:#c9c1b4}
+  ul.barrieres li:before{position:absolute;left:0}
+  ul.barrieres li.ok:before{content:"✓";color:#9dc3aa}
+  ul.barrieres li.ko:before{content:"✗";color:#e08b7a}
   /* --- mode écran unique : tout tient dans la fenêtre --- */
   body.deck{overflow:hidden}
   body.deck .wrap{max-width:none;width:100%;height:100dvh;padding:0;display:flex;flex-direction:column}
@@ -308,6 +352,15 @@ const BASE_CSS = `
     .stage{grid-template-columns:1fr}
     body.deck .illus svg{max-height:20vh}
   }
+  body.deck .plan{margin:0 0 6px}
+  body.deck .gauges{font-size:clamp(10px,1.25vh,13px)}
+  body.deck .gl{flex:0 0 66px;font-size:clamp(8px,1vh,10px)}
+  body.deck .gv{flex:0 0 92px}
+  body.deck .radio{font-size:clamp(9.5px,1.15vh,12px)}
+  body.deck .frise{font-size:clamp(9.5px,1.25vh,13px)}
+  body.deck .fr{grid-template-columns:56px 120px 1fr}
+  body.deck .synthese{font-size:clamp(10px,1.25vh,14px)}
+  body.deck ul.barrieres{font-size:clamp(10px,1.2vh,13px)}
   /* --- petit écran : on rend la main au défilement normal --- */
   @media(max-width:980px),(max-height:520px){
     body.deck{overflow:auto}
@@ -382,7 +435,10 @@ const BASE_CSS = `
 const ANIM = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>Feyzin 1966 — écran de salle</title>
 <style>${BASE_CSS}</style></head><body><div class="wrap">
-<div class="bar"><div class="brand">Feyzin 1966 · écran de salle</div><div class="clock" id="clock">SALLE</div></div>
+<div class="bar"><div class="brand">Feyzin 1966 · écran de salle</div>
+<div class="barright"><button class="mini" id="son" onclick="basculerSon()" title="Alarmes sonores">son : on</button>
+<button class="mini" onclick="aide()" title="Raccourcis clavier">raccourcis</button>
+<div class="clock" id="clock">SALLE</div></div></div>
 <div class="siren" id="siren"></div>
 <div class="roomline" id="roomline"></div>
 <div id="main"></div></div>
@@ -394,6 +450,8 @@ const ROLES = __ROLES__;
 const POSTES = __POSTES__;
 const ILLUS = __ILLUS__;
 const CONCLUSIONS = __CONC__;
+const HIST = __HIST__;
+const MAP = __MAP__;
 let S = {step:-1, phase:'intro', votes:{}, total:0, participants:0}, ws, myVote = null;
 
 const A = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -450,6 +508,118 @@ function bars(){
     return '<div class="brow"><span class="lab">'+'ABC'[j]+'</span><span class="track"><span class="fill'+lead+'" style="width:'+w+'%"></span></span><span class="val">'+v+' · '+w+'%</span></div>';
   }).join('') + '</div>';
 }
+
+/* ---------- tableau de bord PC Secours ---------- */
+function jauges(c){
+  if (!c) return '';
+  const G = (lab, val, max, txt, alerte) => {
+    const w = Math.max(0, Math.min(100, (val/(max||1))*100));
+    return '<div class="g"><span class="gl">'+lab+'</span><span class="gt"><span class="gf'+(alerte?' hot':'')+'" style="width:'+w.toFixed(1)+'%"></span></span><span class="gv">'+txt+'</span></div>';
+  };
+  const s443ok = c.pression443 !== null;
+  return '<div class="gauges">'
+    + G('Paroi 443', s443ok ? c.temperature443 : 0, 70, s443ok ? Math.round(c.temperature443)+' °C' : 'rompue', s443ok && c.temperature443 > 45)
+    + G('Pression', s443ok ? c.pression443 : 0, 25, s443ok ? c.pression443.toFixed(1)+' bar' : '—', s443ok && c.pression443 > 15)
+    + G('Nappe', c.nappe.rayon, 200, Math.round(c.nappe.masse).toLocaleString('fr-FR')+' kg · '+c.nappe.rayon+' m', c.nappe.rayon > 110)
+    + G('Réserve eau', c.eau, 100, Math.round(c.eau)+' %', c.eau < 25)
+    + '<div class="gline"><span class="tag'+(c.a7 === 'closed' ? ' on' : '')+'">A7 '+(c.a7 === 'closed' ? 'coupée' : 'ouverte')+'</span>'
+    + '<span class="tag'+(c.evacuated ? ' on' : '')+'">périmètre '+c.perimetre+' m'+(c.evacuated ? ' évacué' : '')+'</span>'
+    + '<span class="tag'+(c.ruptures ? ' off' : ' on')+'">'+c.ruptures+' rupture(s)</span></div>'
+    + '</div>';
+}
+
+function bandeauTension(t){
+  if (!t) return '';
+  const l = t.niveau === 'critique' ? 'crit' : t.niveau === 'attention' ? 'warn' : t.niveau === 'irreversible' ? 'dead' : '';
+  return '<div class="tension '+l+'"><b>'+t.texte+'</b>'+(t.heure ? ' · estimée à '+t.heure : '')+'</div>';
+}
+
+function journal(limite){
+  const l = (S.criseJournal || []).slice(-limite);
+  if (!l.length) return '';
+  return '<div class="radio"><div class="rh">Journal radio</div>'
+    + l.map(x=>'<div class="rl '+x.level+'"><span class="rt">'+x.h+'</span><span>'+x.text+'</span></div>').join('')
+    + '</div>';
+}
+
+function debreenScreen(){
+  const d = S.debrief, f = S.fin;
+  if (!d || !f) return '<p>Débrief indisponible.</p>';
+  const lignes = d.lignes.map(l=>'<div class="fr"><span class="fh">'+l.heure+'</span><span class="fc '+l.ecart+'">'+l.libelle+'</span><span class="ft">'+l.titre+'</span></div>').join('');
+  const bar = f.barrières.map(b=>'<li class="'+(b.tenu?'ok':'ko')+'">'+b.nom+'</li>').join('');
+  return '<div class="stage">'
+    + '<div class="pane"><div class="kicker">Débrief · vos décisions face au réel</div><h1>'+f.titre+'</h1>'
+    + '<div class="frise">'+lignes+'</div>'
+    + '<div class="synthese"><b>'+f.morts+'</b> morts · <b>'+f.blesses+'</b> blessés · '+f.tenues+'/'+f.total+' barrières tenues</div>'
+    + '</div>'
+    + '<div class="pane right"><div class="card"><h3 style="margin-top:0">Les barrières</h3><ul class="barrieres">'+bar+'</ul></div>'
+    + '<div class="card plain"><h3 style="margin-top:0">Ce que cela veut dire</h3><p>'+d.conclusion+'</p></div>'
+    + '<div class="card plain"><h3 style="margin-top:0">Ce que la réglementation en a fait</h3>'
+    + (HIST.reglementation||[]).slice(0,3).map(r=>'<p><b>'+r.annee+'</b> · '+r.texte+'.</p>').join('')+'</div>'
+    + '<div class="row"><button class="btn ghost" onclick="send({type:\\'reset\\'})">Nouvelle session</button></div>'
+    + '</div></div>';
+}
+
+/* ---------- son et raccourcis ---------- */
+let sonActif = localStorage.getItem('feyzin.son') !== 'off';
+let audio = null, dernierNiveau = null;
+
+function basculerSon(){
+  sonActif = !sonActif;
+  localStorage.setItem('feyzin.son', sonActif ? 'on' : 'off');
+  const b = document.getElementById('son');
+  if (b) b.textContent = 'son : ' + (sonActif ? 'on' : 'off');
+}
+
+function bip(niveau){
+  if (!sonActif) return;
+  try {
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    const o = audio.createOscillator(), g = audio.createGain();
+    o.type = 'sine';
+    o.frequency.value = niveau === 'critique' ? 660 : 440;
+    g.gain.value = 0.05;
+    o.connect(g); g.connect(audio.destination);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.0001, audio.currentTime + 0.5);
+    o.stop(audio.currentTime + 0.55);
+  } catch (e) {}
+}
+
+function alerterSiBesoin(){
+  const n = S.tension ? S.tension.niveau : null;
+  if (n && n !== dernierNiveau && (n === 'critique' || n === 'irreversible')) bip(n);
+  dernierNiveau = n;
+}
+
+function aide(){
+  const d = document.getElementById('aide');
+  if (d) { d.remove(); return; }
+  const box = document.createElement('div');
+  box.id = 'aide';
+  box.className = 'card';
+  box.style.cssText = 'position:fixed;right:18px;bottom:18px;z-index:20;max-width:320px';
+  box.innerHTML = '<h3 style="margin-top:0">Raccourcis</h3>'
+    + '<p style="margin:0 0 4px"><b>C</b> clore le vote · <b>N</b> étape suivante</p>'
+    + '<p style="margin:0 0 4px"><b>R</b> réouvrir le vote · <b>D</b> débrief</p>'
+    + '<p style="margin:0"><b>M</b> couper le son · <b>?</b> cette aide</p>';
+  document.body.appendChild(box);
+  setTimeout(() => box.remove(), 6000);
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const b = (t) => [...document.querySelectorAll('.btn')].find(x => x.textContent.toLowerCase().includes(t));
+  const t = e.key.toLowerCase();
+  if (t === 'c' && b('clore')) { b('clore').click(); }
+  else if (t === 'n' && b('étape suivante')) { b('étape suivante').click(); }
+  else if (t === 'n' && b('voir le débrief')) { b('voir le débrief').click(); }
+  else if (t === 'r' && b('réouvrir')) { b('réouvrir').click(); }
+  else if (t === 'm') { basculerSon(); }
+  else if (t === '?' || t === '/') { aide(); }
+});
+
+document.addEventListener('click', () => { if (!audio && sonActif) { try { audio = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} } }, { once: true });
 
 function render(){
   const st = S.step, ph = S.phase;
@@ -530,22 +700,23 @@ function render(){
       <div class="stage">
         <div class="pane">
           <div class="kicker">Étape \${st+1} sur 7 · \${step.t}</div>
-          <h1>\${step.h}</h1>
-          \${roleLine(st)}
-          <figure class="illus">\${ILLUS[st] || ''}</figure>
-          <div class="card plain"><p>\${step.s}</p></div>
+          \${bandeauTension(S.tension)}
+          <div class="plan">\${MAP(S.crise || {})}</div>
+          \${jauges(S.crise)}
         </div>
         <div class="pane right">
           <h2>\${step.q}</h2>
+          \${roleLine(st)}
           \${step.o.map((o,j)=>'<div class="opt ro"><span class="k">'+'ABC'[j]+'</span><span>'+o.txt+'</span></div>').join('')}
           \${bars()}
-          \${roster()}
+          \${journal(3)}
           <div class="row">
             <button class="btn" onclick="send({type:'close'})">Clore le vote</button>
-            <span class="pill">\${S.total} votant(s)</span>
+            <span class="pill">\${S.total} votant(s) · \${(S.roster||[]).length} dans la salle</span>
           </div>
         </div>
       </div>\`;
+    alerterSiBesoin();
     return;
   }
 
@@ -558,43 +729,32 @@ function render(){
       <div class="stage">
         <div class="pane">
           <div class="kicker">Étape \${st+1} sur 7 · \${step.t}</div>
-          <h1>\${step.h}</h1>
-          \${roleLine(st)}
-          <figure class="illus compact">\${ILLUS[st] || ''}</figure>
-          \${bars()}
+          \${bandeauTension(S.tension)}
+          <div class="plan">\${MAP(S.crise || {})}</div>
+          \${jauges(S.crise)}
+          \${journal(4)}
         </div>
         <div class="pane right">
           \${S.total === 0
             ? '<div class="card"><h3 style="margin-top:0">Aucun vote enregistré</h3><p>Faute de vote, l’histoire suit son cours réel : la branche qui s’ouvre est celle de 1966.</p></div>'
             : '<div class="card"><h3 style="margin-top:0">Votre majorité : '+\'ABC\'[win]+', à '+pct(S.votes[win]||0,S.total)+'%</h3><p>'+o.br+'</p></div>'}
-          <div class="card plain \${o.p === 0 ? 'danger' : ''}"><h3 style="margin-top:0">Ce qui s’est réellement passé le 4 janvier 1966</h3><p>\${step.real}</p></div>
+          <div class="card plain \${o.p === 0 ? 'danger' : ''}"><h3 style="margin-top:0">Ce qui s’est réellement passé</h3><p>\${step.real}</p></div>
           \${o.p === 0 ? '<p class="src" style="color:#c9482f">La branche que vous venez de choisir est celle qui a conduit à l’accident.</p>' : ''}
           <div class="lesson"><b>Le point de sûreté</b>\${step.l}</div>
           <div class="row">
-            <button class="btn" onclick="send({type:'next'})">\${st < 6 ? 'Étape suivante' : 'Voir les conclusions'}</button>
+            <button class="btn" onclick="send({type:'next'})">\${st < 6 ? 'Étape suivante' : 'Voir le débrief'}</button>
             <button class="btn ghost" onclick="send({type:'open',step:\${st}})">Réouvrir le vote</button>
           </div>
         </div>
       </div>\`;
+    alerterSiBesoin();
     return;
   }
 
   document.getElementById('clock').textContent = 'DÉBRIEF';
-  $('#main').innerHTML = \`
-    <div class="stage one">
-      <div class="pane wide">
-        <div class="kicker">Débrief · ce que Feyzin a changé</div>
-        <h1>Six leçons</h1>
-        <div class="concl">
-          \${CONCLUSIONS.map((c,i)=>'<div class="mini'+(i===5?' accent':'')+'"><b>'+(i+1)+'. '+c[0]+'</b><span>'+c[1]+'</span></div>').join('')}
-        </div>
-        <div class="row" style="margin-top:14px">
-          <button class="btn ghost" onclick="send({type:'reset'});render()">Nouvelle session</button>
-        </div>
-      </div>
-    </div>\`;
+  $('#main').innerHTML = debreenScreen();
+  alerterSiBesoin();
 }
-
 connect();
 </script></body></html>`;
 
@@ -646,6 +806,41 @@ function media(name){
 }
 function roleLine(i){ return '<div class="role">Vous êtes '+ROLES[i]+'.</div>'; }
 
+function etatCrise(){
+  const c = S.crise, t = S.tension;
+  if (!c) return '';
+  const p = c.pression443 === null ? 'rompue' : c.pression443.toFixed(1)+' bar';
+  const temp = c.temperature443 === null ? '—' : Math.round(c.temperature443)+' °C';
+  const ligne = 'paroi '+temp+' · '+p+' · nappe '+c.nappe.rayon+' m · eau '+Math.round(c.eau)+' %';
+  if (!t) return '<p class="src">'+ligne+'</p>';
+  const l = t.niveau === 'critique' ? 'crit' : t.niveau === 'attention' ? 'warn' : t.niveau === 'irreversible' ? 'dead' : '';
+  return '<div class="tension '+l+'"><b>'+t.texte+'</b></div><p class="src">'+ligne+'</p>';
+}
+
+function resumePartage(){
+  if (!S.debrief) return '';
+  const d = S.debrief, f = S.fin;
+  const lignes = d.lignes.map(l=>l.heure+' · '+l.titre+' · '+l.libelle).join('\n');
+  const texte = 'Feyzin 1966 — '+(f ? f.titre : '')+'\n'+(f ? f.morts+' morts, '+f.blesses+' blessés, '+f.tenues+'/'+f.total+' barrières tenues' : '')+'\n\n'+lignes;
+  const court = 'Feyzin 1966 : '+(f ? f.titre+' ('+f.morts+' morts)' : '')+' — '+(d.synthese ? d.synthese.maitrise+' décisions plus prudentes que le réel' : '');
+  return '<div class="card"><h3 style="margin-top:0">Votre partie</h3>'
+    + '<p style="margin:0 0 8px">'+(f ? f.titre+' · '+f.morts+' morts · '+f.blesses+' blessés · '+f.tenues+'/'+f.total+' barrières tenues' : '')+'</p>'
+    + '<button class="btn ghost" onclick="partager()">Copier le résumé</button>'
+    + '<p class="src" id="partage">'+court+'</p>'
+    + '<textarea id="resume" style="position:absolute;left:-9999px">'+texte+'</textarea></div>';
+}
+
+function partager(){
+  const t = (document.getElementById('resume') || {}).value || '';
+  const fin = () => { const p = document.getElementById('partage'); if (p) p.textContent = 'Résumé copié.'; };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(fin, fin);
+  else {
+    const ta = document.getElementById('resume');
+    if (ta) { ta.select(); document.execCommand('copy'); }
+    fin();
+  }
+}
+
 function render(){
   if (!moi){
     document.getElementById('clock').textContent = 'SALLE ' + code;
@@ -678,6 +873,7 @@ function render(){
       <div class="kicker">Étape \${S.step+1} sur 7 · \${st.t}</div>
       <h1>\${st.h}</h1>
       <div class="moi">Vous : \${moi.name}\${moi.poste ? ' · ' + moi.poste : ''}</div>
+      \${etatCrise()}
       \${roleLine(S.step)}
       <figure class="illus">\${ILLUS[S.step] || ''}</figure>
       <div class="card plain" style="font-size:15.5px"><p>\${st.s}</p></div>
@@ -708,6 +904,7 @@ function render(){
   }
   document.getElementById('clock').textContent = 'DÉBRIEF';
   $('#main').innerHTML = '<div class="kicker">Fin de session</div><h1>Merci</h1>'
+    + resumePartage()
     + '<p>Sept décisions, deux heures vingt, et le 4 janvier 1966 : dix-huit morts, dont onze sapeurs-pompiers, quatre-vingt-quatre blessés, mille quatre cent soixante-quinze habitations touchées.</p>'
     + '<div class="card"><h3 style="margin-top:0">Ce qui a changé après</h3><p style="margin:0">Distances d’implantation, zones dangereuses, soupapes calculées pour un incendie généralisé, moyens d’eau, plans d’urgence et retour d’expérience obligatoire : le droit français du risque industriel est né de ce matin-là.</p></div>'
     + '<p class="src">Le débriefing complet est à l’écran de salle. Fiche ARIA n°1, ministère de l’environnement, septembre 2006.</p>';

@@ -1,16 +1,21 @@
 /* Feyzin 1966 — serveur de salle pour hébergement type Render.
-   Node 20+, une seule dépendance : ws. Même contenu et mêmes écrans que la version Cloudflare. */
+   Node 20+, une seule dépendance : ws. Toute la logique de salle vient de src/engine/room.js,
+   partagée avec la version Cloudflare : une seule vérité, deux transports. */
+
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { WebSocketServer } from "ws";
+
 import { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, POSTES, ILLUS, ANIM, PART } from "./src/content.js";
+import { physics, scenario, history } from "./src/data/bundle.js";
+import { refineryMap } from "./src/views/map.js";
+import { salleVide, rejoindre, voter, commander, demarrerSimulation, appliquerMajorite, etatPublic } from "./src/engine/room.js";
 
 const PORT = process.env.PORT || 8787;
-const rooms = new Map();
-
 const FILM = "/extrait.webm";
+const rooms = new Map();
 
 function inject(tpl) {
   return tpl
@@ -21,31 +26,71 @@ function inject(tpl) {
     .replace("__ILLUS__", JSON.stringify(ILLUS))
     .replace("__POSTES__", JSON.stringify(POSTES))
     .replace("__FILM__", FILM)
-    .replace("__CONC__", JSON.stringify(CONCLUSIONS));
+    .replace("__CONC__", JSON.stringify(CONCLUSIONS))
+    .replace("__HIST__", JSON.stringify(history))
+    .replace("__MAP__", refineryMap.toString());
 }
-function fresh() {
-  return { step: -1, phase: "lobby", intro: 0, votes: {}, voters: {}, n: 0, participants: {} };
-}
+
 function room(code) {
-  if (!rooms.has(code)) rooms.set(code, { game: fresh(), anim: new Set(), part: new Set(), touched: Date.now() });
+  if (!rooms.has(code)) rooms.set(code, { salle: salleVide(), anim: new Set(), part: new Set(), touched: Date.now() });
   const r = rooms.get(code);
   r.touched = Date.now();
   return r;
 }
-function pub(r) {
-  const g = r.game;
-  return {
-    step: g.step, phase: g.phase, intro: g.intro || 0, votes: g.votes,
-    roster: Object.values(g.participants || {}).map(p => ({ name: p.name, poste: p.poste })),
-    total: Object.values(g.votes).reduce((a, b) => a + b, 0),
-    participants: r.part.size
-  };
-}
+
+const pub = (r) => etatPublic(r.salle, physics);
+
 function broadcast(r) {
   const msg = JSON.stringify({ type: "state", state: pub(r) });
   for (const set of [r.anim, r.part]) {
-    for (const ws of set) { if (ws.readyState === 1) { try { ws.send(msg); } catch (e) { set.delete(ws); } } }
+    for (const ws of set) {
+      if (ws.readyState === 1) { try { ws.send(msg); } catch (e) { set.delete(ws); } }
+    }
   }
+}
+
+/* L'animateur ouvre la simulation quand il démarre une séance. */
+function ouvrirSimulation(r) {
+  if (!r.salle.sim || r.salle.sim.terminee) demarrerSimulation(r.salle, physics, scenario);
+}
+
+function onMessage(r, role, ws, raw, pid) {
+  let m;
+  try { m = JSON.parse(raw.toString()); } catch { return; }
+
+  if (m.type === "join" && role === "part") {
+    const p = rejoindre(r.salle, m.pid || pid, m.name);
+    if (!p) return;
+    ws.send(JSON.stringify({ type: "you", name: p.name, poste: p.poste }));
+    return broadcast(r);
+  }
+
+  if (m.type === "vote" && role === "part") {
+    if (voter(r.salle, m.pid || pid, Number(m.j))) {
+      ws.send(JSON.stringify({ type: "voted", j: Number(m.j) }));
+      broadcast(r);
+    }
+    return;
+  }
+
+  if (m.type === "ping") { ws.send(JSON.stringify({ type: "pong" })); return; }
+  if (role !== "anim") return;
+
+  if (m.type === "open" || m.type === "chapter" || m.type === "reset") ouvrirSimulationSiBesoin(r, m.type);
+
+  const change = commander(r.salle, m.type, m, scenario, physics);
+
+  if (m.type === "close" && r.salle.sim) {
+    const choix = appliquerMajorite(r.salle, scenario, physics);
+    if (choix !== null) r.salle.dernierChoix = choix;
+  }
+
+  if (change) broadcast(r);
+}
+
+function ouvrirSimulationSiBesoin(r, type) {
+  if (type === "reset") { r.salle.sim = null; r.salle.fin = null; return; }
+  if (!r.salle.sim) ouvrirSimulation(r);
 }
 
 const server = http.createServer((req, res) => {
@@ -54,6 +99,7 @@ const server = http.createServer((req, res) => {
 
   if (p === "/" || p === "/anim") return send(res, inject(ANIM));
   if (p === "/health") return json(res, { ok: true, rooms: rooms.size, uptime: Math.round(process.uptime()) });
+
   if (p === "/extrait.webm") {
     const root = path.dirname(fileURLToPath(import.meta.url));
     const file = path.join(root, "public", "extrait.webm");
@@ -72,17 +118,20 @@ const server = http.createServer((req, res) => {
       return fs.createReadStream(file).pipe(res);
     } catch (e) { res.writeHead(404); return res.end("Introuvable"); }
   }
+
   if (p === "/api/room") {
     const A = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     let s = "";
     for (let i = 0; i < 4; i++) s += A[Math.floor(Math.random() * A.length)];
     return json(res, { code: s });
   }
+
   if (p.startsWith("/p/")) {
     const code = p.slice(3).toUpperCase().trim();
     if (!/^[A-Z0-9]{4,8}$/.test(code)) { res.writeHead(400); return res.end("Code de salle invalide"); }
     return send(res, inject(PART).split("__CODE__").join(code));
   }
+
   res.writeHead(404); res.end("Introuvable");
 });
 
@@ -104,61 +153,24 @@ server.on("upgrade", (req, socket, head) => {
   const role = u.searchParams.get("role") === "anim" ? "anim" : "part";
   const pid = (u.searchParams.get("pid") || "").slice(0, 40);
   if (!/^[A-Z0-9]{4,8}$/.test(code)) { socket.destroy(); return; }
+
   wss.handleUpgrade(req, socket, head, (ws) => {
     const r = room(code);
     r[role].add(ws);
+
     ws.send(JSON.stringify({ type: "state", state: pub(r), role }));
-    if (pid && r.game.voters[pid] !== undefined) ws.send(JSON.stringify({ type: "you", j: r.game.voters[pid] }));
-    const moi = pid && r.game.participants && r.game.participants[pid];
+    if (pid && r.salle.voters[pid] !== undefined) ws.send(JSON.stringify({ type: "voted", j: r.salle.voters[pid] }));
+    const moi = pid && r.salle.participants[pid];
     if (moi) ws.send(JSON.stringify({ type: "you", name: moi.name, poste: moi.poste }));
     broadcast(r);
 
-    ws.on("message", (raw) => {
-      let m; try { m = JSON.parse(raw.toString()); } catch { return; }
-      const g = r.game;
-
-      if (m.type === "join" && role === "part") {
-        const pid = String(m.pid || "").slice(0, 40);
-        const name = String(m.name || "").trim().replace(/[<>]/g, "").slice(0, 22);
-        if (!pid || !name) return;
-        g.participants = g.participants || {};
-        const dejaPris = new Set(Object.values(g.participants).map(p => p.poste));
-        let poste = POSTES.find(x => !dejaPris.has(x));
-        if (!poste) { const n = Object.keys(g.participants).length - POSTES.length + 1; poste = POSTES[n % POSTES.length] + " (équipe " + (n + 1) + ")"; }
-        g.participants[pid] = { name, poste };
-        ws.send(JSON.stringify({ type: "you", name, poste }));
-        return broadcast(r);
-      }
-
-      if (m.type === "vote" && role === "part" && g.phase === "vote" && g.step >= 0) {
-        const pid = String(m.pid || "").slice(0, 40);
-        if (!pid || typeof m.j !== "number" || m.j < 0 || m.j > 2) return;
-        const prev = g.voters[pid];
-        if (prev === m.j) return;
-        if (prev !== undefined) g.votes[prev] = Math.max(0, (g.votes[prev] || 1) - 1);
-        g.voters[pid] = m.j;
-        g.votes[m.j] = (g.votes[m.j] || 0) + 1;
-        if (ws.readyState === 1) ws.send(JSON.stringify({ type: "voted", j: m.j }));
-        return broadcast(r);
-      }
-
-      if (role === "anim") {
-        if (m.type === "open") { g.step = Math.max(0, Math.min(STEPS.length - 1, m.step ?? 0)); g.votes = {}; g.voters = {}; g.phase = "vote"; }
-        if (m.type === "close") g.phase = "reveal";
-        if (m.type === "next") { if (g.step < STEPS.length - 1) { g.step++; g.votes = {}; g.voters = {}; g.phase = "vote"; } else g.phase = "end"; }
-        if (m.type === "back") { if (g.step > 0) { g.step--; g.votes = {}; g.voters = {}; g.phase = "vote"; } }
-        if (m.type === "chapter") { g.phase = "intro"; g.intro = Math.max(0, Math.min(INTRO.length - 1, m.i ?? 0)); }
-        if (m.type === "reset") { g.step = -1; g.phase = "lobby"; g.intro = 0; g.votes = {}; g.voters = {}; }
-        broadcast(r);
-      }
-    });
-
+    ws.on("message", (raw) => onMessage(r, role, ws, raw, pid));
     ws.on("close", () => { r[role].delete(ws); broadcast(r); });
     ws.on("error", () => { r[role].delete(ws); });
   });
 });
 
-// Une salle sans personne pendant 2 heures est oubliée.
+// Une salle sans personne pendant deux heures est oubliée.
 setInterval(() => {
   const now = Date.now();
   for (const [code, r] of rooms) {
