@@ -256,7 +256,8 @@ const BASE_CSS = `
   .brow{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-family:var(--sans);font-size:12.5px}
   .brow .lab{width:20px;font-weight:700}
   .brow .track{flex:1;height:12px;background:#1d1d21;border-radius:1px;overflow:hidden}
-  .brow .fill{height:100%;background:var(--accent);width:0;transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .brow .track{display:block}
+  .brow .fill{display:block;height:100%;background:var(--accent);width:0;transition:width .5s cubic-bezier(.2,.7,.3,1)}
   .brow .fill.lead{background:var(--good)}
   .brow .val{width:78px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   .big{font-size:clamp(30px,9vw,54px);line-height:1;color:var(--accent);font-weight:400}
@@ -417,7 +418,9 @@ function bars(){
   const tot = S.total || 0;
   return '<div class="bars">' + [0,1,2].map(j=>{
     const v = S.votes[j] || 0, w = pct(v,tot);
-    return '<div class="brow"><span class="lab">'+'ABC'[j]+'</span><span class="track"><span class="fill" style="width:'+w+'%"></span></span><span class="val">'+v+' · '+w+'%</span></div>';
+    const best = [0,1,2].reduce((a,k)=> (S.votes[k]||0) > (S.votes[a]||0) ? k : a, 0);
+    const lead = (v > 0 && j === best) ? ' lead' : '';
+    return '<div class="brow"><span class="lab">'+'ABC'[j]+'</span><span class="track"><span class="fill'+lead+'" style="width:'+w+'%"></span></span><span class="val">'+v+' · '+w+'%</span></div>';
   }).join('') + '</div>';
 }
 
