@@ -123,7 +123,7 @@ export function refineryMap(etat) {
 
   <!-- nappe de gaz -->
   <ellipse cx="${nappeCx}" cy="${nappeCy}" rx="${nappeRx}" ry="${nappeRy}" class="nappe" opacity="${nappeOpacity}" stroke="#d9774f" stroke-width="1.2"/>
-  ${nappeMasse > 0 ? `<text x="12" y="300" class="accent2" font-size="11">NAPPE ${Math.round(nappeMasse).toLocaleString("fr-FR")} kg · ${Math.round(nappeRayon)} m</text>` : ""}
+  ${nappeMasse > 0 ? `<text x="12" y="118" class="accent2" font-size="11">NAPPE ${Math.round(nappeMasse).toLocaleString("fr-FR")} kg · ${Math.round(nappeRayon)} m</text>` : ""}
 
   <!-- cuvette de rétention -->
   <rect x="200" y="170" width="500" height="210" rx="22" ry="22" class="sec" stroke-width="1.8" stroke-dasharray="8 5"/>

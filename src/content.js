@@ -275,7 +275,7 @@ const BASE_CSS = `
   .gt{flex:1;height:8px;background:#1d1d21;overflow:hidden}
   .gf{display:block;height:100%;background:var(--accent);transition:width .5s cubic-bezier(.2,.7,.3,1)}
   .gf.hot{background:#c9482f}
-  .gv{flex:0 0 104px;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+  .gv{flex:0 0 128px;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
   .gline{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
   .tag{font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;padding:3px 7px;border:1px solid var(--line);color:var(--soft)}
   .tag.on{border-color:#5f7f6a;color:#9dc3aa}
@@ -355,7 +355,7 @@ const BASE_CSS = `
   body.deck .plan{margin:0 0 6px}
   body.deck .gauges{font-size:clamp(10px,1.25vh,13px)}
   body.deck .gl{flex:0 0 66px;font-size:clamp(8px,1vh,10px)}
-  body.deck .gv{flex:0 0 92px}
+  body.deck .gv{flex:0 0 118px;white-space:nowrap}
   body.deck .radio{font-size:clamp(9.5px,1.15vh,12px)}
   body.deck .frise{font-size:clamp(9.5px,1.25vh,13px)}
   body.deck .fr{grid-template-columns:56px 120px 1fr}
