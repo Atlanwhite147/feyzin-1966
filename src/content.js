@@ -301,6 +301,10 @@ const BASE_CSS = `
   .fc.aggravation{color:#e08b7a}
   .synthese{font-family:var(--sans);font-size:12px;color:#c9c1b4;margin-top:8px;flex:0 0 auto}
   .synthese b{color:var(--ink);font-size:15px}
+  details.gloss{font-family:var(--sans);font-size:10.5px;color:#c9c1b4;border-top:1px solid var(--line);padding-top:6px}
+  details.gloss summary{cursor:pointer;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+  details.gloss p{margin:4px 0 0}
+  details.gloss b{color:var(--ink)}
   ul.barrieres{list-style:none;padding:0;margin:0;font-family:var(--sans);font-size:11.5px}
   ul.barrieres li{padding:2px 0 2px 18px;position:relative;color:#c9c1b4}
   ul.barrieres li:before{position:absolute;left:0}
@@ -556,6 +560,8 @@ function debreenScreen(){
     + '<div class="card plain"><h3 style="margin-top:0">Ce que cela veut dire</h3><p>'+d.conclusion+'</p></div>'
     + '<div class="card plain"><h3 style="margin-top:0">Ce que la réglementation en a fait</h3>'
     + (HIST.reglementation||[]).slice(0,3).map(r=>'<p><b>'+r.annee+'</b> · '+r.texte+'.</p>').join('')+'</div>'
+    + '<details class="gloss"><summary>Les mots du dossier</summary>'
+    + (HIST.glossaire||[]).map(g=>'<p><b>'+g.titre+'</b> '+g.texte+'</p>').join('')+'</details>'
     + '<div class="row"><button class="btn ghost" onclick="send({type:\\'reset\\'})">Nouvelle session</button></div>'
     + '</div></div>';
 }
@@ -772,6 +778,7 @@ const MEDIA = __MEDIA__;
 const ROLES = __ROLES__;
 const POSTES = __POSTES__;
 const ILLUS = __ILLUS__;
+const HIST = __HIST__;
 let S = {step:-1, phase:'lobby', votes:{}, total:0, participants:0}, ws, myVote = null, myStep = -1;
 let pid = localStorage.getItem('feyzin.pid');
 if (!pid) { pid = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('feyzin.pid', pid); }
@@ -910,6 +917,7 @@ function render(){
     + resumePartage()
     + '<p>Sept décisions, deux heures vingt, et le 4 janvier 1966 : dix-huit morts, dont onze sapeurs-pompiers, quatre-vingt-quatre blessés, mille quatre cent soixante-quinze habitations touchées.</p>'
     + '<div class="card"><h3 style="margin-top:0">Ce qui a changé après</h3><p style="margin:0">Distances d’implantation, zones dangereuses, soupapes calculées pour un incendie généralisé, moyens d’eau, plans d’urgence et retour d’expérience obligatoire : le droit français du risque industriel est né de ce matin-là.</p></div>'
+    + (HIST.glossaire||[]).filter(g=>g.titre==='BLEVE').map(g=>'<div class="card plain"><h3 style="margin-top:0">'+g.titre+'</h3><p style="margin:0">'+g.texte+'</p></div>').join('')
     + '<p class="src">Le débriefing complet est à l’écran de salle. Fiche ARIA n°1, ministère de l’environnement, septembre 2006.</p>';
 }
 
