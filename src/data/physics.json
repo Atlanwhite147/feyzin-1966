@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "source": "Fiche ARIA n°1 (ministère chargé de l'environnement, septembre 2006), rapports d'experts judiciaires, DHYCA du 19 janvier 1966, service des mines de l'Isère n°05460 du 2 janvier 1967.",
+    "note": "Constantes de simulation. Unités : minutes, mètres, bars, degrés Celsius, kilogrammes, pourcents de réserve d'eau. Calibrées pour retrouver la chronologie réelle : inflammation à 07 h 15, rupture à 08 h 45."
+  },
+  "horloge": {
+    "depart": "06:30",
+    "pas": 1,
+    "dureeMax": 300
+  },
+  "fuite": {
+    "debitInitial": 180,
+    "decroissance": 0.985,
+    "ventMetresParMinute": 24,
+    "seuilNappeKg": 900,
+    "distanceA7": 180,
+    "seuilInflammationKg": 1400
+  },
+  "sphere443": {
+    "pressionInitiale": 8.2,
+    "temperatureParoiInitiale": 12,
+    "pressionRupture": 20,
+    "temperatureRupture": 62,
+    "chauffeIncendie": 1.5,
+    "chauffeVoisine": 1.2,
+    "refroidissementParEau": -0.95,
+    "refroidissementNaturel": -0.05,
+    "volumeM3": 1200,
+    "remplissage": 0.85
+  },
+  "reserveEau": {
+    "stock": 100,
+    "coutRefroidissementParMinute": 0.9,
+    "coutExtinctionParMinute": 1.8,
+    "rechargeParMinute": 0.35
+  },
+  "perimetre": {
+    "rayonInitial": 0,
+    "seuilSecurite": 300,
+    "evacuationParMinute": 0.25
+  },
+  "population": {
+    "personnelSite": 40,
+    "sapeursEngages": 120,
+    "distanceSapeursInitiale": 250,
+    "distanceSapeursDangereuse": 100,
+    "riverainsExposes": 12
+  },
+  "bilan": {
+    "historique": {
+      "morts": 18,
+      "blesses": 84
+    },
+    "bleveContenu": {
+      "morts": 2,
+      "blesses": 9
+    },
+    "maitrise": {
+      "morts": 0,
+      "blesses": 1
+    },
+    "chaine": {
+      "morts": 31,
+      "blesses": 140
+    }
+  }
+}
