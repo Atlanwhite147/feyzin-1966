@@ -1,50 +1,63 @@
-# Feyzin 1966 — salle de vote en direct
+# Feyzin 1966 — récit interactif avec vote en direct
 
-Application Cloudflare Workers + Durable Objects. Une salle par code à 4 lettres : l'écran de salle
-projette, les participants votent depuis leur téléphone, l'histoire bifurque selon la majorité.
+Application web pour une salle : un écran projeté, des participants qui votent depuis leur PC ou leur
+téléphone, et une histoire qui bifurque selon la majorité. Prologue narratif, sept scènes, archives d'époque.
 
-## Hébergement recommandé : Cloudflare Workers (offre gratuite)
+- Écran de salle : `https://…/?room=CODE`
+- Participants : `https://…/p/CODE`
 
-Pourquoi : pas de serveur à maintenir, WebSocket natif, pas de mise en veille, HTTPS et URL publique
-immédiats, Durable Objects inclus dans le plan gratuit. Aucune carte bancaire.
+## Hébergement
 
-### Déploiement (une fois)
+### Render (offre gratuite, instance qui s'endort)
 
-    npx wrangler@4 login          # ouvre le navigateur, compte Cloudflare gratuit suffit
-    npx wrangler@4 deploy         # depuis ce dossier
+`render.yaml` fourni. Créer le service depuis ce dépôt GitHub, plan Free, build `npm install`,
+start `npm start`. Le service s'endort après quinze minutes sans visite : ouvrir l'adresse deux minutes
+avant la séance, recharger si besoin.
 
-Résultat : une URL du type `https://feyzin-1966.<votre-sous-domaine>.workers.dev`.
-Pour un déploiement ultérieur après modification : relancer `npx wrangler@4 deploy`.
+### Cloudflare Workers (offre gratuite, sans mise en veille)
 
-Domaine à vous : ajouter dans `wrangler.toml`
+`npx wrangler@4 login` puis `npx wrangler@4 deploy`. Worker et Durable Object dans `src/index.js`,
+contenu et gabarits dans `src/content.js`. Aucune carte bancaire.
 
-    routes = [{ pattern = "feyzin.votredomaine.fr", custom_domain = true }]
+### Test local
 
-### Test local (sans compte)
+    npm install
+    npm start                        # http://localhost:8787
 
-    npx wrangler@4 dev --port 8787
-    # salle : http://localhost:8787/?room=ABCD
-    # participants : http://localhost:8787/p/ABCD
+## Déroulé de séance
 
-## En séance
+1. Prologue de six écrans : le décor, votre rôle, ce qui va se jouer, les règles, les quatre mots, puis
+   les images d'époque (film de 1966, quatre minutes).
+2. Les participants rejoignent `/p/CODE` : aucun compte, rien à installer.
+3. À chaque scène : la situation, le rôle collectif (« dans cette scène, vous êtes l'aide-opérateur »),
+   trois décisions, le vote en direct.
+4. Clôture : la majorité s'affiche, sa branche s'ouvre, puis le rappel de ce qui s'est réellement passé.
+5. Fin : cinq conclusions, ce que la réglementation en a fait, transposition à aujourd'hui.
 
-1. Ouvrir `https://…workers.dev/?room=ABCD` (code libre, 4 lettres) sur l'écran projeté.
-2. Les participants ouvrent `https://…workers.dev/p/ABCD` sur leur téléphone.
-3. « Ouvrir l'étape 1 » : la question s'affiche des deux côtés, les barres bougent en direct.
-4. « Clore le vote » : la majorité s'affiche, la branche correspondante s'ouvre, le rappel du réel suit.
-5. « Étape suivante » pour enchaîner, jusqu'aux conclusions.
-
-Le vote peut être changé tant qu'il est ouvert. Un votant = un identifiant de navigateur.
-L'état de la salle est conservé dans le Durable Object : une coupure réseau ne perd pas la session.
+Le vote peut être changé tant qu'il est ouvert. Un votant = un identifiant de navigateur, retrouvé au
+rechargement. La salle garde son état : une coupure réseau ne perd pas la session.
+Raccourcis écran de salle : flèches gauche/droite, R pour réinitialiser.
 
 ## Structure
 
-- `src/index.js` : Worker, Durable Object `Room`, routes, HTML des deux écrans, contenu du jeu (STEPS).
+- `src/index.js` : Worker, Durable Object `Room`, routes et WebSocket.
+- `src/content.js` : contenu du jeu (`STEPS`, `INTRO`, `MEDIA`, `ROLES`, `CONCLUSIONS`) et gabarits des deux écrans.
+- `server.js` : serveur Node (une dépendance, `ws`) pour Render ou tout hébergeur Node.
 - `wrangler.toml` : binding `ROOMS`, migration SQLite.
 
-## Sources du contenu
+## Sources
 
-Fiche ARIA n°1, ministère chargé de l'environnement, « BLEVE dans un dépôt de GPL en raffinerie,
-Feyzin, 4 janvier 1966 », septembre 2006 ; rapports cités : experts judiciaires, DHYCA 19/01/1966,
-service des mines de l'Isère n°05460 du 02/01/1967. Les branches « ce qui aurait pu se passer »
-sont des récits contrefactuels signalés comme tels dans l'interface.
+Chronologie, chiffres et enseignements : fiche ARIA n°1, ministère chargé de l'environnement,
+« BLEVE dans un dépôt de GPL en raffinerie, Feyzin, 4 janvier 1966 », septembre 2006.
+Rapports cités par cette fiche : experts judiciaires, DHYCA du 19 janvier 1966,
+service des mines de l'Isère n°05460 du 2 janvier 1967.
+
+Archives visuelles (Wikimedia Commons) :
+
+- Film « Accident Feyzin », Jean Sivignon, CC BY-SA 3.0, page `File:Accident_Feyzin.ogv`,
+  lu via le transcode WebM 480p de Wikimedia.
+- « Feyzin - Autoroute A7 - Vue sur la raffinerie de Feyzin 01 », Romainbehar, CC0.
+- « Oil refinery smoke over Lyon and Fourvière », Radiokafka, CC BY-SA 4.0.
+- « Vienne - Cimetière du Pipet, monument accident raffinerie Feyzin 1 », Sebleouf, CC BY-SA 4.0.
+
+Les branches « ce qui aurait pu se passer » sont des récits contrefactuels explicitement signalés comme tels.
