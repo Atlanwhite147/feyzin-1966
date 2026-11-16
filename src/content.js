@@ -308,6 +308,33 @@ const BASE_CSS = `
     .stage{grid-template-columns:1fr}
     body.deck .illus svg{max-height:20vh}
   }
+  /* --- petit écran : on rend la main au défilement normal --- */
+  @media(max-width:980px),(max-height:520px){
+    body.deck{overflow:auto}
+    body.deck .wrap{height:auto;min-height:100dvh;display:block;padding:0}
+    body.deck .bar{padding:10px 14px}
+    body.deck #main{display:block;overflow:visible;min-height:0}
+    body.deck .stage{display:block;padding:12px 15px 46px}
+    body.deck .stage .pane{display:block;overflow:visible;justify-content:flex-start}
+    body.deck .stage .pane + .pane{margin-top:22px}
+    body.deck .illus{display:block}
+    body.deck .illus svg{max-height:34vh;height:auto;width:100%}
+    body.deck .illus.compact svg{max-height:30vh}
+    body.deck h1{font-size:27px;line-height:1.18}
+    body.deck h2{font-size:19px}
+    body.deck p{font-size:16px;line-height:1.5}
+    body.deck .opt{font-size:15px;padding:12px 13px}
+    body.deck .opt .k{flex:0 0 24px;height:24px;font-size:11px}
+    body.deck .kicker{font-size:10px}
+    body.deck .roster{font-size:13px}
+    body.deck .lesson{font-size:14.5px}
+    body.deck .card{padding:12px 13px}
+    body.deck .concl{grid-template-columns:1fr;gap:9px}
+    body.deck .btn{font-size:13px;padding:11px 15px}
+    body.deck .row{flex-wrap:wrap}
+    body.deck .join{flex-direction:column;align-items:flex-start}
+    body.deck .join .qr img{width:132px;height:132px}
+  }
   body.deck .stage .pane > *{flex:0 0 auto}
   body.deck .illus{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
   body.deck .illus svg{height:100%;width:100%;max-height:none}
