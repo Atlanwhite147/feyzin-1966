@@ -135,6 +135,21 @@ const MEDIA = {
 
 const ILLUS = ["<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"Une sphère de gaz sous pression sur ses pieds, avec sa vanne de purge en bas\"><circle cx=\"400\" cy=\"140\" r=\"96\" stroke=\"#cfc7b8\" stroke-width=\"1.6\" fill=\"none\"/><circle cx=\"400\" cy=\"140\" r=\"96\" stroke=\"#cfc7b8\" stroke-width=\".5\" fill=\"none\" opacity=\".3\"/><path d=\"M340 225 L316 292 M380 232 L368 292 M420 232 L432 292 M460 225 L484 292\" stroke=\"#cfc7b8\" stroke-width=\"1.4\"/><path d=\"M300 296 L500 296\" stroke=\"#cfc7b8\" stroke-width=\"1.6\"/><path d=\"M392 236 L392 268 M408 236 L408 268\" stroke=\"#b4451f\" stroke-width=\"2\"/><path d=\"M400 268 L400 300\" stroke=\"#b4451f\" stroke-width=\"1.4\" stroke-dasharray=\"3 4\"/><path d=\"M386 300 L414 300\" stroke=\"#b4451f\" stroke-width=\"1.2\"/><text x=\"24\" y=\"40\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">SPHERE 443 · PROPANE</text></svg>", "<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"Un nuage de gaz au ras du sol, un opérateur qui recule\"><path d=\"M0 268 L800 268\" stroke=\"#cfc7b8\" stroke-width=\"1.4\"/><circle cx=\"150\" cy=\"150\" r=\"62\" stroke=\"#cfc7b8\" stroke-width=\"1.4\" fill=\"none\"/><g opacity=\".5\" fill=\"#cfc7b8\"><ellipse cx=\"300\" cy=\"244\" rx=\"86\" ry=\"24\"/><ellipse cx=\"400\" cy=\"238\" rx=\"96\" ry=\"28\"/><ellipse cx=\"510\" cy=\"246\" rx=\"104\" ry=\"22\"/><ellipse cx=\"620\" cy=\"240\" rx=\"78\" ry=\"20\"/><ellipse cx=\"710\" cy=\"250\" rx=\"60\" ry=\"16\"/></g><g stroke=\"#948d83\" stroke-width=\"1.2\" fill=\"none\" opacity=\".8\"><path d=\"M240 196 L300 196 M300 196 l-10 -5 M300 196 l-10 5\"/><path d=\"M300 176 L360 176 M360 176 l-10 -5 M360 176 l-10 5\"/></g><g stroke=\"#b4451f\" stroke-width=\"1.6\" fill=\"none\"><circle cx=\"212\" cy=\"206\" r=\"9\"/><path d=\"M212 215 L212 246 M212 246 L202 268 M212 246 L222 268 M212 224 L198 232 M212 224 L226 232\"/></g><text x=\"24\" y=\"40\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">06 H 41 · LE NUAGE SORT DU SITE</text></svg>", "<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"Le nuage traverse l'autoroute, des véhicules s'y engagent\"><path d=\"M0 300 L800 300\" stroke=\"#cfc7b8\" stroke-width=\"1\" opacity=\".4\"/><path d=\"M0 190 L800 210\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><path d=\"M0 250 L800 262\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><path d=\"M20 220 L800 236\" stroke=\"#948d83\" stroke-width=\"1.4\" stroke-dasharray=\"18 16\"/><g opacity=\".45\" fill=\"#cfc7b8\"><ellipse cx=\"250\" cy=\"180\" rx=\"150\" ry=\"30\"/><ellipse cx=\"430\" cy=\"196\" rx=\"170\" ry=\"34\"/><ellipse cx=\"610\" cy=\"186\" rx=\"130\" ry=\"26\"/></g><g stroke=\"#b4451f\" stroke-width=\"1.6\" fill=\"none\"><rect x=\"120\" y=\"258\" width=\"52\" height=\"22\" rx=\"3\"/><rect x=\"330\" y=\"238\" width=\"58\" height=\"24\" rx=\"3\"/><rect x=\"560\" y=\"272\" width=\"48\" height=\"20\" rx=\"3\"/></g><g stroke=\"#cfc7b8\" stroke-width=\"1.4\" fill=\"none\"><path d=\"M60 260 L60 220 M60 220 l-16 26 M60 220 l16 26\"/></g><text x=\"24\" y=\"40\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">06 H 50 · A7 · UN VÉHICULE À 160 M</text></svg>", "<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"Le gaz brûle sous la sphère comme un chalumeau\"><circle cx=\"360\" cy=\"120\" r=\"78\" stroke=\"#cfc7b8\" stroke-width=\"1.5\" fill=\"none\"/><path d=\"M300 180 L286 262 M330 190 L322 262 M390 190 L398 262 M420 180 L434 262\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><path d=\"M250 266 L470 266\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><g stroke=\"#b4451f\" stroke-width=\"2.4\" fill=\"none\"><path d=\"M360 198 C352 224 366 236 360 262\"/><path d=\"M348 200 C336 222 350 240 344 258\" opacity=\".7\"/><path d=\"M372 200 C384 222 370 240 376 258\" opacity=\".7\"/></g><g stroke=\"#948d83\" stroke-width=\"1.2\" stroke-dasharray=\"2 6\" fill=\"none\"><path d=\"M470 292 C520 270 560 250 620 240\"/></g><g stroke=\"#cfc7b8\" stroke-width=\"1.4\" fill=\"none\"><path d=\"M640 292 L668 268 M668 268 l-14 2 M668 268 l-2 14\"/></g><text x=\"24\" y=\"40\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">07 H 15 · FEU DE FUITE</text></svg>", "<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"La soupape crache une torchère au-dessus de la sphère, les secours restent à distance\"><circle cx=\"300\" cy=\"170\" r=\"80\" stroke=\"#cfc7b8\" stroke-width=\"1.5\" fill=\"none\"/><path d=\"M240 238 L226 296 M270 246 L262 296 M330 246 L338 296 M360 238 L374 296\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><path d=\"M190 300 L410 300\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><path d=\"M292 90 L292 62 L308 62 L308 90\" stroke=\"#cfc7b8\" stroke-width=\"1.4\" fill=\"none\"/><g stroke=\"#b4451f\" stroke-width=\"2.6\" fill=\"none\"><path d=\"M300 62 C292 34 308 22 300 4\"/><path d=\"M288 60 C276 36 292 24 284 8\" opacity=\".6\"/><path d=\"M312 60 C324 36 308 24 316 8\" opacity=\".6\"/></g><g stroke=\"#948d83\" stroke-width=\"1.1\" stroke-dasharray=\"4 7\" fill=\"none\"><path d=\"M392 250 L560 250\"/></g><text x=\"470\" y=\"242\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"11\">250 M</text><g stroke=\"#cfc7b8\" stroke-width=\"1.3\" fill=\"none\"><circle cx=\"600\" cy=\"240\" r=\"7\"/><path d=\"M600 247 L600 272 M600 258 L588 264 M600 258 L612 264 M600 272 L592 292 M600 272 L608 292\"/><circle cx=\"646\" cy=\"244\" r=\"7\"/><path d=\"M646 251 L646 276 M646 262 L634 268 M646 262 L658 268 M646 276 L638 296 M646 276 L654 296\"/></g><text x=\"24\" y=\"40\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">07 H 45 · TORCHÈRE DE DIX MÈTRES</text></svg>", "<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"Après l'explosion, un cratère et des capacités détruites\"><path d=\"M0 280 L800 280\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><path d=\"M120 280 C200 236 300 236 380 280\" stroke=\"#cfc7b8\" stroke-width=\"1.4\" fill=\"none\"/><path d=\"M380 280 C420 258 470 258 520 280\" stroke=\"#cfc7b8\" stroke-width=\"1\" opacity=\".6\" fill=\"none\"/><g stroke=\"#cfc7b8\" stroke-width=\"1.3\" fill=\"none\" transform=\"rotate(-14 610 200)\"><circle cx=\"610\" cy=\"200\" r=\"54\"/><path d=\"M576 240 L566 276 M644 240 L654 276\"/></g><path d=\"M596 178 L640 206\" stroke=\"#b4451f\" stroke-width=\"2.2\"/><g stroke=\"#b4451f\" stroke-width=\"1.8\" fill=\"none\"><path d=\"M300 262 C296 244 306 240 302 226\"/><path d=\"M330 264 C326 248 336 244 332 232\" opacity=\".7\"/></g><g fill=\"#948d83\"><circle cx=\"250\" cy=\"250\" r=\"2\"/><circle cx=\"470\" cy=\"252\" r=\"2\"/><circle cx=\"520\" cy=\"246\" r=\"1.6\"/><circle cx=\"700\" cy=\"256\" r=\"2\"/></g><text x=\"24\" y=\"40\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">08 H 45 · BLEVE</text></svg>", "<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"Une page de rapport d'enquête, une ligne soulignée\"><rect x=\"150\" y=\"40\" width=\"500\" height=\"240\" stroke=\"#cfc7b8\" stroke-width=\"1.3\" fill=\"none\"/><path d=\"M250 40 L250 280\" stroke=\"#cfc7b8\" stroke-width=\".8\" opacity=\".3\"/><g stroke=\"#948d83\" stroke-width=\"1.1\"><path d=\"M270 74 L610 74 M270 92 L560 92 M270 110 L600 110 M270 146 L580 146 M270 164 L620 164 M270 182 L540 182 M270 218 L600 218 M270 236 L500 236\"/></g><path d=\"M270 128 L470 128\" stroke=\"#b4451f\" stroke-width=\"1.8\"/><circle cx=\"480\" cy=\"128\" r=\"5\" stroke=\"#b4451f\" stroke-width=\"1.6\" fill=\"none\"/><text x=\"160\" y=\"62\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"10\" letter-spacing=\"2\">RAPPORT</text><text x=\"24\" y=\"304\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">CE QUE L'ON EN A TIRÉ</text></svg>"];
 
+const POSTES = [
+  "aide-opérateur",
+  "chef de quart",
+  "agent de sécurité du site",
+  "opérateur en salle de contrôle",
+  "technicien de maintenance",
+  "pompier de Lyon",
+  "pompier de Vienne",
+  "gardien du poste de garde",
+  "ingénieur sûreté",
+  "chargé de planification",
+  "agent de la cellule de crise",
+  "technicien du laboratoire"
+];
+
 const ROLES = [
   "l'aide-opérateur qui tient la clé de purge",
   "le chef de quart qui doit décider vite",
@@ -197,6 +212,18 @@ const BASE_CSS = `
   .media .credit{opacity:.75}
   .illus{border:1px solid var(--line);background:#0c0c0e;margin:0 0 14px;overflow:hidden}
   .illus svg{display:block;width:100%;height:auto}
+  .illus.compact svg{max-height:38vh;object-fit:contain}
+  .moi{font-family:var(--sans);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin:0 0 8px}
+  .moi:before{content:"";display:inline-block;width:6px;height:6px;background:var(--accent);border-radius:50%;margin-right:8px;vertical-align:middle}
+  .join{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .join .txt{flex:1;min-width:240px}
+  .join .qr{background:#fff;padding:7px;line-height:0;border-radius:3px}
+  .join .qr img{width:132px;height:132px;display:block}
+  .lien{display:flex;gap:8px;margin-top:10px}
+  .lien input{flex:1;font-family:var(--sans);font-size:13px;padding:11px 12px;background:#0c0c0e;color:var(--ink);border:1px solid var(--line);border-radius:2px}
+  .lien button{white-space:nowrap}
+  .roster{font-family:var(--sans);font-size:13.5px;color:#c9c1b4;line-height:1.65;margin:14px 0 0}
+  .roster b{color:var(--ink);font-weight:600}
   .role{font-family:var(--sans);font-size:12px;letter-spacing:.05em;color:var(--accent2);
         background:var(--tint);display:inline-block;padding:5px 10px;border-radius:2px;margin:0 0 10px}
   .bar{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--ink);padding-bottom:9px;margin-bottom:20px;gap:10px}
@@ -230,7 +257,7 @@ const BASE_CSS = `
   .brow .track{flex:1;height:12px;background:#1d1d21;border-radius:1px;overflow:hidden}
   .brow .fill{height:100%;background:var(--accent);width:0;transition:width .5s cubic-bezier(.2,.7,.3,1)}
   .brow .fill.lead{background:var(--good)}
-  .brow .val{width:52px;text-align:right;font-variant-numeric:tabular-nums}
+  .brow .val{width:78px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   .big{font-size:clamp(30px,9vw,54px);line-height:1;color:var(--accent);font-weight:400}
   .src{font-family:var(--sans);font-size:11px;color:var(--soft);line-height:1.5}
   /* --- ambiance : grain, vignette, pulsations --- */
@@ -285,6 +312,7 @@ const STEPS = __STEPS__;
 const INTRO = __INTRO__;
 const MEDIA = __MEDIA__;
 const ROLES = __ROLES__;
+const POSTES = __POSTES__;
 const ILLUS = __ILLUS__;
 const CONCLUSIONS = __CONC__;
 let S = {step:-1, phase:'intro', votes:{}, total:0, participants:0}, ws, myVote = null;
@@ -301,7 +329,7 @@ function connect(){
   ws.onopen = () => {
     document.getElementById('clock').textContent = 'SALLE ' + code;
     const rl = document.getElementById('roomline');
-    if (rl) rl.innerHTML = 'À ouvrir sur votre téléphone : <b>' + joinUrl.replace('https://','').replace('http://','') + '</b>';
+    if (rl) rl.innerHTML = '';
   };
 }
 function send(o){ if (ws && ws.readyState === 1) ws.send(JSON.stringify(o)); }
@@ -322,6 +350,18 @@ function media(name, big){
     + '<figcaption>'+m.caption+' <span class="credit">'+m.credit+'</span></figcaption></figure>';
 }
 function roleLine(i){ return '<div class="role">Dans cette scène, vous êtes '+ROLES[i]+'.</div>'; }
+function roster(){
+  const l = (S.roster || []);
+  if (!l.length) return '<p class="roster">Personne n’est encore entré. Donnez-leur le lien ci-dessus.</p>';
+  return '<p class="roster">Ce matin, dans la salle : ' + l.map(p => '<b>' + p.name + '</b> (' + p.poste + ')').join(', ') + '.</p>';
+}
+function copierLien(b){
+  const v = document.getElementById('lien');
+  v.select();
+  try { navigator.clipboard.writeText(v.value); } catch (e) { document.execCommand('copy'); }
+  const t = b.textContent; b.textContent = 'Copié';
+  setTimeout(() => { b.textContent = t; }, 1600);
+}
 function bars(){
   const tot = S.total || 0;
   return '<div class="bars">' + [0,1,2].map(j=>{
@@ -355,17 +395,25 @@ function render(){
 
   if (st < 0) {
     $('#clock').textContent = 'SALLE ' + code;
+    const rlz = document.getElementById('roomline'); if (rlz) rlz.textContent = '';
     $('#main').innerHTML = \`
-      <div class="join"><b>Rejoignez la salle depuis votre téléphone</b>
-        <div class="code">\${code}</div>
-        <div class="u">\${joinUrl}</div></div>
+      <div class="join">
+        <div class="txt">
+          <b>Rejoignez la salle depuis votre téléphone</b>
+          <div class="code">\${code}</div>
+          <div class="lien"><input id="lien" readonly value="\${joinUrl}" onclick="this.select()">
+            <button class="btn ghost" onclick="copierLien(this)">Copier</button></div>
+        </div>
+        <div class="qr"><img alt="QR code vers la page des participants" src="https://api.qrserver.com/v1/create-qr-code/?size=264x264&margin=0&data=\${encodeURIComponent(joinUrl)}"></div>
+      </div>
       <div class="kicker">Jeu de décision · vote en direct</div>
       <h1>Feyzin, 4 janvier 1966<br><em>Sept décisions avant l'aube</em></h1>
       <p>Chaque étape est votée en salle. L'histoire bascule selon la majorité : ce que vous choisissez devient la suite, pas seulement un score.</p>
       <div class="row" style="margin-top:18px">
         <button class="btn" onclick="send({type:'chapter',i:0})">Commencer l'introduction</button>
-        <span class="pill">\${S.participants} connecté(s)</span>
+        <span class="pill">\${(S.roster||[]).length} dans la salle</span>
       </div>
+      \${roster()}
 <details style="margin-top:18px">
         <summary style="font-family:var(--sans);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);cursor:pointer">Notes pour l\'animateur</summary>
         <ul style="font-size:15px;margin-top:10px">
@@ -383,6 +431,8 @@ function render(){
   }
 
   const step = STEPS[st];
+  const rl2 = document.getElementById('roomline');
+  if (rl2) rl2.innerHTML = 'Les autres rejoignent <b>' + joinUrl.replace('https://','').replace('http://','') + '</b>';
   if (ph === 'vote') {
     $('#clock').textContent = step.h;
     $('#main').innerHTML = \`
@@ -394,9 +444,10 @@ function render(){
       <h2 style="margin-top:20px">\${step.q}</h2>
       \${step.o.map((o,j)=>'<div class="opt"><span class="k">'+'ABC'[j]+'</span><span>'+o.txt+'</span></div>').join('')}
       \${bars()}
+      \${roster()}
       <div class="row">
         <button class="btn" onclick="send({type:'close'})">Clore le vote</button>
-        <span class="pill">\${S.total} votant(s) · \${S.participants} connecté(s)</span>
+        <span class="pill">\${S.total} votant(s) · \${(S.roster||[]).length} dans la salle</span>
       </div>\`;
     return;
   }
@@ -409,12 +460,14 @@ function render(){
       <div class="kicker">Étape \${st+1} sur 7 · \${step.t}</div>
       <h1>\${step.h}</h1>
       \${roleLine(st)}
+      <figure class="illus compact">\${ILLUS[st] || ''}</figure>
       \${bars()}
       \${S.total === 0
         ? '<div class="card"><h3 style="margin-top:0">Aucun vote enregistré</h3><p>Faute de vote, l’histoire suit son cours réel : la branche qui s’ouvre est celle de 1966.</p></div>'
         : '<div class="card"><h3 style="margin-top:0">Votre majorité : '+\'ABC\'[win]+', à '+pct(S.votes[win]||0,S.total)+'%</h3><p>'+o.br+'</p></div>'}
       <div class="card plain \${o.p === 0 ? 'danger' : ''}"><h3 style="margin-top:0">Ce qui s'est réellement passé le 4 janvier 1966</h3><p>\${step.real}</p></div>
       \${o.p === 0 ? '<p class="src" style="color:#c9482f">La branche que vous venez de choisir est celle qui a conduit à l’accident.</p>' : ''}
+      \${roster()}
       <div class="lesson"><b>Le point de sûreté</b>\${step.l}</div>
       <div class="row" style="margin-top:18px">
         <button class="btn" onclick="send({type:'next'})">\${st < 6 ? 'Étape suivante' : 'Voir les conclusions'}</button>
@@ -465,10 +518,13 @@ const STEPS = __STEPS__;
 const INTRO = __INTRO__;
 const MEDIA = __MEDIA__;
 const ROLES = __ROLES__;
+const POSTES = __POSTES__;
 const ILLUS = __ILLUS__;
 let S = {step:-1, phase:'lobby', votes:{}, total:0, participants:0}, ws, myVote = null, myStep = -1;
 let pid = localStorage.getItem('feyzin.pid');
 if (!pid) { pid = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('feyzin.pid', pid); }
+let moi = null;
+try { moi = JSON.parse(localStorage.getItem('feyzin.moi') || 'null'); } catch (e) { moi = null; }
 const code = '__CODE__';
 
 function connect(){
@@ -478,7 +534,11 @@ function connect(){
     const m = JSON.parse(e.data);
     if (m.type === 'state'){ S = m.state; if (S.step !== myStep){ myStep = S.step; myVote = null; } render(); }
     if (m.type === 'voted'){ myVote = m.j; render(); }
-    if (m.type === 'you'){ myVote = m.j; render(); }
+    if (m.type === 'you'){
+      if (m.name) { moi = { name: m.name, poste: m.poste }; localStorage.setItem('feyzin.moi', JSON.stringify(moi)); }
+      if (m.j !== undefined) myVote = m.j;
+      render();
+    }
   };
   ws.onclose = () => setTimeout(connect, 1500);
 }
@@ -495,6 +555,16 @@ function media(name){
 function roleLine(i){ return '<div class="role">Vous êtes '+ROLES[i]+'.</div>'; }
 
 function render(){
+  if (!moi){
+    document.getElementById('clock').textContent = 'SALLE ' + code;
+    $('#main').innerHTML = '<div class="kicker">Vous entrez dans la salle</div>'
+      + '<h1>Votre prénom</h1>'
+      + '<p>Il servira à vous nommer dans l’histoire. Rien d’autre n’est demandé, aucun compte.</p>'
+      + '<form onsubmit="return entrer(event)"><input id="prenom" maxlength="22" autocomplete="given-name" placeholder="Votre prénom" '
+      + 'style="width:100%;font-family:inherit;font-size:20px;padding:14px;background:#101012;color:var(--ink);border:1px solid var(--line);border-radius:2px">'
+      + '<p style="margin-top:14px"><button class="btn" type="submit">Entrer dans la salle</button></p></form>';
+    return;
+  }
   if (S.phase === 'intro'){
     const it = INTRO[S.intro || 0] || INTRO[0];
     document.getElementById('clock').textContent = 'INTRO';
@@ -515,6 +585,7 @@ function render(){
     $('#main').innerHTML = \`
       <div class="kicker">Étape \${S.step+1} sur 7 · \${st.t}</div>
       <h1>\${st.h}</h1>
+      <div class="moi">Vous : \${moi.name}\${moi.poste ? ' · ' + moi.poste : ''}</div>
       \${roleLine(S.step)}
       <figure class="illus">\${ILLUS[S.step] || ''}</figure>
       <div class="card plain" style="font-size:15.5px"><p>\${st.s}</p></div>
@@ -533,6 +604,7 @@ function render(){
     document.getElementById('clock').textContent = st.h;
     $('#main').innerHTML = \`
       <div class="kicker">Résultat de l'étape \${S.step+1}</div>
+      <figure class="illus compact">\${ILLUS[S.step] || ''}</figure>
       <h1>\${S.total === 0 ? 'Aucun vote' : 'La salle a choisi ' + 'ABC'[win]}</h1>
       <p>\${S.total === 0 ? 'La salle n’a pas voté : l’histoire suit son cours réel.' : pct(S.votes[win]||0,S.total)+'% des votes. '+(myVote===null?'Vous n’avez pas voté.':(myVote===win?'Votre choix l’emporte.':'Votre choix était le ' + 'ABC'[myVote] + '.'))}</p>
       <div class="card"><h3 style="margin-top:0">\${S.total === 0 ? 'La suite réelle' : 'La branche qui s’ouvre'}</h3><p>\${st.o[win].br}</p></div>
@@ -549,6 +621,17 @@ function render(){
     + '<p class="src">Le débriefing complet est à l’écran de salle. Fiche ARIA n°1, ministère de l’environnement, septembre 2006.</p>';
 }
 
+function entrer(e){
+  e.preventDefault();
+  const v = (document.getElementById('prenom').value || '').trim();
+  if (!v) return false;
+  moi = { name: v, poste: '' };
+  localStorage.setItem('feyzin.moi', JSON.stringify(moi));
+  send({ type: 'join', name: v, pid });
+  render();
+  return false;
+}
+
 function vote(j){
   if (myVote === j) return;
   send({type:'vote', j, pid});
@@ -558,4 +641,4 @@ connect();
 </script></body></html>`;
 
 
-export { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, ILLUS, ANIM, PART, BASE_CSS };
+export { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, POSTES, ILLUS, ANIM, PART, BASE_CSS };

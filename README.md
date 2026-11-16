@@ -29,7 +29,9 @@ avant la séance.
 
 1. Trois écrans de prologue, une minute : la nuit du 4 janvier (photo de nuit, en décembre), votre rôle,
    puis quarante secondes d'archives. Ambiance sombre, grain, vignette qui respire, apparitions successives.
-2. Chacun rejoint `/p/CODE` : aucun compte, rien à installer.
+2. Chacun ouvre le lien affiché (ou scanne le QR code), saisit son prénom, et reçoit automatiquement
+   un poste fictif (aide-opérateur, chef de quart, pompier de Lyon…). Prénom et poste s'affichent
+   dans l'histoire, sur son écran comme sur l'écran de salle. Aucun compte, rien à installer.
 3. Sept scènes : une illustration, la situation, le rôle collectif (« dans cette scène, vous êtes… »),
    trois décisions, le vote en direct.
 4. Clôture : la majorité s'affiche, sa branche s'ouvre, puis le rappel de ce qui s'est réellement passé.

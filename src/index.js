@@ -1,4 +1,4 @@
-import { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, ILLUS, ANIM, PART } from "./content.js";
+import { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, POSTES, ILLUS, ANIM, PART } from "./content.js";
 
 /* Feyzin 1966 — salle de vote en direct.
    Cloudflare Worker + Durable Object : une salle par code, votes en temps réel,
@@ -41,6 +41,7 @@ function inject(tpl) {
     .replace("__MEDIA__", JSON.stringify(MEDIA))
     .replace("__ROLES__", JSON.stringify(ROLES))
     .replace("__ILLUS__", JSON.stringify(ILLUS))
+    .replace("__POSTES__", JSON.stringify(POSTES))
     .replace("__FILM__", FILM)
     .replace("__CONC__", JSON.stringify(CONCLUSIONS));
 }
@@ -60,7 +61,7 @@ export class Room {
   constructor(state, env) {
     this.state = state;
     this.rooms = { anim: new Set(), part: new Set() };
-    this.game = { step: -1, phase: "lobby", intro: 0, votes: {}, voters: {}, n: 0 };
+    this.game = { step: -1, phase: "lobby", intro: 0, votes: {}, voters: {}, n: 0, participants: {} };
     this.ended = false;
     this.state.blockConcurrencyWhile(async () => {
       const saved = await this.state.storage.get("game");
@@ -84,6 +85,8 @@ export class Room {
       server.addEventListener("error", () => set.delete(server));
       server.send(JSON.stringify({ type: "state", state: this.public(), role }));
       if (pid && this.game.voters[pid] !== undefined) server.send(JSON.stringify({ type: "you", j: this.game.voters[pid] }));
+      const moi = pid && this.game.participants && this.game.participants[pid];
+      if (moi) server.send(JSON.stringify({ type: "you", name: moi.name, poste: moi.poste }));
       this.broadcast();
       return new Response(null, { status: 101, webSocket: client });
     }
@@ -93,13 +96,27 @@ export class Room {
   public() {
     const v = this.game;
     const total = Object.values(v.votes).reduce((a, b) => a + b, 0);
-    return { step: v.step, phase: v.phase, intro: v.intro || 0, votes: v.votes, total, participants: v.n };
+    return { step: v.step, phase: v.phase, intro: v.intro || 0, votes: v.votes, total, participants: v.n, roster: Object.values(v.participants || {}).map(p => ({ name: p.name, poste: p.poste })) };
   }
 
   async onMessage(role, ws, raw) {
     let m;
     try { m = JSON.parse(raw); } catch { return; }
     const g = this.game;
+
+    if (m.type === "join" && role === "part") {
+      const pid = String(m.pid || "").slice(0, 40);
+      const name = String(m.name || "").trim().replace(/[<>]/g, "").slice(0, 22);
+      if (!pid || !name) return;
+      g.participants = g.participants || {};
+      const pris = new Set(Object.values(g.participants).map(p => p.poste));
+      let poste = POSTES.find(x => !pris.has(x));
+      if (!poste) { const k = Object.keys(g.participants).length - POSTES.length + 1; poste = POSTES[k % POSTES.length] + " (équipe " + (k + 1) + ")"; }
+      g.participants[pid] = { name, poste };
+      ws.send(JSON.stringify({ type: "you", name, poste }));
+      this.persist(); this.broadcast();
+      return;
+    }
 
     if (m.type === "vote" && role === "part" && g.phase === "vote" && g.step >= 0) {
       const pid = String(m.pid || "").slice(0, 40);

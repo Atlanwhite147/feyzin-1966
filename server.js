@@ -5,7 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { WebSocketServer } from "ws";
-import { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, ILLUS, ANIM, PART } from "./src/content.js";
+import { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, POSTES, ILLUS, ANIM, PART } from "./src/content.js";
 
 const PORT = process.env.PORT || 8787;
 const rooms = new Map();
@@ -19,11 +19,12 @@ function inject(tpl) {
     .replace("__MEDIA__", JSON.stringify(MEDIA))
     .replace("__ROLES__", JSON.stringify(ROLES))
     .replace("__ILLUS__", JSON.stringify(ILLUS))
+    .replace("__POSTES__", JSON.stringify(POSTES))
     .replace("__FILM__", FILM)
     .replace("__CONC__", JSON.stringify(CONCLUSIONS));
 }
 function fresh() {
-  return { step: -1, phase: "lobby", intro: 0, votes: {}, voters: {}, n: 0 };
+  return { step: -1, phase: "lobby", intro: 0, votes: {}, voters: {}, n: 0, participants: {} };
 }
 function room(code) {
   if (!rooms.has(code)) rooms.set(code, { game: fresh(), anim: new Set(), part: new Set(), touched: Date.now() });
@@ -35,6 +36,7 @@ function pub(r) {
   const g = r.game;
   return {
     step: g.step, phase: g.phase, intro: g.intro || 0, votes: g.votes,
+    roster: Object.values(g.participants || {}).map(p => ({ name: p.name, poste: p.poste })),
     total: Object.values(g.votes).reduce((a, b) => a + b, 0),
     participants: r.part.size
   };
@@ -107,11 +109,26 @@ server.on("upgrade", (req, socket, head) => {
     r[role].add(ws);
     ws.send(JSON.stringify({ type: "state", state: pub(r), role }));
     if (pid && r.game.voters[pid] !== undefined) ws.send(JSON.stringify({ type: "you", j: r.game.voters[pid] }));
+    const moi = pid && r.game.participants && r.game.participants[pid];
+    if (moi) ws.send(JSON.stringify({ type: "you", name: moi.name, poste: moi.poste }));
     broadcast(r);
 
     ws.on("message", (raw) => {
       let m; try { m = JSON.parse(raw.toString()); } catch { return; }
       const g = r.game;
+
+      if (m.type === "join" && role === "part") {
+        const pid = String(m.pid || "").slice(0, 40);
+        const name = String(m.name || "").trim().replace(/[<>]/g, "").slice(0, 22);
+        if (!pid || !name) return;
+        g.participants = g.participants || {};
+        const dejaPris = new Set(Object.values(g.participants).map(p => p.poste));
+        let poste = POSTES.find(x => !dejaPris.has(x));
+        if (!poste) { const n = Object.keys(g.participants).length - POSTES.length + 1; poste = POSTES[n % POSTES.length] + " (équipe " + (n + 1) + ")"; }
+        g.participants[pid] = { name, poste };
+        ws.send(JSON.stringify({ type: "you", name, poste }));
+        return broadcast(r);
+      }
 
       if (m.type === "vote" && role === "part" && g.phase === "vote" && g.step >= 0) {
         const pid = String(m.pid || "").slice(0, 40);
