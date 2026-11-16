@@ -111,34 +111,29 @@ const STEPS = [
 const MEDIA = {
   film: {
     kind: "video",
-    src: "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c5/Accident_Feyzin.ogv/Accident_Feyzin.ogv.480p.vp9.webm",
+    src: "__FILM__",
     page: "https://commons.wikimedia.org/wiki/File:Accident_Feyzin.ogv",
-    title: "Images du 4 janvier 1966",
-    caption: "Film d'époque tourné sur place, quatre minutes, images et commentaire de 1966.",
+    title: "Quarante secondes, ce matin-là",
+    caption: "Extrait du film tourné à Feyzin le 4 janvier 1966.",
     credit: "Jean Sivignon, CC BY-SA 3.0, Wikimedia Commons"
   },
   a7: {
     kind: "image",
     src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Feyzin_-_Autoroute_A7_-_Vue_sur_la_raffinerie_de_Feyzin_01.jpeg/1920px-Feyzin_-_Autoroute_A7_-_Vue_sur_la_raffinerie_de_Feyzin_01.jpeg",
     page: "https://commons.wikimedia.org/wiki/File:Feyzin_-_Autoroute_A7_-_Vue_sur_la_raffinerie_de_Feyzin_01.jpeg",
-    caption: "La raffinerie vue depuis l'autoroute A7, le même voisinage qu'en 1966.",
-    credit: "Romainbehar, CC0, Wikimedia Commons"
-  },
-  memoire: {
-    kind: "image",
-    src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Vienne_-_Cimeti%C3%A8re_du_Pipet%2C_monument_accident_raffinerie_Feyzin_1_%282020%29.jpg/1920px-Vienne_-_Cimeti%C3%A8re_du_Pipet%2C_monument_accident_raffinerie_Feyzin_1_%282020%29.jpg",
-    page: "https://commons.wikimedia.org/wiki/File:Vienne_-_Cimeti%C3%A8re_du_Pipet,_monument_accident_raffinerie_Feyzin_1_(2020).jpg",
-    caption: "À Vienne, le monument aux pompiers morts le 4 janvier 1966.",
-    credit: "Sebleouf, CC BY-SA 4.0, Wikimedia Commons"
+    caption: "La raffinerie, vue depuis l'autoroute.",
+    credit: "Romainbehar, CC0"
   },
   fumee: {
     kind: "image",
     src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/Oil_refinery_smoke_over_Lyon_and_Fourvi%C3%A8re.jpg/1920px-Oil_refinery_smoke_over_Lyon_and_Fourvi%C3%A8re.jpg",
     page: "https://commons.wikimedia.org/wiki/File:Oil_refinery_smoke_over_Lyon_and_Fourvi%C3%A8re.jpg",
-    caption: "La cheminée de la raffinerie, vue depuis Lyon.",
-    credit: "Radiokafka, CC BY-SA 4.0, Wikimedia Commons"
+    caption: "La cheminée de la raffinerie, depuis Lyon.",
+    credit: "Radiokafka, CC BY-SA 4.0"
   }
 };
+
+const ILLUS = ["<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"Une sphère de gaz sous pression sur ses pieds, avec sa vanne de purge en bas\"><circle cx=\"400\" cy=\"140\" r=\"96\" stroke=\"#cfc7b8\" stroke-width=\"1.6\" fill=\"none\"/><circle cx=\"400\" cy=\"140\" r=\"96\" stroke=\"#cfc7b8\" stroke-width=\".5\" fill=\"none\" opacity=\".3\"/><path d=\"M340 225 L316 292 M380 232 L368 292 M420 232 L432 292 M460 225 L484 292\" stroke=\"#cfc7b8\" stroke-width=\"1.4\"/><path d=\"M300 296 L500 296\" stroke=\"#cfc7b8\" stroke-width=\"1.6\"/><path d=\"M392 236 L392 268 M408 236 L408 268\" stroke=\"#b4451f\" stroke-width=\"2\"/><path d=\"M400 268 L400 300\" stroke=\"#b4451f\" stroke-width=\"1.4\" stroke-dasharray=\"3 4\"/><path d=\"M386 300 L414 300\" stroke=\"#b4451f\" stroke-width=\"1.2\"/><text x=\"24\" y=\"40\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">SPHERE 443 · PROPANE</text></svg>", "<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"Un nuage de gaz au ras du sol, un opérateur qui recule\"><path d=\"M0 268 L800 268\" stroke=\"#cfc7b8\" stroke-width=\"1.4\"/><circle cx=\"150\" cy=\"150\" r=\"62\" stroke=\"#cfc7b8\" stroke-width=\"1.4\" fill=\"none\"/><g opacity=\".5\" fill=\"#cfc7b8\"><ellipse cx=\"300\" cy=\"244\" rx=\"86\" ry=\"24\"/><ellipse cx=\"400\" cy=\"238\" rx=\"96\" ry=\"28\"/><ellipse cx=\"510\" cy=\"246\" rx=\"104\" ry=\"22\"/><ellipse cx=\"620\" cy=\"240\" rx=\"78\" ry=\"20\"/><ellipse cx=\"710\" cy=\"250\" rx=\"60\" ry=\"16\"/></g><g stroke=\"#948d83\" stroke-width=\"1.2\" fill=\"none\" opacity=\".8\"><path d=\"M240 196 L300 196 M300 196 l-10 -5 M300 196 l-10 5\"/><path d=\"M300 176 L360 176 M360 176 l-10 -5 M360 176 l-10 5\"/></g><g stroke=\"#b4451f\" stroke-width=\"1.6\" fill=\"none\"><circle cx=\"212\" cy=\"206\" r=\"9\"/><path d=\"M212 215 L212 246 M212 246 L202 268 M212 246 L222 268 M212 224 L198 232 M212 224 L226 232\"/></g><text x=\"24\" y=\"40\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">06 H 41 · LE NUAGE SORT DU SITE</text></svg>", "<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"Le nuage traverse l'autoroute, des véhicules s'y engagent\"><path d=\"M0 300 L800 300\" stroke=\"#cfc7b8\" stroke-width=\"1\" opacity=\".4\"/><path d=\"M0 190 L800 210\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><path d=\"M0 250 L800 262\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><path d=\"M20 220 L800 236\" stroke=\"#948d83\" stroke-width=\"1.4\" stroke-dasharray=\"18 16\"/><g opacity=\".45\" fill=\"#cfc7b8\"><ellipse cx=\"250\" cy=\"180\" rx=\"150\" ry=\"30\"/><ellipse cx=\"430\" cy=\"196\" rx=\"170\" ry=\"34\"/><ellipse cx=\"610\" cy=\"186\" rx=\"130\" ry=\"26\"/></g><g stroke=\"#b4451f\" stroke-width=\"1.6\" fill=\"none\"><rect x=\"120\" y=\"258\" width=\"52\" height=\"22\" rx=\"3\"/><rect x=\"330\" y=\"238\" width=\"58\" height=\"24\" rx=\"3\"/><rect x=\"560\" y=\"272\" width=\"48\" height=\"20\" rx=\"3\"/></g><g stroke=\"#cfc7b8\" stroke-width=\"1.4\" fill=\"none\"><path d=\"M60 260 L60 220 M60 220 l-16 26 M60 220 l16 26\"/></g><text x=\"24\" y=\"40\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">06 H 50 · A7 · UN VÉHICULE À 160 M</text></svg>", "<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"Le gaz brûle sous la sphère comme un chalumeau\"><circle cx=\"360\" cy=\"120\" r=\"78\" stroke=\"#cfc7b8\" stroke-width=\"1.5\" fill=\"none\"/><path d=\"M300 180 L286 262 M330 190 L322 262 M390 190 L398 262 M420 180 L434 262\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><path d=\"M250 266 L470 266\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><g stroke=\"#b4451f\" stroke-width=\"2.4\" fill=\"none\"><path d=\"M360 198 C352 224 366 236 360 262\"/><path d=\"M348 200 C336 222 350 240 344 258\" opacity=\".7\"/><path d=\"M372 200 C384 222 370 240 376 258\" opacity=\".7\"/></g><g stroke=\"#948d83\" stroke-width=\"1.2\" stroke-dasharray=\"2 6\" fill=\"none\"><path d=\"M470 292 C520 270 560 250 620 240\"/></g><g stroke=\"#cfc7b8\" stroke-width=\"1.4\" fill=\"none\"><path d=\"M640 292 L668 268 M668 268 l-14 2 M668 268 l-2 14\"/></g><text x=\"24\" y=\"40\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">07 H 15 · FEU DE FUITE</text></svg>", "<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"La soupape crache une torchère au-dessus de la sphère, les secours restent à distance\"><circle cx=\"300\" cy=\"170\" r=\"80\" stroke=\"#cfc7b8\" stroke-width=\"1.5\" fill=\"none\"/><path d=\"M240 238 L226 296 M270 246 L262 296 M330 246 L338 296 M360 238 L374 296\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><path d=\"M190 300 L410 300\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><path d=\"M292 90 L292 62 L308 62 L308 90\" stroke=\"#cfc7b8\" stroke-width=\"1.4\" fill=\"none\"/><g stroke=\"#b4451f\" stroke-width=\"2.6\" fill=\"none\"><path d=\"M300 62 C292 34 308 22 300 4\"/><path d=\"M288 60 C276 36 292 24 284 8\" opacity=\".6\"/><path d=\"M312 60 C324 36 308 24 316 8\" opacity=\".6\"/></g><g stroke=\"#948d83\" stroke-width=\"1.1\" stroke-dasharray=\"4 7\" fill=\"none\"><path d=\"M392 250 L560 250\"/></g><text x=\"470\" y=\"242\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"11\">250 M</text><g stroke=\"#cfc7b8\" stroke-width=\"1.3\" fill=\"none\"><circle cx=\"600\" cy=\"240\" r=\"7\"/><path d=\"M600 247 L600 272 M600 258 L588 264 M600 258 L612 264 M600 272 L592 292 M600 272 L608 292\"/><circle cx=\"646\" cy=\"244\" r=\"7\"/><path d=\"M646 251 L646 276 M646 262 L634 268 M646 262 L658 268 M646 276 L638 296 M646 276 L654 296\"/></g><text x=\"24\" y=\"40\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">07 H 45 · TORCHÈRE DE DIX MÈTRES</text></svg>", "<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"Après l'explosion, un cratère et des capacités détruites\"><path d=\"M0 280 L800 280\" stroke=\"#cfc7b8\" stroke-width=\"1.2\"/><path d=\"M120 280 C200 236 300 236 380 280\" stroke=\"#cfc7b8\" stroke-width=\"1.4\" fill=\"none\"/><path d=\"M380 280 C420 258 470 258 520 280\" stroke=\"#cfc7b8\" stroke-width=\"1\" opacity=\".6\" fill=\"none\"/><g stroke=\"#cfc7b8\" stroke-width=\"1.3\" fill=\"none\" transform=\"rotate(-14 610 200)\"><circle cx=\"610\" cy=\"200\" r=\"54\"/><path d=\"M576 240 L566 276 M644 240 L654 276\"/></g><path d=\"M596 178 L640 206\" stroke=\"#b4451f\" stroke-width=\"2.2\"/><g stroke=\"#b4451f\" stroke-width=\"1.8\" fill=\"none\"><path d=\"M300 262 C296 244 306 240 302 226\"/><path d=\"M330 264 C326 248 336 244 332 232\" opacity=\".7\"/></g><g fill=\"#948d83\"><circle cx=\"250\" cy=\"250\" r=\"2\"/><circle cx=\"470\" cy=\"252\" r=\"2\"/><circle cx=\"520\" cy=\"246\" r=\"1.6\"/><circle cx=\"700\" cy=\"256\" r=\"2\"/></g><text x=\"24\" y=\"40\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">08 H 45 · BLEVE</text></svg>", "<svg viewBox=\"0 0 800 320\" role=\"img\" aria-label=\"Une page de rapport d'enquête, une ligne soulignée\"><rect x=\"150\" y=\"40\" width=\"500\" height=\"240\" stroke=\"#cfc7b8\" stroke-width=\"1.3\" fill=\"none\"/><path d=\"M250 40 L250 280\" stroke=\"#cfc7b8\" stroke-width=\".8\" opacity=\".3\"/><g stroke=\"#948d83\" stroke-width=\"1.1\"><path d=\"M270 74 L610 74 M270 92 L560 92 M270 110 L600 110 M270 146 L580 146 M270 164 L620 164 M270 182 L540 182 M270 218 L600 218 M270 236 L500 236\"/></g><path d=\"M270 128 L470 128\" stroke=\"#b4451f\" stroke-width=\"1.8\"/><circle cx=\"480\" cy=\"128\" r=\"5\" stroke=\"#b4451f\" stroke-width=\"1.6\" fill=\"none\"/><text x=\"160\" y=\"62\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"10\" letter-spacing=\"2\">RAPPORT</text><text x=\"24\" y=\"304\" fill=\"#948d83\" font-family=\"Helvetica,Arial\" font-size=\"12\" letter-spacing=\"3\">CE QUE L'ON EN A TIRÉ</text></svg>"];
 
 const ROLES = [
   "l'aide-opérateur qui tient la clé de purge",
@@ -152,56 +147,27 @@ const ROLES = [
 
 const INTRO = [
   {
-    k: "Prologue",
-    h: "Il est six heures et demie",
+    k: "Feyzin, 4 janvier 1966",
+    h: "6 h 30",
     p: [
-      "Il fait encore nuit sur Feyzin, au sud de Lyon. Dans la raffinerie, l'équipe de quart est en place depuis un moment. Les torchères éclairent les cuves, on entend le ronflement des unités, l'air sent le pétrole froid.",
-      "Vous êtes cette équipe. Vous ne savez pas encore ce qui va se passer dans les deux heures qui viennent, et personne, ce matin-là, ne le sait."
+      "La nuit est encore là. Devant vous, huit sphères d’acier de treize mètres, posées sur leurs pieds, remplies de propane liquide. L’autoroute passe à vingt mètres, un mètre cinquante plus bas.",
+      "Vous êtes de quart. Vous ne le savez pas encore, mais dans une heure, ce site ne sera plus le même, et dix-huit personnes ne rentreront pas chez elles."
     ],
     media: "a7"
   },
   {
-    k: "Prologue",
-    h: "Votre rôle",
+    k: "Ce que vous allez faire",
+    h: "Vous avez la main",
     p: [
-      "Vous n'êtes pas des spectateurs. Pendant sept scènes, vous serez ceux qui ont la main : l'aide-opérateur qui ouvre une vanne, le chef de quart qui donne un ordre, le garde qui voit le nuage traverser la route, le pompier qui approche d'une sphère en feu.",
-      "À chaque scène, la salle décide. Ce que vous choisissez devient la suite de l'histoire, et vous verrez ensuite ce que les hommes de 1966, eux, ont fait."
+      "Pendant deux heures vingt, sept fois, vous allez devoir décider. Une vanne à ouvrir, un nuage qui descend vers la route, une sphère qui chauffe, des hommes à envoyer au plus près.",
+      "Ce que la salle choisit devient la suite. Ensuite, vous verrez ce qu’ils ont fait, eux, ce matin-là, et ce que cela a coûté."
     ]
   },
   {
-    k: "Prologue",
-    h: "Ce qui va se jouer",
+    k: "Avant d’entrer",
+    h: "Quarante secondes",
     p: [
-      "Deux heures vingt séparent la première purge de la première explosion. Une opération d'entretien de dix minutes, une clé mal fixée, un nuage qui descend vers une autoroute, une sphère d'acier de treize mètres qui chauffe.",
-      "Ce n'est pas une fiction. Tout ce que vous allez voir est documenté, minute par minute, dans les rapports d'enquête de 1966 et 1967.",
-      "Et à la fin, une question qui nous concerne tous : qu'aurions-nous fait, et qu'est-ce qui a changé depuis ?"
-    ],
-    media: "fumee"
-  },
-  {
-    k: "Avant de commencer",
-    h: "Les règles",
-    p: [
-      "Sept étapes, dans l'ordre du matin. À chaque étape, trois décisions possibles, un vote de la salle depuis les téléphones.",
-      "La majorité l'emporte et c'est sa branche qui s'ouvre. Puis on regarde ce qui s'est réellement passé, et ce que la décision vaut en points de sûreté.",
-      "Le but n'est pas de gagner. En 1966, la bonne réponse n'était écrite nulle part."
-    ]
-  },
-  {
-    k: "Avant de commencer",
-    h: "Quatre mots pour suivre",
-    p: [
-      "GPL : gaz de pétrole liquéfié. Du propane et du butane, liquides sous pression dans des capacités d'acier.",
-      "Sphère : le ballon d'acier qui contient le gaz, treize mètres de diamètre, posé sur dix pieds métalliques.",
-      "BLEVE : quand une capacité de gaz liquéfié chauffée par un incendie cède d'un coup. Le liquide se vaporise en une fraction de seconde et projette une boule de feu. C'est le mot central de cette histoire.",
-      "Torchère : le jet de gaz qui sort d'une soupape et brûle. ORSEC, puis PPI : l'organisation des secours décidée par le préfet quand le site dépasse ses propres moyens."
-    ]
-  },
-  {
-    k: "Archives",
-    h: "Les images de 1966",
-    p: [
-      "Avant d'entrer dans la première scène, regardez ce que les caméras ont filmé ce jour-là. Quatre minutes, avec le commentaire d’époque."
+      "Regardez. C’est filmé ici, ce matin-là. Ensuite, on commence."
     ],
     media: "film"
   }
@@ -217,16 +183,19 @@ const CONCLUSIONS = [
 
 /* ---------- Cartes partagées ---------- */
 const BASE_CSS = `
-  :root{--ink:#1d1a17;--soft:#5f574e;--paper:#f7f3ec;--card:#fffdf9;--line:#ded4c5;--accent:#b4451f;--accent2:#8e3416;--tint:#f0ddd2;--good:#2f6b4f;--warn:#8a5a12;--bad:#a3321a;--sans:"Helvetica Neue",Arial,system-ui,sans-serif}
+  :root{--ink:#e9e4d9;--soft:#948d83;--paper:#08080a;--card:#121214;--line:#2b2b30;--accent:#b4451f;--accent2:#d9774f;--tint:#1a1210;--good:#7fa98c;--warn:#c0a05a;--bad:#c9482f;--sans:"Helvetica Neue",Arial,system-ui,sans-serif}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;background:var(--paper);color:var(--ink)}
-  body{font-family:Georgia,"Iowan Old Style",serif;line-height:1.5;font-size:17px;min-height:100dvh}
+  body{background-image:radial-gradient(120% 90% at 50% 0%,#131315 0%,#08080a 62%);background-attachment:fixed}
+  body{font-family:Georgia,"Iowan Old Style",serif;line-height:1.55;font-size:17px;min-height:100dvh}
   .wrap{max-width:900px;margin:0 auto;padding:20px 18px 90px}
   @media(min-width:1100px){ .wrap{max-width:1080px;padding:28px 26px 96px} body{font-size:18px} }
   .media{margin:16px 0 0;border:1px solid var(--line);background:#000;overflow:hidden}
   .media img,.media video{display:block;width:100%;height:auto;max-height:52vh;object-fit:cover;background:#111}
   .media figcaption{background:var(--card);color:var(--soft);font-family:var(--sans);font-size:11.5px;padding:8px 11px;border-top:1px solid var(--line)}
   .media .credit{opacity:.75}
+  .illus{border:1px solid var(--line);background:#0c0c0e;margin:0 0 14px;overflow:hidden}
+  .illus svg{display:block;width:100%;height:auto}
   .role{font-family:var(--sans);font-size:12px;letter-spacing:.05em;color:var(--accent2);
         background:var(--tint);display:inline-block;padding:5px 10px;border-radius:2px;margin:0 0 10px}
   .bar{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--ink);padding-bottom:9px;margin-bottom:20px;gap:10px}
@@ -238,11 +207,11 @@ const BASE_CSS = `
   h3{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin:20px 0 8px;font-weight:700}
   p{margin:0 0 12px}
   .kicker{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-  .card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);padding:16px;margin-bottom:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);padding:16px;margin-bottom:14px}
   .card.plain{border-left:1px solid var(--line)}
-  .opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);
+  .opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#101012;border:1px solid var(--line);
        padding:14px;margin-bottom:10px;cursor:pointer;font-family:inherit;font-size:16px;color:var(--ink);border-radius:2px;transition:.15s}
-  .opt:hover{border-color:var(--accent)}
+  .opt:hover{border-color:var(--accent);background:#16100e}
   .opt.sel{border-color:var(--accent);background:var(--tint)}
   .opt .k{flex:0 0 26px;height:26px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-family:var(--sans);font-size:13px;font-weight:700}
   .opt.sel .k{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -252,21 +221,21 @@ const BASE_CSS = `
   .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
   .tag{display:inline-block;font-family:var(--sans);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;padding:5px 10px;color:#fff;background:var(--ink);margin-bottom:10px;border-radius:2px}
   .tag.good{background:var(--good)}.tag.mid{background:var(--warn)}.tag.bad{background:var(--bad)}
-  .lesson{background:var(--tint);padding:14px;margin-top:14px}
+  .lesson{background:#16100e;border-left:2px solid var(--accent);padding:14px;margin-top:14px}
   .lesson b{display:block;font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);margin-bottom:4px}
   .bars{margin:16px 0}
   .brow{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-family:var(--sans);font-size:12.5px}
   .brow .lab{width:20px;font-weight:700}
-  .brow .track{flex:1;height:14px;background:var(--line);border-radius:2px;overflow:hidden}
+  .brow .track{flex:1;height:12px;background:#1d1d21;border-radius:1px;overflow:hidden}
   .brow .fill{height:100%;background:var(--accent);width:0;transition:width .5s cubic-bezier(.2,.7,.3,1)}
   .brow .fill.lead{background:var(--good)}
   .brow .val{width:52px;text-align:right;font-variant-numeric:tabular-nums}
   .big{font-size:clamp(30px,9vw,54px);line-height:1;color:var(--accent);font-weight:400}
   .src{font-family:var(--sans);font-size:11px;color:var(--soft);line-height:1.5}
-  .join{background:var(--ink);color:var(--paper);padding:16px;margin-bottom:16px}
-  .join b{font-family:var(--sans);letter-spacing:.16em;font-size:11px;text-transform:uppercase;color:#d9b9a8;display:block;margin-bottom:6px}
+  .join{background:#151517;border:1px solid var(--line);color:var(--ink);padding:16px;margin-bottom:16px}
+  .join b{font-family:var(--sans);letter-spacing:.16em;font-size:11px;text-transform:uppercase;color:var(--accent2);display:block;margin-bottom:6px}
   .join .code{font-family:var(--sans);font-size:34px;letter-spacing:.22em;font-weight:700}
-  .join .u{font-family:var(--sans);font-size:12px;color:#cfc7ba;word-break:break-all;margin-top:6px}
+  .join .u{font-family:var(--sans);font-size:12px;color:var(--soft);word-break:break-all;margin-top:6px}
   .pill{font-family:var(--sans);font-size:12px;border:1px solid var(--line);padding:4px 9px;border-radius:20px;color:var(--soft)}
   .roomline{font-family:var(--sans);font-size:11.5px;color:var(--soft);margin:-12px 0 16px}
   .roomline b{letter-spacing:.14em;color:var(--ink)}
@@ -283,6 +252,7 @@ const STEPS = __STEPS__;
 const INTRO = __INTRO__;
 const MEDIA = __MEDIA__;
 const ROLES = __ROLES__;
+const ILLUS = __ILLUS__;
 const CONCLUSIONS = __CONC__;
 let S = {step:-1, phase:'intro', votes:{}, total:0, participants:0}, ws, myVote = null;
 
@@ -298,7 +268,7 @@ function connect(){
   ws.onopen = () => {
     document.getElementById('clock').textContent = 'SALLE ' + code;
     const rl = document.getElementById('roomline');
-    if (rl) rl.innerHTML = 'Les participants rejoignent <b>' + joinUrl.replace('https://','').replace('http://','') + '</b>';
+    if (rl) rl.innerHTML = 'À ouvrir sur votre téléphone : <b>' + joinUrl.replace('https://','').replace('http://','') + '</b>';
   };
 }
 function send(o){ if (ws && ws.readyState === 1) ws.send(JSON.stringify(o)); }
@@ -312,7 +282,7 @@ function media(name, big){
   if (!m) return '';
   if (m.kind === 'video'){
     if (!big) return '<p class="src" style="margin-top:14px">Le film d’époque est projeté sur l’écran de salle.</p>';
-    return '<figure class="media"><video controls preload="metadata" playsinline src="'+m.src+'"></video>'
+    return '<figure class="media"><video controls preload="auto" playsinline src="'+m.src+'"></video>'
       + '<figcaption>'+m.caption+' <span class="credit">'+m.credit+'</span></figcaption></figure>';
   }
   return '<figure class="media"><img src="'+m.src+'" alt="'+m.caption+'" loading="lazy">'
@@ -351,7 +321,7 @@ function render(){
   if (st < 0) {
     $('#clock').textContent = 'SALLE ' + code;
     $('#main').innerHTML = \`
-      <div class="join"><b>Les participants rejoignent cette adresse</b>
+      <div class="join"><b>Rejoignez la salle depuis votre téléphone</b>
         <div class="code">\${code}</div>
         <div class="u">\${joinUrl}</div></div>
       <div class="kicker">Jeu de décision · vote en direct</div>
@@ -364,12 +334,13 @@ function render(){
 <details style="margin-top:18px">
         <summary style="font-family:var(--sans);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);cursor:pointer">Notes pour l\'animateur</summary>
         <ul style="font-size:15px;margin-top:10px">
-          <li>Projetez cet écran. Les participants ouvrent l\'adresse indiquée sur leur téléphone : aucun compte, rien à installer.</li>
+          <li>Projetez cet écran. Chacun ouvre l\'adresse affichée sur son téléphone : aucun compte, rien à installer.</li>
           <li>« Commencer l\'introduction » : quatre écrans de contexte, deux minutes. Lisez-les à voix haute, ils sont écrits pour être dits.</li>
           <li>« Première question » : laissez voter trente à soixante secondes, les barres bougent en direct.</li>
           <li>« Clore le vote » : la majorité s\'affiche et sa branche s\'ouvre. Commentez, puis montrez ce qui s\'est réellement passé.</li>
           <li>« Étape suivante » : sept étapes, comptez vingt-cinq à trente-cinq minutes jusqu\'aux conclusions.</li>
           <li>Un participant déconnecté recharge la page : son vote est retrouvé.</li>
+          <li>Trois mots à avoir en tête : GPL, propane et butane liquides sous pression ; sphère, le ballon d’acier ; BLEVE, l’éclatement de ce ballon chauffé par un incendie.</li>
         </ul>
       </details>
       <p class="src" style="margin-top:20px">Chronologie et chiffres : fiche ARIA n°1 du ministère de l'environnement (septembre 2006).</p>\`;
@@ -383,6 +354,7 @@ function render(){
       <div class="kicker">Étape \${st+1} sur 7 · \${step.t}</div>
       <h1>\${step.h}</h1>
       \${roleLine(st)}
+      <figure class="illus">\${ILLUS[st] || ''}</figure>
       <div class="card plain"><p>\${step.s}</p></div>
       <h2 style="margin-top:20px">\${step.q}</h2>
       \${step.o.map((o,j)=>'<div class="opt"><span class="k">'+'ABC'[j]+'</span><span>'+o.txt+'</span></div>').join('')}
@@ -432,7 +404,13 @@ function render(){
     <p class="src" style="margin-top:18px">Fiche ARIA n°1, ministère chargé de l'environnement, septembre 2006 ; rapports cités : experts judiciaires, DHYCA 19 janvier 1966, service des mines de l'Isère n°05460 du 2 janvier 1967.</p>\`;
 }
 
-connect();
+if (!/^[A-Z0-9]{4,8}$/.test(code)) {
+  document.getElementById('main').innerHTML = '<div class="kicker">Code invalide</div><h1>Ce code de salle ne convient pas</h1>'
+    + '<p>Un code de salle compte quatre à huit lettres ou chiffres. Choisissez-en un nouveau.</p>'
+    + '<p><a class="btn" href="/">Ouvrir une salle</a></p>';
+} else {
+  connect();
+}
 </script></body></html>`;
 
 const PART = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
@@ -445,6 +423,7 @@ const STEPS = __STEPS__;
 const INTRO = __INTRO__;
 const MEDIA = __MEDIA__;
 const ROLES = __ROLES__;
+const ILLUS = __ILLUS__;
 let S = {step:-1, phase:'lobby', votes:{}, total:0, participants:0}, ws, myVote = null, myStep = -1;
 let pid = localStorage.getItem('feyzin.pid');
 if (!pid) { pid = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('feyzin.pid', pid); }
@@ -495,6 +474,7 @@ function render(){
       <div class="kicker">Étape \${S.step+1} sur 7 · \${st.t}</div>
       <h1>\${st.h}</h1>
       \${roleLine(S.step)}
+      <figure class="illus">\${ILLUS[S.step] || ''}</figure>
       <div class="card plain" style="font-size:15.5px"><p>\${st.s}</p></div>
       <h2>\${st.q}</h2>
       \${st.o.map((o,j)=>'<button class="opt '+(myVote===j?'sel':'')+'" onclick="vote('+j+')"><span class="k">'+'ABC'[j]+'</span><span>'+o.txt+'</span></button>').join('')}
@@ -536,4 +516,4 @@ connect();
 </script></body></html>`;
 
 
-export { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, ANIM, PART, BASE_CSS };
+export { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, ILLUS, ANIM, PART, BASE_CSS };

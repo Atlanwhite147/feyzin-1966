@@ -1,11 +1,16 @@
 /* Feyzin 1966 — serveur de salle pour hébergement type Render.
    Node 20+, une seule dépendance : ws. Même contenu et mêmes écrans que la version Cloudflare. */
 import http from "node:http";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { WebSocketServer } from "ws";
-import { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, ANIM, PART } from "./src/content.js";
+import { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, ILLUS, ANIM, PART } from "./src/content.js";
 
 const PORT = process.env.PORT || 8787;
 const rooms = new Map();
+
+const FILM = "/extrait.webm";
 
 function inject(tpl) {
   return tpl
@@ -13,6 +18,8 @@ function inject(tpl) {
     .replace("__INTRO__", JSON.stringify(INTRO))
     .replace("__MEDIA__", JSON.stringify(MEDIA))
     .replace("__ROLES__", JSON.stringify(ROLES))
+    .replace("__ILLUS__", JSON.stringify(ILLUS))
+    .replace("__FILM__", FILM)
     .replace("__CONC__", JSON.stringify(CONCLUSIONS));
 }
 function fresh() {
@@ -45,6 +52,24 @@ const server = http.createServer((req, res) => {
 
   if (p === "/" || p === "/anim") return send(res, inject(ANIM));
   if (p === "/health") return json(res, { ok: true, rooms: rooms.size, uptime: Math.round(process.uptime()) });
+  if (p === "/extrait.webm") {
+    const root = path.dirname(fileURLToPath(import.meta.url));
+    const file = path.join(root, "public", "extrait.webm");
+    try {
+      const st = fs.statSync(file);
+      const range = req.headers.range;
+      const head = { "content-type": "video/webm", "accept-ranges": "bytes", "cache-control": "public, max-age=3600" };
+      if (range) {
+        const m = /bytes=(\d*)-(\d*)/.exec(range);
+        const start = m && m[1] ? parseInt(m[1], 10) : 0;
+        const end = m && m[2] ? parseInt(m[2], 10) : st.size - 1;
+        res.writeHead(206, { ...head, "content-range": `bytes ${start}-${end}/${st.size}`, "content-length": end - start + 1 });
+        return fs.createReadStream(file, { start, end }).pipe(res);
+      }
+      res.writeHead(200, { ...head, "content-length": st.size });
+      return fs.createReadStream(file).pipe(res);
+    } catch (e) { res.writeHead(404); return res.end("Introuvable"); }
+  }
   if (p === "/api/room") {
     const A = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     let s = "";

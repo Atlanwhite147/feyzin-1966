@@ -1,4 +1,4 @@
-import { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, ANIM, PART } from "./content.js";
+import { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, ILLUS, ANIM, PART } from "./content.js";
 
 /* Feyzin 1966 — salle de vote en direct.
    Cloudflare Worker + Durable Object : une salle par code, votes en temps réel,
@@ -32,12 +32,16 @@ export default {
   }
 };
 
+const FILM = "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c5/Accident_Feyzin.ogv/Accident_Feyzin.ogv.480p.vp9.webm";
+
 function inject(tpl) {
   return tpl
     .replace("__STEPS__", JSON.stringify(STEPS))
     .replace("__INTRO__", JSON.stringify(INTRO))
     .replace("__MEDIA__", JSON.stringify(MEDIA))
     .replace("__ROLES__", JSON.stringify(ROLES))
+    .replace("__ILLUS__", JSON.stringify(ILLUS))
+    .replace("__FILM__", FILM)
     .replace("__CONC__", JSON.stringify(CONCLUSIONS));
 }
 
