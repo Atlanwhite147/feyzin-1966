@@ -4,6 +4,8 @@ import { createState, clone, formatHeure, heureDe, parseHeure } from "./state.js
 import { tick, advanceTo, pressureFor } from "./simulate.js";
 import { applyDecision, runStep } from "./decisions.js";
 import { evaluateEnding } from "./endings.js";
+import { projection, tension, avancer, etatPause } from "./clock.js";
+import { frise, synthese, conclusionTexte, ecartDe } from "./debrief.js";
 
 export function newGame(physics, scenario) {
   const state = createState(physics);
@@ -62,4 +64,12 @@ export function resume(game) {
   };
 }
 
-export { createState, clone, formatHeure, heureDe, parseHeure, tick, advanceTo, pressureFor, applyDecision, evaluateEnding };
+export function debrief(game) {
+  const fin = game.fin || evaluateEnding(game.state, game.physics);
+  return { fin, lignes: frise(game), synthese: synthese(game, fin), conclusion: conclusionTexte(fin) };
+}
+
+export {
+  createState, clone, formatHeure, heureDe, parseHeure, tick, advanceTo, pressureFor, applyDecision, evaluateEnding,
+  projection, tension, avancer, etatPause, frise, synthese, conclusionTexte, ecartDe
+};

@@ -1,0 +1,123 @@
+{
+  "frise": [
+    {
+      "heure": "06 h 30",
+      "jeu": "La purge a été engagée : <choix>.",
+      "reel": "À 06 h 40, la purge de prélèvement sous la sphère 443 de propane jaillit et les vannes givrent : l'aide-opérateur ouvre la vanne inférieure à moitié puis largement celle du haut, le propane éclabousse son visage, la clé mobile quitte le carré, impossible de refermer.",
+      "ecart": "maîtrise"
+    },
+    {
+      "heure": "06 h 41",
+      "jeu": "La fuite a été prise en charge : <choix>.",
+      "reel": "Les deux agents renoncent sans refermer la vanne inférieure et donnent l'alerte interne. L'équipe de sécurité tente dix minutes d'interrompre la fuite : vannes givrées, échec. Le nuage sort du site et descend vers l'A7 sur un à un mètre cinquante d'épaisseur.",
+      "ecart": "retard"
+    },
+    {
+      "heure": "06 h 50",
+      "jeu": "Le nuage et l'autoroute ont été traités : <choix>.",
+      "reel": "Poste de garde alerté à 06 h 50, employés qui tentent d'arrêter la circulation. Dix minutes pour joindre la gendarmerie, appel vers 07 h 05. À 07 h 15, une voiture entre dans le nuage malgré le signal d'arrêt d'un garde : le nuage s'allume, la flamme remonte, et le propane s'allume à la source.",
+      "ecart": "conforme"
+    },
+    {
+      "heure": "07 h 15",
+      "jeu": "Le chalumeau a été combattu : <choix>.",
+      "reel": "Tentatives d'extinction infructueuses. Sirène à 07 h 20, pompiers extérieurs alertés à 07 h 19, arrosage des sept autres sphères. Les deux motopompes ne peuvent pas fonctionner en parallèle : débit limité à 400 m³/h. Pompiers de Lyon à 07 h 30, cinquante minutes après la fuite.",
+      "ecart": "conforme"
+    },
+    {
+      "heure": "07 h 45",
+      "jeu": "La soupape a été interprétée : <choix>.",
+      "reel": "L'ouverture de la soupape est perçue comme positive : maîtrise attendue en deux à trois heures. Dès 08 h 05, amarrage des lances et repli. À 08 h 45, la 443 explose : boule de feu de près de 250 m de diamètre, plus de 400 m de haut. Tous ceux à moins de 50 m sont tués, sauf deux pompiers.",
+      "ecart": "conforme"
+    },
+    {
+      "heure": "08 h 45",
+      "jeu": "L'après-explosion a été conduit : <choix>.",
+      "reel": "Arrêt d'urgence à 08 h 55, zone B évacuée. La 442 explose vers 09 h 30 sans nouvelle victime. Les trois sphères de butane s'ouvrent sans exploser à 09 h 40, 09 h 50 et 10 h 30. ORSEC déclenché à 10 h 10. Lutte de plus de 24 h.",
+      "ecart": "conforme"
+    },
+    {
+      "heure": "09 h 15",
+      "jeu": "Le retour d'expérience a été voté : <choix>.",
+      "reel": "Aucune des trois réponses n'est fausse. La réglementation de 1967 a traité les deux premières ; la connaissance du phénomène manquait ce matin-là, et ce sont les sauveteurs qui l'ont payée.",
+      "ecart": "maîtrise"
+    }
+  ],
+  "glossaire": [
+    {
+      "titre": "BLEVE",
+      "terme": "BLEVE",
+      "texte": "BLEVE (Boiling Liquid Expanding Vapour Explosion) : éclatement d'un récipient contenant un liquide sous pression, dont la vaporisation instantanée produit une explosion massive et une boule de feu. À Feyzin, la sphère 443 de propane éclate à 08 h 45 en une boule de feu d'environ 250 m de diamètre. Phénomène alors inconnu des intervenants.",
+      "definition": "BLEVE (Boiling Liquid Expanding Vapour Explosion) : éclatement d'un récipient contenant un liquide sous pression, dont la vaporisation instantanée produit une explosion massive et une boule de feu. À Feyzin, la sphère 443 de propane éclate à 08 h 45 en une boule de feu d'environ 250 m de diamètre. Phénomène alors inconnu des intervenants.",
+      "notice": "BLEVE (Boiling Liquid Expanding Vapour Explosion) : éclatement d'un récipient contenant un liquide sous pression, dont la vaporisation instantanée produit une explosion massive et une boule de feu. À Feyzin, la sphère 443 de propane éclate à 08 h 45 en une boule de feu d'environ 250 m de diamètre. Phénomène alors inconnu des intervenants."
+    },
+    {
+      "titre": "Cuvette de rétention",
+      "terme": "Cuvette de rétention",
+      "texte": "Bassin aménagé au pied d'un réservoir pour contenir les liquides en cas de fuite et éviter leur propagation. À Feyzin, la zone de stockage n'était qu'à 22,5 m de la tranchée de l'A7, sans rétention suffisante pour empêcher le nuage de GPL de s'écouler vers la chaussée.",
+      "definition": "Bassin aménagé au pied d'un réservoir pour contenir les liquides en cas de fuite et éviter leur propagation. À Feyzin, la zone de stockage n'était qu'à 22,5 m de la tranchée de l'A7, sans rétention suffisante pour empêcher le nuage de GPL de s'écouler vers la chaussée.",
+      "notice": "Bassin aménagé au pied d'un réservoir pour contenir les liquides en cas de fuite et éviter leur propagation. À Feyzin, la zone de stockage n'était qu'à 22,5 m de la tranchée de l'A7, sans rétention suffisante pour empêcher le nuage de GPL de s'écouler vers la chaussée."
+    },
+    {
+      "titre": "Soupape de sécurité",
+      "terme": "Soupape de sécurité",
+      "texte": "Dispositif qui s'ouvre automatiquement lorsque la pression dans un récipient dépasse un seuil, pour évacuer le gaz et éviter l'éclatement. À Feyzin, à 07 h 45, la soupape de la sphère crache une torchère d'une dizaine de mètres, signe de la montée en pression.",
+      "definition": "Dispositif qui s'ouvre automatiquement lorsque la pression dans un récipient dépasse un seuil, pour évacuer le gaz et éviter l'éclatement. À Feyzin, à 07 h 45, la soupape de la sphère crache une torchère d'une dizaine de mètres, signe de la montée en pression.",
+      "notice": "Dispositif qui s'ouvre automatiquement lorsque la pression dans un récipient dépasse un seuil, pour évacuer le gaz et éviter l'éclatement. À Feyzin, à 07 h 45, la soupape de la sphère crache une torchère d'une dizaine de mètres, signe de la montée en pression."
+    },
+    {
+      "titre": "POI et PPI",
+      "terme": "POI et PPI",
+      "texte": "Plan d'Opération Interne (POI) pour l'établissement, Plan Particulier d'Intervention (PPI) pour les autorités. Ils organisent la réponse aux accidents majeurs. L'accident de Feyzin a contribué à leur généralisation dans la réglementation française des installations classées, notamment pour les sites à risque industriel majeur.",
+      "definition": "Plan d'Opération Interne (POI) pour l'établissement, Plan Particulier d'Intervention (PPI) pour les autorités. Ils organisent la réponse aux accidents majeurs. L'accident de Feyzin a contribué à leur généralisation dans la réglementation française des installations classées, notamment pour les sites à risque industriel majeur.",
+      "notice": "Plan d'Opération Interne (POI) pour l'établissement, Plan Particulier d'Intervention (PPI) pour les autorités. Ils organisent la réponse aux accidents majeurs. L'accident de Feyzin a contribué à leur généralisation dans la réglementation française des installations classées, notamment pour les sites à risque industriel majeur."
+    },
+    {
+      "titre": "Défense en profondeur",
+      "terme": "Défense en profondeur",
+      "texte": "Stratégie de sûreté fondée sur plusieurs barrières successives pour prévenir et limiter les accidents. À Feyzin, l'absence de barrières efficaces entre le stockage de GPL et l'autoroute a permis au nuage de se propager sans obstacle jusqu'à la chaussée voisine.",
+      "definition": "Stratégie de sûreté fondée sur plusieurs barrières successives pour prévenir et limiter les accidents. À Feyzin, l'absence de barrières efficaces entre le stockage de GPL et l'autoroute a permis au nuage de se propager sans obstacle jusqu'à la chaussée voisine.",
+      "notice": "Stratégie de sûreté fondée sur plusieurs barrières successives pour prévenir et limiter les accidents. À Feyzin, l'absence de barrières efficaces entre le stockage de GPL et l'autoroute a permis au nuage de se propager sans obstacle jusqu'à la chaussée voisine."
+    },
+    {
+      "titre": "Zone des dangers",
+      "terme": "Zone des dangers",
+      "texte": "Périmètre autour d'une installation industrielle où les effets d'un accident peuvent atteindre les personnes. L'instruction technique de 1966-1967 en définit les modalités de calcul. À Feyzin, la zone de stockage n'était qu'à 22,5 m de l'autoroute, qui passait 1,50 m plus bas.",
+      "definition": "Périmètre autour d'une installation industrielle où les effets d'un accident peuvent atteindre les personnes. L'instruction technique de 1966-1967 en définit les modalités de calcul. À Feyzin, la zone de stockage n'était qu'à 22,5 m de l'autoroute, qui passait 1,50 m plus bas.",
+      "notice": "Périmètre autour d'une installation industrielle où les effets d'un accident peuvent atteindre les personnes. L'instruction technique de 1966-1967 en définit les modalités de calcul. À Feyzin, la zone de stockage n'était qu'à 22,5 m de l'autoroute, qui passait 1,50 m plus bas."
+    }
+  ],
+  "reglementation": [
+    {
+      "annee": "1966-1967",
+      "texte": "Instruction technique sur les zones de dangers",
+      "effet": "Définition des modalités de calcul des zones de dangers autour des installations classées ; mise en place progressive des distances d'implantation par rapport aux tiers (date exacte de publication à confirmer)."
+    },
+    {
+      "annee": "1967",
+      "texte": "Arrêté du service des mines de l'Isère n°05460 du 2 janvier 1967",
+      "effet": "Prescriptions techniques sur le stockage de GPL : purges, soupapes, moyens d'eau, distances, avec effet rétroactif sur l'existant (selon la fiche ARIA et le service des mines)."
+    },
+    {
+      "annee": "1970",
+      "texte": "Circulaire sur les plans de secours",
+      "effet": "Généralisation des plans de secours pour les installations dangereuses (date précise à confirmer, valeur à confirmer)."
+    },
+    {
+      "annee": "1976 et 1982",
+      "texte": "Renforcement de la réglementation des installations classées (1976), puis directive Seveso (1982)",
+      "effet": "Encadrement national et européen des établissements présentant des dangers majeurs ; plans d'opération interne et plans particuliers d'intervention (références exactes à confirmer)."
+    },
+    {
+      "annee": "2012",
+      "texte": "Directive Seveso III (transposée en droit français)",
+      "effet": "Mise à jour du régime des établissements Seveso : classification des dangers, information du public, participation, plans de secours (référence exacte du texte français à confirmer)."
+    }
+  ],
+  "sources": [
+    "Fiche ARIA n°1, ministère chargé de l'environnement, septembre 2006",
+    "Rapports d'experts judiciaires sur l'accident de la raffinerie de Feyzin",
+    "DHYCA du 19 janvier 1966",
+    "Service des mines de l'Isère, rapport n°05460 du 2 janvier 1967"
+  ]
+}
