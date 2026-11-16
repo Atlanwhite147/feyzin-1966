@@ -2,16 +2,21 @@
    Node 20+, une seule dépendance : ws. Même contenu et mêmes écrans que la version Cloudflare. */
 import http from "node:http";
 import { WebSocketServer } from "ws";
-import { STEPS, CONCLUSIONS, ANIM, PART } from "./src/index.js";
+import { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, ANIM, PART } from "./src/content.js";
 
 const PORT = process.env.PORT || 8787;
 const rooms = new Map();
 
 function inject(tpl) {
-  return tpl.replace("__STEPS__", JSON.stringify(STEPS)).replace("__CONC__", JSON.stringify(CONCLUSIONS));
+  return tpl
+    .replace("__STEPS__", JSON.stringify(STEPS))
+    .replace("__INTRO__", JSON.stringify(INTRO))
+    .replace("__MEDIA__", JSON.stringify(MEDIA))
+    .replace("__ROLES__", JSON.stringify(ROLES))
+    .replace("__CONC__", JSON.stringify(CONCLUSIONS));
 }
 function fresh() {
-  return { step: -1, phase: "intro", votes: {}, voters: {}, n: 0 };
+  return { step: -1, phase: "lobby", intro: 0, votes: {}, voters: {}, n: 0 };
 }
 function room(code) {
   if (!rooms.has(code)) rooms.set(code, { game: fresh(), anim: new Set(), part: new Set(), touched: Date.now() });
@@ -22,7 +27,7 @@ function room(code) {
 function pub(r) {
   const g = r.game;
   return {
-    step: g.step, phase: g.phase, votes: g.votes,
+    step: g.step, phase: g.phase, intro: g.intro || 0, votes: g.votes,
     total: Object.values(g.votes).reduce((a, b) => a + b, 0),
     participants: r.part.size
   };
@@ -70,11 +75,13 @@ server.on("upgrade", (req, socket, head) => {
   if (u.pathname !== "/ws") { socket.destroy(); return; }
   const code = (u.searchParams.get("room") || "").toUpperCase();
   const role = u.searchParams.get("role") === "anim" ? "anim" : "part";
+  const pid = (u.searchParams.get("pid") || "").slice(0, 40);
   if (!/^[A-Z0-9]{4,8}$/.test(code)) { socket.destroy(); return; }
   wss.handleUpgrade(req, socket, head, (ws) => {
     const r = room(code);
     r[role].add(ws);
     ws.send(JSON.stringify({ type: "state", state: pub(r), role }));
+    if (pid && r.game.voters[pid] !== undefined) ws.send(JSON.stringify({ type: "you", j: r.game.voters[pid] }));
     broadcast(r);
 
     ws.on("message", (raw) => {
@@ -98,7 +105,8 @@ server.on("upgrade", (req, socket, head) => {
         if (m.type === "close") g.phase = "reveal";
         if (m.type === "next") { if (g.step < STEPS.length - 1) { g.step++; g.votes = {}; g.voters = {}; g.phase = "vote"; } else g.phase = "end"; }
         if (m.type === "back") { if (g.step > 0) { g.step--; g.votes = {}; g.voters = {}; g.phase = "vote"; } }
-        if (m.type === "reset") { g.step = -1; g.phase = "intro"; g.votes = {}; g.voters = {}; }
+        if (m.type === "chapter") { g.phase = "intro"; g.intro = Math.max(0, Math.min(INTRO.length - 1, m.i ?? 0)); }
+        if (m.type === "reset") { g.step = -1; g.phase = "lobby"; g.intro = 0; g.votes = {}; g.voters = {}; }
         broadcast(r);
       }
     });
