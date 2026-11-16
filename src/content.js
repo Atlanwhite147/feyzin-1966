@@ -241,6 +241,7 @@ const BASE_CSS = `
        padding:14px;margin-bottom:10px;cursor:pointer;font-family:inherit;font-size:16px;color:var(--ink);border-radius:2px;transition:.15s}
   .opt:hover{border-color:var(--accent);background:#16100e}
   .opt.sel{border-color:var(--accent);background:var(--tint)}
+  .opt.ro{cursor:default}
   .opt .k{flex:0 0 26px;height:26px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-family:var(--sans);font-size:13px;font-weight:700}
   .opt.sel .k{background:var(--accent);border-color:var(--accent);color:#fff}
   .btn{font-family:var(--sans);font-size:13px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;border:1px solid var(--accent);padding:13px 18px;cursor:pointer;border-radius:2px;font-weight:600}
@@ -260,6 +261,56 @@ const BASE_CSS = `
   .brow .val{width:78px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   .big{font-size:clamp(30px,9vw,54px);line-height:1;color:var(--accent);font-weight:400}
   .src{font-family:var(--sans);font-size:11px;color:var(--soft);line-height:1.5}
+  /* --- mode écran unique : tout tient dans la fenêtre --- */
+  body.deck{overflow:hidden}
+  body.deck .wrap{max-width:none;width:100%;height:100dvh;padding:0;display:flex;flex-direction:column}
+  body.deck .bar{margin:0;padding:12px 26px;flex:0 0 auto}
+  body.deck #main{flex:1 1 auto;min-height:0;display:flex;overflow:hidden}
+  .stage{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1.05fr .95fr;gap:26px;padding:10px 26px 14px;overflow:hidden}
+  .stage.one{grid-template-columns:1fr}
+  .stage .pane{min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:safe center}
+  .stage .pane.right{justify-content:flex-start}
+  body.deck h1{font-size:clamp(24px,5.6vh,68px);margin:0 0 6px}
+  body.deck h2{font-size:clamp(17px,3.3vh,38px);margin:0 0 8px}
+  body.deck p{font-size:clamp(12.5px,1.85vh,24px);line-height:1.42;margin:0 0 8px}
+  body.deck .kicker{font-size:clamp(9px,1.15vh,11px);margin-bottom:5px}
+  body.deck .card{padding:13px 15px;margin:0 0 10px}
+  body.deck .card h3{font-size:clamp(9px,1.1vh,11px);margin:0 0 4px}
+  body.deck .opt{padding:13px 14px;margin:0 0 10px;font-size:clamp(11.5px,1.72vh,22px);line-height:1.32}
+  body.deck .opt .k{flex:0 0 22px;height:22px;font-size:11px}
+  body.deck .illus{margin:0 0 8px}
+  body.deck .illus svg{max-height:31vh;width:100%;height:auto;object-fit:contain}
+  body.deck .illus.compact svg{max-height:22vh}
+  body.deck .media{margin:0 0 10px}
+  body.deck .media img,body.deck .media video{max-height:44vh}
+  body.deck .bars{margin:4px 0 8px}
+  body.deck .brow{font-size:clamp(10px,1.3vh,13px);margin-bottom:5px}
+  body.deck .lesson{padding:12px 14px;margin-top:9px;font-size:clamp(11.5px,1.6vh,21px)}
+  body.deck .role{font-size:clamp(9.5px,1.2vh,12px);padding:3px 8px;margin:0 0 6px}
+  body.deck .roster{font-size:clamp(10.5px,1.5vh,18px);margin:6px 0 0}
+  body.deck .row{margin-top:8px !important;gap:8px}
+  body.deck .btn{padding:9px 16px;font-size:clamp(10px,1.25vh,16px)}
+  body.deck .pill{font-size:clamp(10px,1.2vh,12px)}
+  body.deck .join{padding:12px;margin-bottom:10px}
+  body.deck .join .code{font-size:clamp(20px,3.6vh,34px)}
+  body.deck .join .qr img{width:clamp(84px,13vh,120px);height:clamp(84px,13vh,120px)}
+  body.deck .src{font-size:clamp(9px,1.05vh,11px);margin-top:6px}
+  body.deck details ul{font-size:clamp(10px,1.25vh,13px)}
+  .concl{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .concl .mini{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--card);padding:10px 12px;min-height:0}
+  .concl .mini b{display:block;font-family:var(--sans);font-size:clamp(10px,1.3vh,17px);letter-spacing:.02em;margin-bottom:3px;color:var(--ink)}
+  .concl .mini span{font-size:clamp(10.5px,1.45vh,19px);color:#c9c1b4;line-height:1.4;display:block}
+  .concl .mini.accent{border-left-color:var(--accent2);background:#16100e}
+  body.deck ul.l{font-size:clamp(10.5px,1.55vh,20px);margin:0}
+  body.deck ul.l li{margin-bottom:5px}
+  @media(max-width:1000px){
+    .stage{grid-template-columns:1fr}
+    body.deck .illus svg{max-height:20vh}
+  }
+  body.deck .stage .pane > *{flex:0 0 auto}
+  body.deck .illus{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  body.deck .illus svg{height:100%;width:100%;max-height:none}
+  body.deck .media{flex:0 0 auto}
   /* --- ambiance : grain, vignette, pulsations --- */
   body:after{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:60;opacity:.05;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
@@ -370,142 +421,187 @@ function bars(){
   }).join('') + '</div>';
 }
 
+let endPage = 0;
+
 function render(){
   const st = S.step, ph = S.phase;
   const sn = document.getElementById('siren');
   if (sn) sn.classList.remove('on');
+  document.body.classList.add('deck');
+  const rl = document.getElementById('roomline');
+  if (rl) rl.innerHTML = '';
 
   if (ph === 'intro') {
     const it = INTRO[S.intro || 0] || INTRO[0];
-    $('#clock').textContent = 'SALLE ' + code;
+    document.getElementById('clock').textContent = 'SALLE ' + code;
     $('#main').innerHTML = \`
-      <div class="kicker">\${it.k} · \${(S.intro||0)+1} sur \${INTRO.length}</div>
-      <h1>\${it.h}</h1>
-      \${it.p.map(x=>'<p>'+x+'</p>').join('')}
-      \${media(it.media, true)}
-      <div class="row" style="margin-top:16px">
-        <button class="btn ghost" onclick="chap(\${(S.intro||0)-1})" \${(S.intro||0)===0?'disabled':''}>Précédent</button>
-        \${(S.intro||0) < INTRO.length-1
-          ? '<button class="btn" onclick="chap('+((S.intro||0)+1)+')">Suite</button>'
-          : '<button class="btn" onclick="startGame()">Première question</button>'}
-      </div>
-            <p class="src" style="margin-top:18px">Chronologie et chiffres : fiche ARIA n°1 du ministère de l'environnement (septembre 2006).</p>\`;
+      <div class="stage">
+        <div class="pane">
+          <div class="kicker">\${it.k} · \${(S.intro||0)+1} sur \${INTRO.length}</div>
+          <h1>\${it.h}</h1>
+          \${it.p.map(x=>'<p>'+x+'</p>').join('')}
+        </div>
+        <div class="pane right">
+          \${media(it.media, true)}
+          <div class="row">
+            <button class="btn ghost" onclick="chap(\${(S.intro||0)-1})" \${(S.intro||0)===0?'disabled':''}>Précédent</button>
+            \${(S.intro||0) < INTRO.length-1
+              ? '<button class="btn" onclick="chap('+((S.intro||0)+1)+')">Suite</button>'
+              : '<button class="btn" onclick="startGame()">Première question</button>'}
+          </div>
+          <p class="src">Chronologie et chiffres : fiche ARIA n°1 du ministère de l’environnement (septembre 2006).</p>
+        </div>
+      </div>\`;
     return;
   }
 
   if (st < 0) {
-    $('#clock').textContent = 'SALLE ' + code;
-    const rlz = document.getElementById('roomline'); if (rlz) rlz.textContent = '';
+    document.getElementById('clock').textContent = 'SALLE ' + code;
     $('#main').innerHTML = \`
-      <div class="join">
-        <div class="txt">
-          <b>Rejoignez la salle depuis votre téléphone</b>
-          <div class="code">\${code}</div>
-          <div class="lien"><input id="lien" readonly value="\${joinUrl}" onclick="this.select()">
-            <button class="btn ghost" onclick="copierLien(this)">Copier</button></div>
+      <div class="stage">
+        <div class="pane">
+          <div class="kicker">Ils entrent dans la salle</div>
+          <div class="join">
+            <div class="txt">
+              <b>Le lien, à ouvrir sur votre téléphone</b>
+              <div class="code">\${code}</div>
+              <div class="lien"><input id="lien" readonly value="\${joinUrl}" onclick="this.select()">
+                <button class="btn ghost" onclick="copierLien(this)">Copier</button></div>
+            </div>
+            <div class="qr"><img alt="QR code vers la page des participants" src="https://api.qrserver.com/v1/create-qr-code/?size=264x264&margin=0&data=\${encodeURIComponent(joinUrl)}"></div>
+          </div>
+          \${roster()}
+          <details style="margin-top:10px">
+            <summary style="font-family:var(--sans);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);cursor:pointer">Notes pour l’animateur</summary>
+            <ul style="font-size:13px;margin-top:8px">
+              <li>L’introduction fait quatre écrans, deux minutes. Lisez-les à voix haute.</li>
+              <li>Laissez voter trente à soixante secondes, les barres bougent en direct.</li>
+              <li>Clore le vote ouvre la branche majoritaire, puis le rappel du réel.</li>
+              <li>Sept étapes, vingt-cinq à trente-cinq minutes jusqu’aux conclusions.</li>
+              <li>Trois mots : GPL, sphère, BLEVE (l’éclatement d’une capacité chauffée par un incendie).</li>
+            </ul>
+          </details>
         </div>
-        <div class="qr"><img alt="QR code vers la page des participants" src="https://api.qrserver.com/v1/create-qr-code/?size=264x264&margin=0&data=\${encodeURIComponent(joinUrl)}"></div>
-      </div>
-      <div class="kicker">Jeu de décision · vote en direct</div>
-      <h1>Feyzin, 4 janvier 1966<br><em>Sept décisions avant l'aube</em></h1>
-      <p>Chaque étape est votée en salle. L'histoire bascule selon la majorité : ce que vous choisissez devient la suite, pas seulement un score.</p>
-      <div class="row" style="margin-top:18px">
-        <button class="btn" onclick="send({type:'chapter',i:0})">Commencer l'introduction</button>
-        <span class="pill">\${(S.roster||[]).length} dans la salle</span>
-      </div>
-      \${roster()}
-<details style="margin-top:18px">
-        <summary style="font-family:var(--sans);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);cursor:pointer">Notes pour l\'animateur</summary>
-        <ul style="font-size:15px;margin-top:10px">
-          <li>Projetez cet écran. Chacun ouvre l\'adresse affichée sur son téléphone : aucun compte, rien à installer.</li>
-          <li>« Commencer l\'introduction » : quatre écrans de contexte, deux minutes. Lisez-les à voix haute, ils sont écrits pour être dits.</li>
-          <li>« Première question » : laissez voter trente à soixante secondes, les barres bougent en direct.</li>
-          <li>« Clore le vote » : la majorité s\'affiche et sa branche s\'ouvre. Commentez, puis montrez ce qui s\'est réellement passé.</li>
-          <li>« Étape suivante » : sept étapes, comptez vingt-cinq à trente-cinq minutes jusqu\'aux conclusions.</li>
-          <li>Un participant déconnecté recharge la page : son vote est retrouvé.</li>
-          <li>Trois mots à avoir en tête : GPL, propane et butane liquides sous pression ; sphère, le ballon d’acier ; BLEVE, l’éclatement de ce ballon chauffé par un incendie.</li>
-        </ul>
-      </details>
-      <p class="src" style="margin-top:20px">Chronologie et chiffres : fiche ARIA n°1 du ministère de l'environnement (septembre 2006).</p>\`;
+        <div class="pane right">
+          <h1>Feyzin, 4 janvier 1966<br><em>Sept décisions avant l’aube</em></h1>
+          <p>Chaque scène est votée en salle. L’histoire bascule selon la majorité : ce que vous choisissez devient la suite, pas seulement un score.</p>
+          <div class="row" style="margin-top:10px">
+            <button class="btn" onclick="send({type:'chapter',i:0})">Commencer l’introduction</button>
+            <span class="pill">\${(S.roster||[]).length} dans la salle</span>
+          </div>
+        </div>
+      </div>\`;
     return;
   }
 
   const step = STEPS[st];
-  const rl2 = document.getElementById('roomline');
-  if (rl2) rl2.innerHTML = 'Les autres rejoignent <b>' + joinUrl.replace('https://','').replace('http://','') + '</b>';
+
   if (ph === 'vote') {
-    $('#clock').textContent = step.h;
+    document.getElementById('clock').textContent = step.h;
     $('#main').innerHTML = \`
-      <div class="kicker">Étape \${st+1} sur 7 · \${step.t}</div>
-      <h1>\${step.h}</h1>
-      \${roleLine(st)}
-      <figure class="illus">\${ILLUS[st] || ''}</figure>
-      <div class="card plain"><p>\${step.s}</p></div>
-      <h2 style="margin-top:20px">\${step.q}</h2>
-      \${step.o.map((o,j)=>'<div class="opt"><span class="k">'+'ABC'[j]+'</span><span>'+o.txt+'</span></div>').join('')}
-      \${bars()}
-      \${roster()}
-      <div class="row">
-        <button class="btn" onclick="send({type:'close'})">Clore le vote</button>
-        <span class="pill">\${S.total} votant(s) · \${(S.roster||[]).length} dans la salle</span>
+      <div class="stage">
+        <div class="pane">
+          <div class="kicker">Étape \${st+1} sur 7 · \${step.t}</div>
+          <h1>\${step.h}</h1>
+          \${roleLine(st)}
+          <figure class="illus">\${ILLUS[st] || ''}</figure>
+          <div class="card plain"><p>\${step.s}</p></div>
+        </div>
+        <div class="pane right">
+          <h2>\${step.q}</h2>
+          \${step.o.map((o,j)=>'<div class="opt ro"><span class="k">'+'ABC'[j]+'</span><span>'+o.txt+'</span></div>').join('')}
+          \${bars()}
+          \${roster()}
+          <div class="row">
+            <button class="btn" onclick="send({type:'close'})">Clore le vote</button>
+            <span class="pill">\${S.total} votant(s)</span>
+          </div>
+        </div>
       </div>\`;
     return;
   }
 
   if (ph === 'reveal') {
-    $('#clock').textContent = step.h;
+    document.getElementById('clock').textContent = step.h;
     const win = [0,1,2].reduce((a,j)=> (S.votes[j]||0) > (S.votes[a]||0) ? j : a, 0);
     const o = step.o[win];
-    $('#main').innerHTML = \`
-      <div class="kicker">Étape \${st+1} sur 7 · \${step.t}</div>
-      <h1>\${step.h}</h1>
-      \${roleLine(st)}
-      <figure class="illus compact">\${ILLUS[st] || ''}</figure>
-      \${bars()}
-      \${S.total === 0
-        ? '<div class="card"><h3 style="margin-top:0">Aucun vote enregistré</h3><p>Faute de vote, l’histoire suit son cours réel : la branche qui s’ouvre est celle de 1966.</p></div>'
-        : '<div class="card"><h3 style="margin-top:0">Votre majorité : '+\'ABC\'[win]+', à '+pct(S.votes[win]||0,S.total)+'%</h3><p>'+o.br+'</p></div>'}
-      <div class="card plain \${o.p === 0 ? 'danger' : ''}"><h3 style="margin-top:0">Ce qui s'est réellement passé le 4 janvier 1966</h3><p>\${step.real}</p></div>
-      \${o.p === 0 ? '<p class="src" style="color:#c9482f">La branche que vous venez de choisir est celle qui a conduit à l’accident.</p>' : ''}
-      \${roster()}
-      <div class="lesson"><b>Le point de sûreté</b>\${step.l}</div>
-      <div class="row" style="margin-top:18px">
-        <button class="btn" onclick="send({type:'next'})">\${st < 6 ? 'Étape suivante' : 'Voir les conclusions'}</button>
-        <button class="btn ghost" onclick="send({type:'open',step:\${st}})" >Réouvrir le vote</button>
-      </div>\`;
     if (o.p === 0 && sn) sn.classList.add('on');
+    $('#main').innerHTML = \`
+      <div class="stage">
+        <div class="pane">
+          <div class="kicker">Étape \${st+1} sur 7 · \${step.t}</div>
+          <h1>\${step.h}</h1>
+          \${roleLine(st)}
+          <figure class="illus compact">\${ILLUS[st] || ''}</figure>
+          \${bars()}
+        </div>
+        <div class="pane right">
+          \${S.total === 0
+            ? '<div class="card"><h3 style="margin-top:0">Aucun vote enregistré</h3><p>Faute de vote, l’histoire suit son cours réel : la branche qui s’ouvre est celle de 1966.</p></div>'
+            : '<div class="card"><h3 style="margin-top:0">Votre majorité : '+\'ABC\'[win]+', à '+pct(S.votes[win]||0,S.total)+'%</h3><p>'+o.br+'</p></div>'}
+          <div class="card plain \${o.p === 0 ? 'danger' : ''}"><h3 style="margin-top:0">Ce qui s’est réellement passé le 4 janvier 1966</h3><p>\${step.real}</p></div>
+          \${o.p === 0 ? '<p class="src" style="color:#c9482f">La branche que vous venez de choisir est celle qui a conduit à l’accident.</p>' : ''}
+          <div class="lesson"><b>Le point de sûreté</b>\${step.l}</div>
+          <div class="row">
+            <button class="btn" onclick="send({type:'next'})">\${st < 6 ? 'Étape suivante' : 'Voir les conclusions'}</button>
+            <button class="btn ghost" onclick="send({type:'open',step:\${st}})">Réouvrir le vote</button>
+          </div>
+        </div>
+      </div>\`;
     return;
   }
 
-  $('#clock').textContent = 'DÉBRIEF';
+  document.getElementById('clock').textContent = 'DÉBRIEF';
+  if (endPage === 0) {
+    $('#main').innerHTML = \`
+      <div class="stage one">
+        <div class="pane wide">
+          <div class="kicker">Débrief · ce que Feyzin a changé</div>
+          <h1>Six leçons, et une question</h1>
+          <div class="concl">
+            \${CONCLUSIONS.slice(0,5).map((c,i)=>'<div class="mini"><b>'+(i+1)+'. '+c[0]+'</b><span>'+c[1]+'</span></div>').join('')}
+            \${'<div class="mini accent"><b>6. '+CONCLUSIONS[5][0]+'</b><span>'+CONCLUSIONS[5][1]+'</span></div>'}
+          </div>
+          <div class="row" style="margin-top:14px">
+            <button class="btn" onclick="endPage=1;render()">Et pour nous, maintenant</button>
+            <button class="btn ghost" onclick="send({type:'reset'});endPage=0;render()">Nouvelle session</button>
+          </div>
+        </div>
+      </div>\`;
+    return;
+  }
+
   $('#main').innerHTML = \`
-    <div class="kicker">Débrief</div>
-    <h1>Ce que Feyzin a changé</h1>
-    \${CONCLUSIONS.map((c,i)=>'<div class="card"><h3 style="margin-top:0">'+(i+1)+'. '+c[0]+'</h3><p style="margin:0">'+c[1]+'</p></div>').join('')}
-    <h2 style="margin-top:24px">Et pour un service qui travaille dans le nucléaire</h2>
-    <ul>
-      <li><b>Dimensionner sur le hors-dimensionnement, pas sur le plausible.</b> Ce qui a tué à Feyzin, c’est un scénario que personne n’avait mis dans les études.</li>
-      <li><b>Traiter les interfaces comme des barrières.</b> Une route, une clôture, un réseau, un riverain : ce sont des agressions externes à qualifier, pas un décor.</li>
-      <li><b>Compter les barrières, pas les intentions.</b> Ici, une seule suffisait à tout perdre : ni redondance, ni moyen ultime, ni indépendance des secours.</li>
-      <li><b>Écrire la doctrine avant l’événement.</b> Une soupape qui s’ouvre n’est pas une bonne nouvelle ; une consigne de conduite en situation dégradée non plus, si personne ne l’a travaillée.</li>
-      <li><b>Traiter les facteurs organisationnels et humains.</b> Une clé, un ordre de vannes, un appel qui prend dix minutes : la sûreté se joue aussi dans les gestes et les délais.</li>
-      <li><b>Faire vivre le retour d’expérience.</b> Le même accident ailleurs n’apprend rien s’il n’est pas partagé, discuté, et suivi d’effet.</li>
-    </ul>
-    <div class="card"><h3 style="margin-top:0">Trois questions à se poser en rentrant</h3>
-      <p style="margin:0 0 6px">Quelle opération banale de mon périmètre peut dégénérer en scénario majeur ? Quelle interface ai-je dimensionnée par habitude plutôt que par analyse ? Si le pire arrive ce soir, quelle est ma doctrine, et qui la connaît ?</p>
-    </div>
-    <div class="row"><button class="btn ghost" onclick="send({type:'reset'})">Nouvelle session</button></div>
-    <p class="src" style="margin-top:18px">Fiche ARIA n°1, ministère chargé de l'environnement, septembre 2006 ; rapports cités : experts judiciaires, DHYCA 19 janvier 1966, service des mines de l'Isère n°05460 du 2 janvier 1967.</p>\`;
+    <div class="stage">
+      <div class="pane">
+        <div class="kicker">Débrief · pour un service du nucléaire</div>
+        <h1>Ce que cela nous dit</h1>
+        <ul class="l">
+          <li><b>Dimensionner sur le hors-dimensionnement.</b> Ce qui a tué, c’est un scénario absent des études.</li>
+          <li><b>Traiter les interfaces comme des barrières :</b> la route, la clôture, le riverain, le réseau.</li>
+          <li><b>Compter les barrières, pas les intentions :</b> ni redondance, ni moyen ultime, ni secours indépendants.</li>
+          <li><b>Écrire la doctrine avant l’événement :</b> une soupape qui s’ouvre n’est pas une bonne nouvelle.</li>
+          <li><b>Traiter les facteurs organisationnels et humains :</b> une clé, un ordre de vannes, un appel à dix minutes.</li>
+          <li><b>Faire vivre le retour d’expérience :</b> partagé, discuté, suivi d’effet.</li>
+        </ul>
+      </div>
+      <div class="pane right">
+        <div class="card"><h3 style="margin-top:0">Trois questions à se poser en rentrant</h3>
+          <p>Quelle opération banale de mon périmètre peut dégénérer en scénario majeur ? Quelle interface ai-je dimensionnée par habitude plutôt que par analyse ? Si le pire arrive ce soir, quelle est ma doctrine, et qui la connaît ?</p>
+        </div>
+        <div class="card plain"><h3 style="margin-top:0">Ce que la réglementation en a fait</h3>
+          <p>Zones dangereuses, distances d’implantation, soupapes dimensionnées à l’incendie généralisé, moyens de secours, plans d’urgence, application rétroactive. Dans le nucléaire, la même logique a produit la défense en profondeur, les situations extrêmes, la qualification des agressions externes et le plan particulier d’intervention.</p>
+        </div>
+        <p class="src">Fiche ARIA n°1, ministère chargé de l’environnement, septembre 2006 ; rapports experts judiciaires, DHYCA du 19 janvier 1966, service des mines de l’Isère n°05460 du 2 janvier 1967.</p>
+        <div class="row"><button class="btn ghost" onclick="endPage=0;render()">Retour</button>
+          <button class="btn ghost" onclick="send({type:'reset'});endPage=0;render()">Nouvelle session</button></div>
+      </div>
+    </div>\`;
 }
 
-if (!/^[A-Z0-9]{4,8}$/.test(code)) {
-  document.getElementById('main').innerHTML = '<div class="kicker">Code invalide</div><h1>Ce code de salle ne convient pas</h1>'
-    + '<p>Un code de salle compte quatre à huit lettres ou chiffres. Choisissez-en un nouveau.</p>'
-    + '<p><a class="btn" href="/">Ouvrir une salle</a></p>';
-} else {
-  connect();
-}
+connect();
 </script></body></html>`;
+
 
 const PART = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Feyzin 1966 — votre vote</title>
@@ -639,6 +735,5 @@ function vote(j){
 }
 connect();
 </script></body></html>`;
-
 
 export { STEPS, INTRO, CONCLUSIONS, MEDIA, ROLES, POSTES, ILLUS, ANIM, PART, BASE_CSS };
