@@ -424,8 +424,6 @@ function bars(){
   }).join('') + '</div>';
 }
 
-let endPage = 0;
-
 function render(){
   const st = S.step, ph = S.phase;
   const sn = document.getElementById('siren');
@@ -555,49 +553,17 @@ function render(){
   }
 
   document.getElementById('clock').textContent = 'DÉBRIEF';
-  if (endPage === 0) {
-    $('#main').innerHTML = \`
-      <div class="stage one">
-        <div class="pane wide">
-          <div class="kicker">Débrief · ce que Feyzin a changé</div>
-          <h1>Six leçons, et une question</h1>
-          <div class="concl">
-            \${CONCLUSIONS.slice(0,5).map((c,i)=>'<div class="mini"><b>'+(i+1)+'. '+c[0]+'</b><span>'+c[1]+'</span></div>').join('')}
-            \${'<div class="mini accent"><b>6. '+CONCLUSIONS[5][0]+'</b><span>'+CONCLUSIONS[5][1]+'</span></div>'}
-          </div>
-          <div class="row" style="margin-top:14px">
-            <button class="btn" onclick="endPage=1;render()">Et pour nous, maintenant</button>
-            <button class="btn ghost" onclick="send({type:'reset'});endPage=0;render()">Nouvelle session</button>
-          </div>
-        </div>
-      </div>\`;
-    return;
-  }
-
   $('#main').innerHTML = \`
-    <div class="stage">
-      <div class="pane">
-        <div class="kicker">Débrief · pour un service du nucléaire</div>
-        <h1>Ce que cela nous dit</h1>
-        <ul class="l">
-          <li><b>Dimensionner sur le hors-dimensionnement.</b> Ce qui a tué, c’est un scénario absent des études.</li>
-          <li><b>Traiter les interfaces comme des barrières :</b> la route, la clôture, le riverain, le réseau.</li>
-          <li><b>Compter les barrières, pas les intentions :</b> ni redondance, ni moyen ultime, ni secours indépendants.</li>
-          <li><b>Écrire la doctrine avant l’événement :</b> une soupape qui s’ouvre n’est pas une bonne nouvelle.</li>
-          <li><b>Traiter les facteurs organisationnels et humains :</b> une clé, un ordre de vannes, un appel à dix minutes.</li>
-          <li><b>Faire vivre le retour d’expérience :</b> partagé, discuté, suivi d’effet.</li>
-        </ul>
-      </div>
-      <div class="pane right">
-        <div class="card"><h3 style="margin-top:0">Trois questions à se poser en rentrant</h3>
-          <p>Quelle opération banale de mon périmètre peut dégénérer en scénario majeur ? Quelle interface ai-je dimensionnée par habitude plutôt que par analyse ? Si le pire arrive ce soir, quelle est ma doctrine, et qui la connaît ?</p>
+    <div class="stage one">
+      <div class="pane wide">
+        <div class="kicker">Débrief · ce que Feyzin a changé</div>
+        <h1>Six leçons</h1>
+        <div class="concl">
+          \${CONCLUSIONS.map((c,i)=>'<div class="mini'+(i===5?' accent':'')+'"><b>'+(i+1)+'. '+c[0]+'</b><span>'+c[1]+'</span></div>').join('')}
         </div>
-        <div class="card plain"><h3 style="margin-top:0">Ce que la réglementation en a fait</h3>
-          <p>Zones dangereuses, distances d’implantation, soupapes dimensionnées à l’incendie généralisé, moyens de secours, plans d’urgence, application rétroactive. Dans le nucléaire, la même logique a produit la défense en profondeur, les situations extrêmes, la qualification des agressions externes et le plan particulier d’intervention.</p>
+        <div class="row" style="margin-top:14px">
+          <button class="btn ghost" onclick="send({type:'reset'});render()">Nouvelle session</button>
         </div>
-        <p class="src">Fiche ARIA n°1, ministère chargé de l’environnement, septembre 2006 ; rapports experts judiciaires, DHYCA du 19 janvier 1966, service des mines de l’Isère n°05460 du 2 janvier 1967.</p>
-        <div class="row"><button class="btn ghost" onclick="endPage=0;render()">Retour</button>
-          <button class="btn ghost" onclick="send({type:'reset'});endPage=0;render()">Nouvelle session</button></div>
       </div>
     </div>\`;
 }
