@@ -400,6 +400,12 @@ const BASE_CSS = `
     body.deck .illus svg{max-height:20vh}
   }
   body.deck .plan{margin:0 0 6px}
+  /* l'illustration de l'étape occupe la moitié haute du panneau, le plan reste dessous */
+  .illus-etape{display:flex;align-items:center;justify-content:center;overflow:hidden;
+    border:1px solid var(--line);background:#0a0a0c;padding:6px;margin:0 0 6px;min-height:0}
+  .illus-etape svg{width:100%;height:100%;max-height:100%;animation:apparait .7s ease-out both}
+  @keyframes apparait{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
+  body.deck .stage .pane > .illus-etape{flex:1 1 0;min-height:0}
   body.deck .gauges{font-size:clamp(10px,1.25vh,13px)}
   body.deck .gl{flex:0 0 66px;font-size:clamp(8px,1vh,10px)}
   body.deck .gv{flex:0 0 118px;white-space:nowrap}
@@ -874,7 +880,7 @@ function render(){
         <div class="pane">
           <div class="kicker">Étape \${st+1} sur 7 · \${step.t}</div>
           \${bandeauTension(S.tension)}
-          <div class="plan">\${MAP(S.crise || {})}</div>
+          <div class="illus-etape">\${ILLUS[st] || ''}</div>
           \${jauges(S.crise)}
         </div>
         <div class="pane right">
