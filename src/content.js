@@ -396,6 +396,27 @@ const BASE_CSS = `
   body.deck .illus{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
   body.deck .illus svg{height:100%;width:100%;max-height:none}
   body.deck .media{flex:0 0 auto}
+  /* --- téléphone : l'essentiel tient plus haut dans la page --- */
+  @media(max-width:700px){
+    .wrap{padding:12px 14px 92px}
+    h1{font-size:32px;line-height:1.12}
+    .moi{font-size:12px}
+    .illus svg{max-height:19vh;height:auto;width:100%}
+    .card.plain p{font-size:14.5px;line-height:1.45}
+    .opt{padding:12px 13px;font-size:14.5px}
+    h2{font-size:19px;margin-top:14px}
+    .hint{display:none}
+    /* les trois choix restent visibles en bas de l'écran, la narration défile dessous */
+    .choix{position:fixed;left:0;right:0;bottom:0;z-index:56;display:flex;flex-direction:column;gap:8px;
+      padding:12px 12px calc(12px + env(safe-area-inset-bottom));
+      background:linear-gradient(180deg,rgba(8,8,10,.55),#08080a 26%);
+      border-top:1px solid rgba(255,255,255,.09);max-height:64vh;overflow:auto}
+    .wrap{padding-bottom:330px}
+  }
+  .hint{position:fixed;left:0;right:0;bottom:0;z-index:58;display:none;padding:22px 14px 12px;text-align:center;
+    background:linear-gradient(180deg,rgba(8,8,10,0),rgba(8,8,10,.96) 62%);
+    font:600 11px/1.3 Helvetica,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#d9774f;pointer-events:none}
+  .hint.off{opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s}
   /* --- ambiance : grain, vignette, pulsations --- */
   body:after{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:60;opacity:.05;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
@@ -463,7 +484,12 @@ const code = (new URLSearchParams(location.search).get('room') || '').toUpperCas
 const joinUrl = location.origin + '/p/' + code;
 
 function connect(){
-  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+  setTimeout(() => {
+  const zone = document.getElementById('main');
+  if (zone) new MutationObserver(majHint).observe(zone, { childList: true, subtree: true });
+  majHint();
+}, 300);
+const proto = location.protocol === 'https:' ? 'wss' : 'ws';
   ws = new WebSocket(proto + '://' + location.host + '/ws?room=' + code + '&role=anim');
   ws.onmessage = e => { const m = JSON.parse(e.data); if (m.type === 'state'){ S = m.state; render(); } };
   ws.onclose = () => setTimeout(connect, 1500);
@@ -771,6 +797,7 @@ const PART = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
 <div class="siren" id="siren"></div>
 <div class="bar"><div class="brand">Feyzin 1966 · salle __CODE__</div><div class="clock" id="clock">CONNEXION</div></div>
 <div id="main"></div></div>
+<div class="hint" id="hint">Les trois choix sont plus bas ↓</div>
 <script>
 const STEPS = __STEPS__;
 const INTRO = __INTRO__;
@@ -785,6 +812,18 @@ if (!pid) { pid = Math.random().toString(36).slice(2) + Date.now().toString(36);
 let moi = null;
 try { moi = JSON.parse(localStorage.getItem('feyzin.moi') || 'null'); } catch (e) { moi = null; }
 const code = '__CODE__';
+
+/* Sur téléphone, la page est plus haute que l'écran : on signale que les choix sont plus bas,
+   et on retire l'indice dès que le premier choix devient visible. */
+function majHint(){
+  const h = document.getElementById('hint');
+  if (!h) return;
+  const premier = document.querySelector('.opt');
+  const visible = premier ? premier.getBoundingClientRect().top < innerHeight - 12 : true;
+  h.classList.toggle('off', !premier || visible);
+}
+window.addEventListener('scroll', majHint, { passive: true });
+window.addEventListener('resize', majHint);
 
 function connect(){
   const proto = location.protocol === 'https:' ? 'wss' : 'ws';
@@ -888,7 +927,7 @@ function render(){
       <figure class="illus">\${ILLUS[S.step] || ''}</figure>
       <div class="card plain" style="font-size:15.5px"><p>\${st.s}</p></div>
       <h2>\${st.q}</h2>
-      \${st.o.map((o,j)=>'<button class="opt '+(myVote===j?'sel':'')+'" onclick="vote('+j+')"><span class="k">'+'ABC'[j]+'</span><span>'+o.txt+'</span></button>').join('')}
+      <div class="choix">\${st.o.map((o,j)=>'<button class="opt '+(myVote===j?'sel':'')+'" onclick="vote('+j+')"><span class="k">'+'ABC'[j]+'</span><span>'+o.txt+'</span></button>').join('')}</div>
       <div class="bars">\${[0,1,2].map(j=>{const v=S.votes[j]||0,w=pct(v,S.total);
         return '<div class="brow"><span class="lab">'+'ABC'[j]+'</span><span class="track"><span class="fill" style="width:'+w+'%"></span></span><span class="val">'+v+' · '+w+'%</span></div>';}).join('')}</div>
       <p class="src">\${myVote===null
