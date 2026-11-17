@@ -626,7 +626,9 @@ function bandeauTension(t){
     texte = 'Fuite colmatée'; suite = ' · pas de nuage sur le site';
   } else if (t.niveau === 'calme' && (n.masse > 0 || (S.step >= 1 && S.step <= 2))){
     texte = 'Nappe de propane au sol';
-    if (n.derive > 0) suite = ' · ' + Math.round(n.derive) + ' m vers l\u2019A7';
+    /* l'A7 est à 180 m : au-delà, la nappe l'a atteinte, on n'annonce pas une distance impossible */
+    if (n.derive >= 175) suite = ' · au pied de l\u2019A7, l\u2019autoroute est atteinte';
+    else if (n.derive > 0) suite = ' · ' + Math.round(n.derive) + ' m vers l\u2019A7';
     else suite = ' · progression vers l\u2019A7';
     if (c.a7 === 'closed') suite += ' · A7 coupée';
   }
