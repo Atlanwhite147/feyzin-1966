@@ -1122,10 +1122,10 @@ function render(){
   }
   document.getElementById('clock').textContent = 'DÉBRIEF';
   $('#main').innerHTML = '<div class="kicker">Fin de session</div><h1>Merci</h1>'
-    + resumePartage()
     + '<p>Sept décisions, deux heures vingt, et le 4 janvier 1966 : dix-huit morts, dont onze sapeurs-pompiers, quatre-vingt-quatre blessés, mille quatre cent soixante-quinze habitations touchées.</p>'
     + '<div class="card"><h3 style="margin-top:0">Ce qui a changé après</h3><p style="margin:0">Distances d’implantation, zones dangereuses, soupapes calculées pour un incendie généralisé, moyens d’eau, plans d’urgence et retour d’expérience obligatoire : le droit français du risque industriel est né de ce matin-là.</p></div>'
     + (HIST.glossaire||[]).filter(g=>g.titre==='BLEVE').map(g=>'<div class="card plain"><h3 style="margin-top:0">'+g.titre+'</h3><p style="margin:0">'+g.texte+'</p></div>').join('')
+    + '<p class="video"><a href="https://youtu.be/oLpg2I8RfxI" target="_blank" rel="noopener">Revoir le reportage d’époque</a></p>'
     + '<p class="src">Le débriefing complet est à l’écran de salle. Fiche ARIA n°1, ministère de l’environnement, septembre 2006.</p>';
 }
 
