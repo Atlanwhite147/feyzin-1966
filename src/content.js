@@ -404,8 +404,11 @@ const BASE_CSS = `
   }
   body.deck .plan{margin:0 0 6px}
   /* l'illustration de l'étape occupe la moitié haute du panneau, le plan reste dessous */
-  .illus-etape{display:flex;align-items:center;justify-content:center;overflow:hidden;
-    border:1px solid var(--line);background:#0a0a0c;padding:6px;margin:0 0 6px;min-height:0}
+  .illus-etape{display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;
+    border:1px solid var(--line);padding:6px;margin:0 0 6px;min-height:0;
+    background:#0a0a0c url("/etapes/fond3d.jpg") center/cover no-repeat}
+  .illus-etape:before{content:"";position:absolute;inset:0;background:rgba(8,8,10,.45);pointer-events:none}
+  .illus-etape > *{position:relative;z-index:1}
   .illus-etape svg,.illus-etape img{width:100%;height:100%;max-height:100%;object-fit:cover;display:block;animation:apparait .7s ease-out both}
   @keyframes apparait{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
   body.deck .stage .pane > .illus-etape{flex:1 1 0;min-height:0}
