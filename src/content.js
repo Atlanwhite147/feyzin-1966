@@ -73,7 +73,7 @@ const STEPS = [
       { txt: "Continuer d'arroser la 443 avec les moyens sur place.", p: 1,
         br: "L'eau atteint mal la tôle, la vanne d'arrosage est inaccessible depuis une heure. Les équipes restent exposées à quarante mètres, la chaleur les fait reculer par vagues jusqu'à l'explosion." }
     ],
-    real: "L'ouverture de la soupape est perçue comme positive : maîtrise attendue en deux à trois heures. Dès 8 h 05, amarrage des lances et repli. À 8 h 45, la 443 explose : boule de feu de près de 250 m de diamètre, plus de 400 m de haut. Tous ceux à moins de 50 m sont tués, sauf deux pompiers.",
+    real: "L'ouverture de la soupape est perçue comme positive : maîtrise attendue en deux à trois heures. Dès 8 h 05, amarrage des lances et repli. À 8 h 45, la 443 explose : boule de feu de près de 250 m de diamètre, plus de 400 m de haut. Tous ceux à moins de 50 m sont tués, sauf deux pompiers. Les fragments des deux sphères sont retrouvés jusqu'à 800 m, les plus gros blocs, de plus de 80 tonnes, à près de 270 m de leur emplacement.",
     l: "Le BLEVE était totalement inattendu. Une torchère à la soupape signale une montée en pression, donc un risque d'éclatement : on ne s'approche pas, on refroidit à distance, on évacue largement."
   },
   {
@@ -93,7 +93,7 @@ const STEPS = [
   },
   {
     t: "Le retour d'expérience", h: "Le lendemain",
-    s: "Bilan réel : 18 morts dont 11 sapeurs-pompiers, 84 blessés dont 49 hospitalisés, 1 475 habitations touchées hors du site. Quelle mesure unique aurait le plus changé l'issue ?",
+    s: "Bilan réel : 18 morts dont 11 sapeurs-pompiers, 84 blessés dont 49 hospitalisés, 1 475 habitations touchées hors du site. Le souffle a marqué le territoire bien au-delà des clôtures. Quelle mesure unique aurait le plus changé l'issue ?",
     q: "Votre vote de synthèse",
     o: [
       { txt: "L'éloignement : distances d'implantation, éloignement de l'autoroute et des habitations.", p: 2,
@@ -345,6 +345,12 @@ const BASE_CSS = `
   body.deck .join .qr img{width:clamp(84px,13vh,120px);height:clamp(84px,13vh,120px)}
   body.deck .src{font-size:clamp(9px,1.05vh,11px);margin-top:6px}
   body.deck details ul{font-size:clamp(10px,1.25vh,13px)}
+  .souffle{margin-top:10px;border-left:3px solid var(--accent);background:#120e0c;padding:8px 11px}
+  .souffle .sh{font:600 clamp(8px,.95vh,10px)/1.2 Helvetica,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8d8579;margin-bottom:5px}
+  .souffle .sl{font-size:clamp(10px,1.35vh,16px);line-height:1.55;color:#d7cfc2}
+  .souffle .sl .paire{white-space:nowrap}
+  .souffle .sl b{color:var(--accent2);font-family:var(--sans);letter-spacing:.01em}
+  .souffle .sl i{font-style:normal;color:#6f6a62;padding:0 5px}
   .concl{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .concl .mini{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--card);padding:10px 12px;min-height:0}
   .concl .mini b{display:block;font-family:var(--sans);font-size:clamp(10px,1.3vh,17px);letter-spacing:.02em;margin-bottom:3px;color:var(--ink)}
@@ -585,6 +591,11 @@ function debreenScreen(){
     + '<div class="pane"><div class="kicker">Débrief · vos décisions face au réel</div><h1>'+f.titre+'</h1>'
     + '<div class="frise">'+lignes+'</div>'
     + '<div class="synthese"><b>'+f.morts+'</b> morts · <b>'+f.blesses+'</b> blessés · '+f.tenues+'/'+f.total+' barrières tenues</div>'
+    + '<div class="souffle"><div class="sh">Jusqu’où le souffle est allé</div><div class="sl">'
+    + '<span class="paire">fragments d’acier <b>800 m</b></span><i>·</i><span class="paire">toitures endommagées <b>2,2 km</b></span>'
+    + '<i>·</i><span class="paire">cloisons déplacées <b>4,2 km</b></span><i>·</i><span class="paire">vitres brisées <b>8 km</b></span>'
+    + '<i>·</i><span class="paire">souffle perçu à Vienne <b>16 km</b></span>'
+    + '<i>·</i><span class="paire">habitations touchées hors site <b>1 475</b></span></div></div>'
     + '</div>'
     + '<div class="pane right"><div class="card"><h3 style="margin-top:0">Les barrières</h3><ul class="barrieres">'+bar+'</ul></div>'
     + '<div class="card plain"><h3 style="margin-top:0">Ce que cela veut dire</h3><p>'+d.conclusion+'</p></div>'
