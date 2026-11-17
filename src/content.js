@@ -268,7 +268,34 @@ const BASE_CSS = `
   .src{font-family:var(--sans);font-size:11px;color:var(--soft);line-height:1.5}
   /* --- PC Secours : plan, jauges, journal --- */
   .plan{border:1px solid var(--line);background:#0a0a0c;overflow:hidden;margin:0 0 8px;flex:1 1 auto;min-height:0;display:flex;align-items:center}
-  .plan svg{display:block;width:100%;height:100%}
+  .plan svg{display:block;width:100%;height:100%;transform-origin:center}
+  /* --- le plan est vivant : nappe qui dérive, eau qui circule, balayage radar --- */
+  .plan{position:relative}
+  .plan .nappe{transform-box:fill-box;transform-origin:center;animation:nappe 7s ease-in-out infinite alternate}
+  .plan .water{stroke-dasharray:7 9;animation:eau 2.8s linear infinite}
+  .plan .perim{stroke-dasharray:10 8;animation:perim 9s linear infinite}
+  .plan .secours{animation:secours 2.4s ease-in-out infinite}
+  .plan .accent{transform-box:fill-box;transform-origin:center;animation:pouls 3.2s ease-in-out infinite}
+  .plan:after{content:"";position:absolute;left:0;right:0;top:0;height:26%;pointer-events:none;
+    background:linear-gradient(180deg,rgba(180,69,31,0),rgba(180,69,31,.10),rgba(180,69,31,0));
+    animation:balayage 6.5s linear infinite}
+  @keyframes nappe{from{transform:translateX(-6px) scaleX(.96);opacity:.72}to{transform:translateX(10px) scaleX(1.06);opacity:1}}
+  @keyframes eau{to{stroke-dashoffset:-32}}
+  @keyframes perim{to{stroke-dashoffset:36}}
+  @keyframes secours{0%,100%{opacity:.35}50%{opacity:1}}
+  @keyframes pouls{0%,100%{opacity:.72}50%{opacity:1}}
+  @keyframes balayage{0%{transform:translateY(-30%)}100%{transform:translateY(390%)}}
+  /* lueur de feu au pied des sphères : respiration chaude, jamais franche */
+  .plan:before{content:"";position:absolute;left:26%;top:40%;width:44%;height:46%;pointer-events:none;
+    background:radial-gradient(closest-side,rgba(255,150,80,.18),rgba(180,69,31,0) 72%);
+    animation:feu 1.9s ease-in-out infinite}
+  @keyframes feu{0%,100%{opacity:.55;transform:scale(.97)}50%{opacity:.95;transform:scale(1.05)}}
+  /* --- les barres de vote poussent au lieu de sauter --- */
+  .brow .fill{transition:width .6s cubic-bezier(.2,.8,.2,1)}
+  .brow .val{transition:color .3s}
+  /* --- le verdict arrive --- */
+  .verdict, .win{animation:verdict .5s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes verdict{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
   .gauges{font-family:var(--sans);font-size:11px;flex:0 0 auto}
   .g{display:flex;align-items:center;gap:8px;margin-bottom:4px}
   .gl{flex:0 0 76px;color:var(--soft);letter-spacing:.05em;text-transform:uppercase;font-size:9.5px}
@@ -285,6 +312,12 @@ const BASE_CSS = `
   .tension.crit{border-left-color:var(--bad);color:#f0d9d2}
   .tension.warn{border-left-color:var(--warn)}
   .tension.dead{border-left-color:#7a1a0c}
+  .tension.crit{animation:tension 2.4s ease-in-out infinite}
+  .tension.dead{animation:tension 1.6s ease-in-out infinite}
+  @keyframes tension{0%,100%{background:rgba(122,26,12,.10)}50%{background:rgba(122,26,12,.28)}}
+  /* l'heure de crise respire */
+  .clock{animation:horloge 4s ease-in-out infinite}
+  @keyframes horloge{0%,100%{opacity:.82}50%{opacity:1}}
   .radio{font-family:var(--sans);font-size:10.5px;margin-top:6px;flex:0 0 auto}
   .rh{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-bottom:3px}
   .rl{display:flex;gap:6px;line-height:1.35;padding:2px 0;border-bottom:1px dotted #232327}
@@ -460,6 +493,7 @@ const BASE_CSS = `
   @keyframes flash{0%,100%{box-shadow:none}50%{box-shadow:0 0 26px rgba(201,72,47,.28)}}
   .illus.danger svg{filter:saturate(1.3) contrast(1.05)}
   @media (prefers-reduced-motion: reduce){
+    .plan .nappe,.plan .water,.plan .perim,.plan .secours,.plan .accent,.plan:after,.verdict,.win,.tension,.clock,.plan svg,.plan:before{animation:none !important}
     body:after,body:before,.illus svg,.clock,.siren.on,#main > *,.card.danger{animation:none !important}
   }
   .join{background:#151517;border:1px solid var(--line);color:var(--ink);padding:16px;margin-bottom:16px}
