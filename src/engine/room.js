@@ -106,8 +106,9 @@ export function commander(salle, type, charge = {}, scenario, physics) {
 /* Applique la majorité de la salle au moteur, si une simulation est en cours. */
 export function appliquerMajorite(salle, scenario, physics) {
   if (!salle.sim) return null;
-  const choix = majorite(salle);
-  if (choix === null) return null;
+  /* Personne n'a voté : on suit la branche historique plutôt que de figer la simulation.
+     La salle voit ainsi les indicateurs évoluer à chaque étape. */
+  const choix = majorite(salle) ?? 1;
   const jeu = jouer(salle.sim, choix);
   salle.sim = { ...salle.sim, ...jeu };
   salle.fin = salle.sim.fin;
