@@ -93,7 +93,7 @@ const STEPS = [
   },
   {
     t: "Le retour d'expérience", h: "Le lendemain",
-    s: "Bilan réel : 18 morts dont 11 sapeurs-pompiers, 84 blessés dont 49 hospitalisés, 1 475 habitations touchées hors du site. Le souffle a marqué le territoire bien au-delà des clôtures. Quelle mesure unique aurait le plus changé l'issue ?",
+    s: "Bilan réel : 18 morts dont 11 sapeurs-pompiers, 84 blessés dont 49 hospitalisés, 1 475 habitations touchées hors du site, dont plus de cinq cents maisons et commerces à Feyzin et une école. Le souffle a marqué le territoire bien au-delà des clôtures. Quelle mesure unique aurait le plus changé l'issue ?",
     q: "Votre vote de synthèse",
     o: [
       { txt: "L'éloignement : distances d'implantation, éloignement de l'autoroute et des habitations.", p: 2,
@@ -347,8 +347,12 @@ const BASE_CSS = `
   body.deck details ul{font-size:clamp(10px,1.25vh,13px)}
   .souffle{margin-top:10px;border-left:3px solid var(--accent);background:#120e0c;padding:8px 11px}
   .souffle .sh{font:600 clamp(8px,.95vh,10px)/1.2 Helvetica,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8d8579;margin-bottom:5px}
-  .souffle .sl{font-size:clamp(10px,1.35vh,16px);line-height:1.55;color:#d7cfc2}
+  .souffle .sl{font-size:clamp(10px,1.35vh,16px);line-height:1.55;color:#d7cfc2;
+    display:flex;flex-wrap:wrap;gap:2px 9px;align-items:baseline}
   .souffle .sl .paire{white-space:nowrap}
+  .souffle .sl i{display:none}
+  .souffle .sl.apres{display:block}
+  .souffle .apres{margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.08);color:#b3aa9d;font-size:clamp(9px,1.2vh,14px)}
   .souffle .sl b{color:var(--accent2);font-family:var(--sans);letter-spacing:.01em}
   .souffle .sl i{font-style:normal;color:#6f6a62;padding:0 5px}
   .concl{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -595,7 +599,8 @@ function debreenScreen(){
     + '<span class="paire">fragments d’acier <b>800 m</b></span><i>·</i><span class="paire">toitures endommagées <b>2,2 km</b></span>'
     + '<i>·</i><span class="paire">cloisons déplacées <b>4,2 km</b></span><i>·</i><span class="paire">vitres brisées <b>8 km</b></span>'
     + '<i>·</i><span class="paire">souffle perçu à Vienne <b>16 km</b></span>'
-    + '<i>·</i><span class="paire">habitations touchées hors site <b>1 475</b></span></div></div>'
+    + '<i>·</i><span class="paire">habitations touchées hors site <b>1 475</b></span></div>'
+    + '<div class="sl apres">Le quartier le plus proche est resté désert après l\u2019évacuation : les habitants ne sont pas revenus. Une stèle rappelle les victimes.</div></div>'
     + '</div>'
     + '<div class="pane right"><div class="card"><h3 style="margin-top:0">Les barrières</h3><ul class="barrieres">'+bar+'</ul></div>'
     + '<div class="card plain"><h3 style="margin-top:0">Ce que cela veut dire</h3><p>'+d.conclusion+'</p></div>'
