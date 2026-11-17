@@ -803,6 +803,7 @@ function aide(){
   box.innerHTML = '<h3 style="margin-top:0">Raccourcis</h3>'
     + '<p style="margin:0 0 4px"><b>C</b> clore le vote · <b>N</b> étape suivante</p>'
     + '<p style="margin:0 0 4px"><b>R</b> réouvrir le vote · <b>D</b> débrief</p>'
+    + '<p style="margin:0"><b>→</b> avancer · <b>←</b> revenir</p>'
     + '<p style="margin:0"><b>M</b> couper le son · <b>?</b> cette aide</p>';
   document.body.appendChild(box);
   setTimeout(() => box.remove(), 6000);
@@ -812,6 +813,24 @@ document.addEventListener('keydown', (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   const b = (t) => [...document.querySelectorAll('.btn')].find(x => x.textContent.toLowerCase().includes(t));
   const t = e.key.toLowerCase();
+  if (t === 'arrowright' || t === 'pagedown') {
+    /* flèche droite : on avance, quel que soit l'écran */
+    e.preventDefault();
+    for (const mot of ['clore le vote', 'clore', 'étape suivante', 'voir le débrief', 'commencer', 'première question', 'suite']){
+      const btn = b(mot);
+      if (btn) { btn.click(); return; }
+    }
+    return;
+  }
+  if (t === 'arrowleft' || t === 'pageup') {
+    /* flèche gauche : on revient sur ses pas */
+    e.preventDefault();
+    for (const mot of ['réouvrir', 'précédent']){
+      const btn = b(mot);
+      if (btn) { btn.click(); return; }
+    }
+    return;
+  }
   if (t === 'c' && b('clore')) { b('clore').click(); }
   else if (t === 'n' && b('étape suivante')) { b('étape suivante').click(); }
   else if (t === 'n' && b('voir le débrief')) { b('voir le débrief').click(); }
