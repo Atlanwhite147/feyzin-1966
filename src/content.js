@@ -823,12 +823,12 @@ document.addEventListener('keydown', (e) => {
     return;
   }
   if (t === 'arrowleft' || t === 'pageup') {
-    /* flèche gauche : on revient sur ses pas */
+    /* flèche gauche : résultat, puis écran précédent, puis étape précédente */
     e.preventDefault();
-    for (const mot of ['réouvrir', 'précédent']){
-      const btn = b(mot);
-      if (btn) { btn.click(); return; }
-    }
+    const prec = b('précédent');
+    if (prec) { prec.click(); return; }
+    if ((S.phase === 'vote' || S.phase === 'reveal') && S.step > 0) { send({ type: 'back' }); return; }
+    if (S.phase === 'intro') { send({ type: 'chapter', i: Math.max(0, (S.intro || 0) - 1) }); return; }
     return;
   }
   if (t === 'c' && b('clore')) { b('clore').click(); }
