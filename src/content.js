@@ -426,6 +426,10 @@ const BASE_CSS = `
     background:radial-gradient(115% 85% at 50% 42%,transparent 38%,rgba(0,0,0,.82) 100%);
     animation:breathe 11s ease-in-out infinite}
   @keyframes breathe{0%,100%{opacity:.7}50%{opacity:1}}
+  .flash{position:fixed;inset:0;z-index:74;pointer-events:none;opacity:0;
+    background:radial-gradient(circle at 50% 62%,#fff3df 0%,#ffb469 22%,#b4451f 46%,rgba(60,12,4,0) 72%)}
+  .flash.on{animation:eclair 1.15s ease-out}
+  @keyframes eclair{0%{opacity:0}6%{opacity:.92}30%{opacity:.5}100%{opacity:0}}
   .siren{position:fixed;top:0;left:0;right:0;height:2px;background:#b4451f;opacity:.18;z-index:70;pointer-events:none}
   .siren.on{animation:siren 2.6s ease-in-out infinite}
   @keyframes siren{0%,100%{opacity:.12}50%{opacity:.7}}
@@ -601,6 +605,8 @@ function basculerSon(){
   localStorage.setItem('feyzin.son', sonActif ? 'on' : 'off');
   const b = document.getElementById('son');
   if (b) b.textContent = 'son : ' + (sonActif ? 'on' : 'off');
+  if (sonActif){ try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); if (audio.state === 'suspended') audio.resume(); demarrerAmbiance(); } catch (e) {} }
+  majAmbiance();
 }
 
 function bip(niveau){
@@ -622,6 +628,91 @@ function alerterSiBesoin(){
   const n = S.tension ? S.tension.niveau : null;
   if (n && n !== dernierNiveau && (n === 'critique' || n === 'irreversible')) bip(n);
   dernierNiveau = n;
+  suivreAmbiance();
+}
+
+/* ---------- ambiance continue : reprise du moteur sonore de la version 3D ---------- */
+let amb = null, dernierStepAmb = null;
+
+function bruitBrun(secondes){
+  const n = Math.floor(audio.sampleRate * secondes);
+  const tampon = audio.createBuffer(1, n, audio.sampleRate);
+  const d = tampon.getChannelData(0);
+  let dernier = 0;
+  for (let i = 0; i < n; i++){
+    const blanc = Math.random() * 2 - 1;
+    dernier = (dernier + 0.02 * blanc) / 1.02;
+    d[i] = dernier * 3.2;
+  }
+  return tampon;
+}
+
+function demarrerAmbiance(){
+  if (amb || !audio) return;
+  try {
+    const tampon = bruitBrun(2.5);
+    const maitre = audio.createGain();
+    maitre.gain.value = sonActif ? 0.45 : 0;
+    maitre.connect(audio.destination);
+    function boucle(type, freq, q, gain){
+      const src = audio.createBufferSource(); src.buffer = tampon; src.loop = true;
+      const f = audio.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = q;
+      const g = audio.createGain(); g.gain.value = gain;
+      src.connect(f); f.connect(g); g.connect(maitre); src.start();
+      return g;
+    }
+    amb = { maitre: maitre,
+            vent: boucle('lowpass', 430, 0.7, 0.30),
+            grondement: boucle('lowpass', 95, 0.9, 0.20),
+            sifflement: boucle('bandpass', 2400, 1.6, 0.0) };
+  } catch (e) { amb = null; }
+}
+
+function majAmbiance(){
+  try {
+    if (amb) amb.maitre.gain.value = sonActif ? 0.45 : 0;
+    if (!amb || !sonActif) return;
+    const etape = (S && typeof S.step === 'number') ? S.step : -1;
+    const t = S.tension || {};
+    const avance = Math.min(1, Math.max(0, (etape + 1) / 7));
+    amb.grondement.gain.value = 0.16 + 0.30 * avance;
+    amb.sifflement.gain.value = (t.niveau === 'critique' || t.niveau === 'irreversible') ? 0.11 : (etape >= 3 ? 0.05 : 0.015);
+  } catch (e) {}
+}
+
+/* la boule de feu : un souffle grave qui retombe */
+function souffle(){
+  if (!sonActif || !audio) return;
+  try {
+    const duree = 2.6;
+    const tampon = bruitBrun(duree);
+    const src = audio.createBufferSource(); src.buffer = tampon;
+    const f = audio.createBiquadFilter(); f.type = 'lowpass';
+    f.frequency.setValueAtTime(900, audio.currentTime);
+    f.frequency.exponentialRampToValueAtTime(70, audio.currentTime + duree);
+    const g = audio.createGain();
+    g.gain.setValueAtTime(0.55, audio.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + duree);
+    src.connect(f); f.connect(g); g.connect(audio.destination);
+    src.start();
+  } catch (e) {}
+}
+
+function eclair(){
+  try {
+    let d = document.getElementById('eclair');
+    if (!d){ d = document.createElement('div'); d.id = 'eclair'; d.className = 'flash'; document.body.appendChild(d); }
+    d.classList.remove('on'); void d.offsetWidth; d.classList.add('on');
+  } catch (e) {}
+}
+
+function suivreAmbiance(){
+  const etape = (S && typeof S.step === 'number') ? S.step : -1;
+  if (etape !== dernierStepAmb){
+    if (etape === 5) { souffle(); eclair(); }
+    dernierStepAmb = etape;
+  }
+  majAmbiance();
 }
 
 function aide(){
@@ -651,7 +742,7 @@ document.addEventListener('keydown', (e) => {
   else if (t === '?' || t === '/') { aide(); }
 });
 
-document.addEventListener('click', () => { if (!audio && sonActif) { try { audio = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} } }, { once: true });
+document.addEventListener('click', () => { if (!audio && sonActif) { try { audio = new (window.AudioContext || window.webkitAudioContext)(); if (audio.state === 'suspended') audio.resume(); demarrerAmbiance(); majAmbiance(); } catch (e) {} } }, { once: true });
 
 function render(){
   const st = S.step, ph = S.phase;
