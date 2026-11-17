@@ -100,6 +100,17 @@ const server = http.createServer((req, res) => {
   if (p === "/" || p === "/anim") return send(res, inject(ANIM));
   if (p === "/health") return json(res, { ok: true, rooms: rooms.size, uptime: Math.round(process.uptime()) });
 
+  /* images fixes tirées de la scène 3D */
+  if (p.startsWith("/etapes/") && /^\/etapes\/[a-z0-9_-]+\.jpg$/.test(p)) {
+    const racine = path.dirname(fileURLToPath(import.meta.url));
+    const fichier = path.join(racine, "public", p.replace(/^\//, ""));
+    return fs.readFile(fichier, (err, data) => {
+      if (err) { res.writeHead(404); res.end("introuvable"); return; }
+      res.writeHead(200, { "content-type": "image/jpeg", "cache-control": "public, max-age=3600" });
+      res.end(data);
+    });
+  }
+
   if (p === "/extrait.webm") {
     const root = path.dirname(fileURLToPath(import.meta.url));
     const file = path.join(root, "public", "extrait.webm");
