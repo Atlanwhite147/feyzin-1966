@@ -389,6 +389,10 @@ const BASE_CSS = `
   .souffle .sl i{display:none}
   .souffle .sl.apres{display:block}
   .souffle .apres{margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.08);color:#b3aa9d;font-size:clamp(9px,1.2vh,14px)}
+  .video{margin:8px 0 0}
+  .video a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(217,119,79,.45);
+    font-family:var(--sans);font-size:clamp(9.5px,1.2vh,13px);letter-spacing:.06em;text-transform:uppercase}
+  .video a:hover{border-bottom-color:var(--accent2)}
   .souffle .sl b{color:var(--accent2);font-family:var(--sans);letter-spacing:.01em}
   .souffle .sl i{font-style:normal;color:#6f6a62;padding:0 5px}
   .concl{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -658,6 +662,7 @@ function debreenScreen(){
     + '<i>·</i><span class="paire">souffle perçu à Vienne <b>16 km</b></span>'
     + '<i>·</i><span class="paire">habitations touchées hors site <b>1 475</b></span></div>'
     + '<div class="sl apres">Le quartier le plus proche est resté désert après l\u2019évacuation : les habitants ne sont pas revenus. Une stèle rappelle les victimes.</div></div>'
+    + '<p class="video"><a href="https://youtu.be/oLpg2I8RfxI" target="_blank" rel="noopener">Revoir le reportage d\u2019époque</a></p>'
     + '</div>'
     + '<div class="pane right"><div class="card"><h3 style="margin-top:0">Les barrières</h3><ul class="barrieres">'+bar+'</ul></div>'
     + '<div class="card plain"><h3 style="margin-top:0">Ce que cela veut dire</h3><p>'+d.conclusion+'</p></div>'
